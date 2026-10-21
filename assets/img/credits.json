@@ -1,0 +1,159 @@
+[
+  {
+    "file": "hero.jpg",
+    "source": "Unsplash",
+    "photographer": "Guru Moorthy Gokul",
+    "page_url": "https://unsplash.com/photos/man-in-blue-and-white-plaid-button-up-shirt-holding-green-plant-TNZ4QA3iej4",
+    "description": "Smiling Tamil woman farmer holding a bundle of paddy seedlings in a flooded field, Tamil Nadu",
+    "width": 1800,
+    "height": 1200,
+    "kb": 246
+  },
+  {
+    "file": "paddy-field.jpg",
+    "source": "Unsplash",
+    "photographer": "Nandhu Kumar",
+    "page_url": "https://unsplash.com/photos/landscape-photography-of-green-grass-field-and-green-coconut-palm-trees-03JtNfCubFw",
+    "description": "Lush green paddy field with coconut palms and a rocky hill in morning mist, South India",
+    "width": 1800,
+    "height": 1200,
+    "kb": 358
+  },
+  {
+    "file": "grains-hand.jpg",
+    "source": "Unsplash",
+    "photographer": "Ali Mkumbwa",
+    "page_url": "https://unsplash.com/photos/a-person-holding-a-bunch-of-grain-in-their-hands-aMAoLRaZXZg",
+    "description": "Close-up of weathered hands letting golden paddy grains fall, worker in checked lungi at a drying yard",
+    "width": 1800,
+    "height": 1225,
+    "kb": 272
+  },
+  {
+    "file": "rice-macro.jpg",
+    "source": "Unsplash",
+    "photographer": "Emma Miller",
+    "page_url": "https://unsplash.com/photos/a-pile-of-white-rice-sitting-on-top-of-a-table-nsbi_toNvS8",
+    "description": "Bright macro of raw white long-grain rice",
+    "width": 1800,
+    "height": 1200,
+    "kb": 248
+  },
+  {
+    "file": "mill.jpg",
+    "source": "Pexels",
+    "photographer": "Mumtahina Tanni",
+    "page_url": "https://www.pexels.com/photo/men-carrying-woven-baskets-on-their-heads-5262428/",
+    "description": "Workers carrying baskets of rice past hulling/grading machinery inside a small rice mill",
+    "width": 1800,
+    "height": 1198,
+    "kb": 358
+  },
+  {
+    "file": "sacks.jpg",
+    "source": "Pexels",
+    "photographer": "Manoz Gowda",
+    "page_url": "https://www.pexels.com/photo/13870874/",
+    "description": "Godown stacked with jute grain sacks, worker carrying a sack on his head, India",
+    "width": 1800,
+    "height": 1077,
+    "kb": 343
+  },
+  {
+    "file": "drying.jpg",
+    "source": "Unsplash",
+    "photographer": "Dibakar Roy",
+    "page_url": "https://unsplash.com/photos/a-group-of-people-walking-on-a-dirt-road-1HcFQUa09wM",
+    "description": "Workers raking parboiled paddy into rows to sun-dry at a rice mill yard, West Bengal, India",
+    "width": 1800,
+    "height": 1185,
+    "kb": 397
+  },
+  {
+    "file": "meals.jpg",
+    "source": "Unsplash",
+    "photographer": "Saktheeswaran Govindarajan",
+    "page_url": "https://unsplash.com/photos/traditional-south-indian-meal-on-leaf-yCIcDyKm440",
+    "description": "Traditional South Indian meals on a banana leaf: rice, sambar, poriyal, kootu, appalam, vadai, rasam",
+    "width": 1800,
+    "height": 1800,
+    "kb": 357
+  },
+  {
+    "file": "idli.jpg",
+    "source": "Unsplash",
+    "photographer": "Susmitha Veganosaurus",
+    "page_url": "https://unsplash.com/photos/south-indian-breakfast-with-dosa-idli-CkJBLkGW-zw",
+    "description": "Idli, medu vada and coconut chutney on banana leaf, with a roast dosa and masala vadai behind",
+    "width": 1350,
+    "height": 1800,
+    "kb": 365
+  },
+  {
+    "file": "pongal.jpg",
+    "source": "Pexels",
+    "photographer": "Narasimhan",
+    "page_url": "https://www.pexels.com/photo/35687388/",
+    "description": "Pongal (sweet/sakkarai pongal) in a festival pot tied with turmeric plant, Tamil Nadu",
+    "width": 1200,
+    "height": 1800,
+    "kb": 332
+  },
+  {
+    "file": "biryani.jpg",
+    "source": "Pexels",
+    "photographer": "Shalini Shakthi",
+    "page_url": "https://www.pexels.com/photo/34159111/",
+    "description": "South Indian biryani / ghee rice with cashews and fried onions in a clay pot, with onion raita and pickle",
+    "width": 1800,
+    "height": 1200,
+    "kb": 369
+  },
+  {
+    "file": "temple.jpg",
+    "source": "Unsplash",
+    "photographer": "Priya Singh",
+    "page_url": "https://unsplash.com/photos/a-tall-tower-with-a-statue-on-top-of-it-euPcmfnuOe8",
+    "description": "Colourful gopuram of Meenakshi Amman Temple, Madurai, framed by trees",
+    "width": 1800,
+    "height": 1304,
+    "kb": 449
+  },
+  {
+    "file": "parrot.jpg",
+    "source": "Unsplash",
+    "photographer": "Sreenivas",
+    "page_url": "https://unsplash.com/photos/green-and-yellow-bird-on-brown-tree-branch-a1f-hNNoMGg",
+    "description": "Rose-ringed parakeet (green parrot, red beak) perched on a branch",
+    "width": 1800,
+    "height": 1200,
+    "kb": 351
+  },
+  {
+    "file": "shop.jpg",
+    "source": "Pexels",
+    "photographer": "Narasimhan",
+    "page_url": "https://www.pexels.com/photo/36317181/",
+    "description": "Traditional Tamil grocery shop with open jute sacks of rice, weighing scale and shopkeeper",
+    "width": 1350,
+    "height": 1800,
+    "kb": 404
+  },
+  {
+    "file": "family.jpg",
+    "source": "Pexels",
+    "photographer": "Varan",
+    "page_url": "https://www.pexels.com/photo/6472469/",
+    "description": "Warm portrait of a smiling senior Tamil vendor in an orange turban, Cumbum, Tamil Nadu",
+    "width": 1800,
+    "height": 1200,
+    "kb": 395
+  },
+  {
+    "file": "temple-gopuram.jpg",
+    "title": "Meenakshi Amman Temple",
+    "author": "Ashwin Kumar",
+    "source": "https://commons.wikimedia.org/wiki/File:Meenakshi_Amman_Temple_(11876030544).jpg",
+    "license": "CC BY-SA 2.0"
+  }
+]

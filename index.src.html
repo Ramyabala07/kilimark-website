@@ -1,0 +1,1443 @@
+<title>Kilimark Website Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,400..600&family=Noto+Serif+Tamil:wght@400;600;700&display=swap">
+<style>
+/* Layout concept: a long heritage ledger on white. Photographic bands and real Kilimark packs carry the page;
+   proof floats as a glass panel over the hero photo; content max 1200px; one column on phones.
+   Deliberately single (light) theme. */
+:root{
+  color-scheme: light;
+  --bg:#FFFFFF; --paper:#FFFDF8; --sand:#F4F1EC; --line:#E6E0D5; --line-2:#D8CEBD;
+  --ink:#1E1A16; --ink-2:#5C534A; --ink-3:#817560;
+  --blue-500:#0091D3; --blue-600:#057CB1; --blue-700:#0B668F; --blue-900:#153E4F; --blue-50:#EBF6FB;
+  --green-500:#4E8F4F; --green-600:#457A45;
+  --turmeric:#F2B632; --turmeric-50:#FEF9EF; --turmeric-200:#FAE5B5; --turmeric-700:#A67E28;
+  --red:#B23A48;
+  --en:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tamil:'Tamil MN', 'Noto Serif Tamil', serif;
+  --font: var(--en);
+  --r-sm:6px; --r-md:10px; --r-lg:16px; --r-xl:24px;
+  --max:1200px; --gutter:clamp(16px, 4vw, 40px);
+  --ease-out: cubic-bezier(.2,.8,.2,1);
+}
+:root[lang="ta"]{ --font: var(--tamil); }
+
+*{ box-sizing:border-box; }
+html{ scroll-padding-top:88px; }
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; font-optical-sizing:auto; overflow-x:hidden; }
+:root[lang="ta"] body{ font-size:16.5px; line-height:1.8; }
+img{ max-width:100%; display:block; }
+a{ color:var(--blue-700); }
+svg.ic{ width:20px; height:20px; flex:none; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+:focus-visible{ outline:3px solid var(--blue-700); outline-offset:3px; border-radius:6px; }
+.wrap{ width:100%; max-width:calc(var(--max) + 2*var(--gutter)); margin-inline:auto; padding-inline:var(--gutter); }
+
+/* type */
+.display,.h2,.h3s{ font-family:var(--font); margin:0; color:var(--ink); text-wrap:balance; }
+.display{ font-size:clamp(2.7rem, 1.9rem + 3.9vw, 4.9rem); line-height:1.0; font-weight:700; letter-spacing:-0.045em; }
+.h2{ font-size:clamp(2rem, 1.55rem + 1.9vw, 3.1rem); line-height:1.06; font-weight:700; letter-spacing:-0.035em; }
+.h3s{ font-size:1.4rem; line-height:1.2; font-weight:650; letter-spacing:-0.02em; }
+:root[lang="ta"] .display{ font-size:clamp(2.1rem, 1.6rem + 2.8vw, 3.6rem); line-height:1.38; letter-spacing:0; }
+:root[lang="ta"] .h2{ font-size:clamp(1.7rem, 1.4rem + 1.4vw, 2.4rem); line-height:1.42; letter-spacing:0; }
+:root[lang="ta"] .h3s{ letter-spacing:0; line-height:1.45; font-weight:700; }
+.eyebrow{ font-weight:600; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--green-600); margin:0 0 16px; display:flex; align-items:center; gap:10px; }
+.eyebrow::before{ content:""; width:22px; height:2px; background:var(--turmeric); border-radius:2px; }
+:root[lang="ta"] .eyebrow{ letter-spacing:0; text-transform:none; font-size:14px; font-weight:700; }
+.lead{ font-size:1.18rem; line-height:1.6; color:var(--ink-2); max-width:56ch; margin:20px 0 0; letter-spacing:-0.011em; }
+:root[lang="ta"] .lead{ font-size:1.06rem; letter-spacing:0; line-height:1.85; }
+.section{ padding-block:clamp(48px, 6vw, 88px); position:relative; overflow:clip; }
+.section > .wrap{ position:relative; z-index:1; }
+.section-head{ display:grid; max-width:780px; margin-bottom:clamp(28px, 3vw, 44px); }
+.band{ background:var(--paper); border-block:1px solid var(--line); }
+
+/* headline choreography and reveal (start visible, never hidden) */
+.w{ display:inline-block; vertical-align:top; }
+.w > span{ display:inline-block; transition:transform .9s var(--ease-out), opacity .9s var(--ease-out); transition-delay:calc(var(--i, 0) * 38ms); }
+.split-pre .w > span{ transform:translateY(.45em); opacity:.3; }
+[data-reveal]{ transition:transform 1s var(--ease-out), opacity 1s var(--ease-out); transition-delay:var(--d, 0ms); }
+[data-reveal].pre{ transform:translateY(28px); opacity:.35; }
+
+/* buttons */
+.btn{ --b:var(--blue-600); appearance:none; border:2px solid var(--b); background:var(--b); color:#fff; font:600 16.5px/1 var(--font); letter-spacing:-0.01em; padding:15px 24px; border-radius:var(--r-md); display:inline-flex; align-items:center; justify-content:center; gap:10px; cursor:pointer; text-decoration:none; transition:background-color .18s ease, transform .12s ease-out, box-shadow .25s ease; -webkit-tap-highlight-color:transparent; white-space:nowrap; }
+:root[lang="ta"] .btn{ font-weight:700; font-size:15.5px; white-space:normal; line-height:1.35; letter-spacing:0; }
+.btn:hover{ --b:var(--blue-700); box-shadow:0 10px 24px -12px rgba(11,102,143,.7); }
+.btn:active{ transform:scale(.97); transition-duration:.06s; }
+.btn.ghost{ background:transparent; color:var(--blue-700); --b:var(--blue-700); }
+.btn.ghost:hover{ background:var(--blue-50); box-shadow:none; }
+.btn.sm{ padding:11px 16px; font-size:15px; }
+.btn svg.ic{ width:18px; height:18px; transition:transform .35s var(--ease-out); }
+.btn:hover svg.ic{ transform:translateX(4px); }
+.link{ font-weight:600; color:var(--blue-700); text-decoration:none; display:inline-flex; gap:6px; align-items:center; }
+.link svg.ic{ width:16px; height:16px; stroke-width:2; transition:transform .35s var(--ease-out); }
+.link:hover svg.ic{ transform:translateX(4px); }
+
+/* header */
+.hdr{ position:fixed; top:0; left:0; right:0; z-index:50; padding-top:env(safe-area-inset-top, 0px); background:rgba(255,255,255,.76); -webkit-backdrop-filter:blur(18px) saturate(170%); backdrop-filter:blur(18px) saturate(170%); will-change:transform; }
+.hdr::after{ content:""; position:absolute; left:0; right:0; bottom:-14px; height:14px; pointer-events:none; background:linear-gradient(rgba(30,26,22,.06), transparent); opacity:0; transition:opacity .25s ease; }
+.hdr.scrolled::after{ opacity:1; }
+.hdr-spacer{ height:76px; }
+.hdr .wrap{ display:flex; align-items:center; justify-content:space-between; gap:20px; padding-block:14px; }
+.brandmark{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+.brandmark .bm-parrot{ width:46px; height:46px; object-fit:contain; }
+.brandmark .bm-badge{ height:34px; width:auto; }
+.ftr-logo{ display:inline-block; }
+.ftr-logo img{ width:128px; height:auto; display:block; filter:drop-shadow(0 6px 14px rgba(0,0,0,.18)); }
+@media (max-width: 860px){ .brandmark .bm-badge{ height:28px; } .brandmark .bm-parrot{ width:40px; height:40px; } }
+.logo-ph{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink-3); }
+.logo-ph .mark{ width:44px; height:44px; border-radius:50%; border:2px dashed var(--line-2); display:grid; place-items:center; font:600 10px/1 var(--en); letter-spacing:.08em; }
+.logo-ph .word{ border:2px dashed var(--line-2); border-radius:8px; padding:6px 10px; font:600 12px/1 var(--en); letter-spacing:.14em; text-transform:uppercase; }
+.nav{ display:flex; gap:26px; }
+.nav a{ color:var(--ink); text-decoration:none; font-weight:500; font-size:15.5px; letter-spacing:-0.01em; position:relative; padding-block:6px; }
+:root[lang="ta"] .nav a{ font-size:15px; letter-spacing:0; }
+.nav a::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--turmeric); transform:scaleX(0); transform-origin:left; transition:transform .35s var(--ease-out); }
+.nav a:hover::after,.nav a.active::after{ transform:scaleX(1); }
+.hdr-right{ display:flex; align-items:center; gap:12px; }
+.lang{ position:relative; display:inline-grid; grid-template-columns:1fr 1fr; background:var(--sand); border:1px solid var(--line); border-radius:999px; padding:3px; }
+.lang button{ position:relative; z-index:1; appearance:none; background:none; border:0; cursor:pointer; font:600 14px/1 var(--en); color:var(--ink-2); padding:8px 14px; border-radius:999px; min-width:56px; transition:color .2s ease; }
+.lang button:last-child{ font-family:var(--tamil); }
+.lang button[aria-pressed="true"]{ color:var(--ink); }
+.lang .thumb{ position:absolute; top:3px; left:3px; bottom:3px; border-radius:999px; background:#fff; box-shadow:0 1px 3px rgba(30,26,22,.16); will-change:transform; }
+.menu-btn{ display:none; appearance:none; border:1px solid var(--line-2); background:#fff; color:var(--ink); border-radius:10px; width:44px; height:44px; place-items:center; cursor:pointer; transition:transform .12s ease-out; }
+.menu-btn:active{ transform:scale(.94); }
+.menu-btn svg.ic{ width:22px; height:22px; stroke-width:2; }
+.mnav{ position:absolute; right:var(--gutter); top:calc(100% + 6px); width:min(300px, calc(100vw - 32px)); background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:0 18px 40px rgba(30,26,22,.14); padding:10px; display:grid; transform-origin:top right; transition:transform .32s cubic-bezier(.2,.9,.3,1.1), opacity .2s ease; }
+.mnav[hidden]{ display:grid!important; opacity:0; transform:scale(.9) translateY(-8px); pointer-events:none; }
+.mnav a{ padding:12px 14px; border-radius:10px; color:var(--ink); text-decoration:none; font-weight:500; }
+.mnav a:hover{ background:var(--sand); }
+.mnav .btn{ margin-top:6px; color:#fff; font-weight:600; }
+.mnav .btn:hover{ background:var(--blue-700); }
+
+.sig{ margin:22px 0 0; font-size:15px; font-weight:600; letter-spacing:.01em; color:var(--ink-3); display:flex; align-items:center; gap:10px; }
+.sig::before{ content:""; width:28px; height:1.5px; background:var(--line-2); }
+.stage{ position:relative; border-radius:28px; overflow:hidden; aspect-ratio:4/4.3; background:radial-gradient(70% 60% at 0% 6%, rgba(200,50,58,.55), transparent 70%), radial-gradient(70% 60% at 100% 8%, rgba(15,143,194,.55), transparent 70%), radial-gradient(60% 46% at 50% 24%, rgba(132,186,64,.42), transparent 72%), radial-gradient(90% 60% at 50% 100%, rgba(242,190,30,.75), transparent 75%), #FBE9BE; box-shadow:0 40px 80px -40px rgba(120,70,10,.45), inset 0 0 0 1px rgba(120,80,10,.08); }
+.heap{ position:absolute; left:0; top:0; width:100%; height:106.05%; transform:translate3d(0,var(--hy,0px),0); will-change:transform; pointer-events:none; user-select:none; }
+.heap{ z-index:3; }
+.hp{ position:absolute; display:block; transform:translate3d(0,var(--ty,0px),0) rotate(var(--r,0deg)); will-change:transform; filter:drop-shadow(0 18px 18px rgba(90,50,10,.22)); }
+.hp img{ width:100%; height:auto; display:block; }
+.hp.l{ left:2%; bottom:23.8%; width:34%; --r:0deg; z-index:1; }
+.hp.r{ right:2%; bottom:23.8%; width:34%; --r:0deg; z-index:1; }
+.hp.c{ left:31%; bottom:30.5%; width:38%; z-index:2; }
+/* faded paddy crop illustrations */
+.paddy-r,.paddy-l,.paddy-hero{ background-repeat:no-repeat; }
+.paddy-r{ background-image:url("assets/img/paddy-r.svg"); background-position:right -60px bottom -24px; background-size:clamp(280px, 34vw, 480px) auto; }
+.paddy-l{ background-image:url("assets/img/paddy-l.svg"); background-position:left -60px bottom -24px; background-size:clamp(280px, 34vw, 480px) auto; }
+.band.paddy-l{ background-color:var(--paper); }
+.paddy-hero{ background-image:url("assets/img/paddy-l.svg"); background-position:left -90px bottom 60px; background-size:clamp(260px, 30vw, 440px) auto; }
+@media (max-width: 860px){ .paddy-hero{ background-image:none; } }
+/* paddy field horizon (hero and page end), uncut, two layers */
+.hero{ overflow:hidden; }
+.hero > .wrap{ position:relative; z-index:1; }
+.crop{ position:absolute; left:0; right:0; bottom:0; height:clamp(120px, 13vw, 200px); pointer-events:none; z-index:0; overflow:hidden; }
+.crop img{ position:absolute; left:50%; bottom:-8px; width:max(1400px, 100%); max-width:none; height:auto; transform:translateX(-50%); }
+.hero .crop{ bottom:0; }
+.crop::before{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(242,182,50,.07) 55%, rgba(69,122,69,.10) 100%); }
+.enq .crop::before{ background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(242,182,50,.06) 50%, rgba(69,122,69,.12) 100%); }
+/* testimonials */
+.voices{ background:linear-gradient(180deg, #F3F8F1, #FFFFFF 85%); }
+.v-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px; align-items:start; }
+.v-card{ margin:0; background:#fff; border:1px solid var(--line); border-radius:22px; padding:30px 28px 26px; display:grid; gap:18px; position:relative; box-shadow:0 20px 40px -32px rgba(30,60,30,.35); }
+.v-card.lift{ transform:translateY(-16px); }
+.v-card.lift.pre{ transform:translateY(12px); }
+.q-mark{ font:700 72px/.6 Georgia, serif; color:var(--turmeric); height:30px; }
+.v-card blockquote{ margin:0; font-size:1.12rem; line-height:1.55; font-weight:500; letter-spacing:-0.01em; color:var(--ink); }
+:root[lang="ta"] .v-card blockquote{ font-size:1.02rem; line-height:1.8; letter-spacing:0; }
+.v-who{ display:flex; gap:12px; align-items:center; padding-top:16px; border-top:1px solid var(--line); }
+.v-av{ width:44px; height:44px; flex:none; border-radius:50%; background:var(--blue-50); color:var(--blue-700); display:grid; place-items:center; font-weight:700; }
+.v-who b{ display:block; font-size:15px; font-weight:600; }
+.v-who span span{ font-size:13.5px; color:var(--ink-3); }
+.v-tag{ position:absolute; top:18px; right:18px; font:600 10.5px/1 var(--en); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); border:1px dashed var(--line-2); padding:5px 8px; border-radius:999px; }
+:root[lang="ta"] .v-tag{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:12px; }
+/* enquire: open, balanced */
+.enq{ position:relative; overflow:clip; padding-bottom:calc(clamp(48px, 6vw, 88px) + clamp(96px, 11vw, 160px)) !important; }
+.enq-grid{ display:grid !important; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) !important; gap:clamp(32px,6vw,104px) !important; align-items:start; position:relative; z-index:1; }
+.enq-copy{ position:sticky; top:110px; }
+@media (max-width: 960px){ .enq-copy{ position:static; } }
+.next{ list-style:none; margin:30px 0 0; padding:0; display:grid; gap:16px; }
+.next li{ display:grid; grid-template-columns:34px 1fr; gap:14px; align-items:center; font-size:16px; color:var(--ink-2); }
+.next li b{ width:34px; height:34px; border-radius:50%; background:var(--turmeric-50); border:1.5px solid var(--turmeric); display:grid; place-items:center; font:600 14px/1 var(--en); color:var(--ink); }
+.walk{ margin:30px 0 0; font-size:15.5px; color:var(--ink-2); display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+form.form.open{ background:transparent; border:0; padding:0; gap:20px; box-shadow:none; }
+.form.open .field input,.form.open .field select,.form.open .field textarea{ background:#FBFAF7; border-color:#E2DBCF; border-radius:12px; }
+.fs{ border:0; padding:0; margin:0; min-width:0; }
+.fs legend{ font-weight:600; font-size:14.5px; padding:0; margin-bottom:8px; }
+.who{ display:flex; flex-wrap:wrap; gap:8px; }
+.who input{ position:absolute; opacity:0; pointer-events:none; }
+.who label{ padding:10px 16px; border-radius:999px; border:1.5px solid var(--line-2); background:#fff; cursor:pointer; font-size:15px; font-weight:500; transition:background-color .2s ease, color .2s ease, border-color .2s ease, transform .12s ease-out; }
+.who label:active{ transform:scale(.96); }
+.who input:checked + label{ background:var(--blue-600); border-color:var(--blue-600); color:#fff; }
+.who input:focus-visible + label{ outline:3px solid var(--blue-700); outline-offset:2px; }
+.s-ph{ position:absolute; inset:0; display:grid; place-items:center; background:repeating-linear-gradient(45deg, #F4F1EC 0 14px, #EEE9E0 14px 28px); color:var(--ink-3); font-size:13.5px; font-weight:600; }
+@media (max-width: 960px){ .v-grid{ grid-template-columns:minmax(0,1fr); } .v-card.lift{ transform:none; } .enq-grid{ grid-template-columns:minmax(0,1fr) !important; } .crop img{ width:max(900px, 100%); } }
+/* hero */
+.hero{ padding-block:clamp(28px, 5vw, 72px) 0; position:relative; }
+.hero .wrap{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.02fr); gap:clamp(28px, 5vw, 72px); align-items:center; }
+.hero-copy{ min-width:0; padding-bottom:clamp(0px, 8vw, 120px); }
+.hero-cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
+.hero-media{ position:relative; min-width:0; }
+.hero-media .photo{ border-radius:var(--r-xl); overflow:hidden; aspect-ratio:4/4.6; background:var(--sand); box-shadow:0 40px 80px -40px rgba(21,62,79,.55); position:relative; }
+.hero-media .photo img{ width:100%; height:112%; object-fit:cover; will-change:transform; }
+.hero-media .pill{ position:absolute; top:14px; right:14px; z-index:2; font:500 12px/1 var(--en); color:#fff; background:rgba(30,26,22,.45); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); padding:8px 12px; border-radius:999px; }
+:root[lang="ta"] .hero-media .pill{ font-family:var(--tamil); }
+.stamp{ position:absolute; left:-34px; top:12%; z-index:3; width:136px; height:136px; border-radius:50%; background:var(--turmeric-50); border:2px solid var(--turmeric); display:grid; place-items:center; text-align:center; box-shadow:0 12px 30px rgba(30,26,22,.16); will-change:transform; }
+.stamp::before{ content:""; position:absolute; inset:7px; border-radius:50%; border:1.5px dashed var(--turmeric-700); }
+.stamp .s1,.stamp .s3{ display:block; font:600 10.5px/1.2 var(--en); letter-spacing:.18em; text-transform:uppercase; color:var(--ink-2); }
+.stamp b{ display:block; font:700 32px/1 var(--en); letter-spacing:-0.04em; color:var(--blue-700); margin:4px 0 5px; font-variant-numeric:tabular-nums; }
+:root[lang="ta"] .stamp .s1,:root[lang="ta"] .stamp .s3{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:12px; }
+
+/* proof panel */
+.proof-wrap{ position:relative; z-index:4; margin-top:-80px; }
+.proof{ background:rgba(255,255,255,.88); -webkit-backdrop-filter:blur(22px) saturate(160%); backdrop-filter:blur(22px) saturate(160%); border:1px solid rgba(255,255,255,.8); border-radius:28px; box-shadow:0 30px 60px -30px rgba(21,62,79,.35), 0 0 0 1px rgba(30,26,22,.04); display:grid; grid-template-columns:1fr 1.1fr 1fr 1.25fr; }
+.stat{ padding:30px 28px 28px; display:grid; gap:6px; align-content:start; position:relative; min-width:0; }
+.stat + .stat::before{ content:""; position:absolute; left:0; top:28px; bottom:28px; width:1px; background:linear-gradient(transparent, var(--line-2) 20%, var(--line-2) 80%, transparent); }
+.stat .k{ font:600 12px/1.2 var(--en); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); }
+:root[lang="ta"] .stat .k{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:13px; font-weight:700; line-height:1.4; }
+.num{ display:flex; align-items:baseline; gap:6px; margin-top:6px; color:var(--ink); font-family:var(--en); }
+.num b{ font-size:clamp(2.5rem, 2rem + 2vw, 3.6rem); line-height:1; font-weight:700; letter-spacing:-0.055em; font-variant-numeric:tabular-nums; }
+.num i{ font-style:normal; font-size:1.2rem; font-weight:600; letter-spacing:-0.02em; color:var(--ink-2); }
+:root[lang="ta"] .num i{ font-family:var(--tamil); font-size:1.05rem; letter-spacing:0; }
+.stat p{ margin:2px 0 0; font-size:15px; line-height:1.45; color:var(--ink-2); }
+.stat.gold{ grid-template-columns:1fr; }
+.stat.gold .k{ grid-column:1 / -1; }
+.medal{ width:76px; height:76px; margin-top:8px; }
+.medal svg{ width:100%; height:100%; overflow:visible; }
+#rays{ transform-origin:38px 38px; }
+.gold .num b{ font-size:clamp(2rem, 1.6rem + 1.3vw, 2.7rem); }
+:root[lang="ta"] .gold .num b{ font-family:var(--tamil); letter-spacing:0; font-size:1.8rem; }
+.chips-row{ grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.mini{ font:600 12px/1 var(--en); padding:7px 10px; border-radius:999px; background:var(--blue-50); color:var(--blue-700); border:1px solid #CFE7F3; }
+:root[lang="ta"] .mini{ font-family:var(--tamil); line-height:1.3; }
+
+/* process: mill + scroll story */
+.mill{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); border-radius:24px; overflow:hidden; background:var(--paper); border:1px solid var(--line); }
+.mill-ph{ min-height:340px; display:grid; place-items:center; background:repeating-linear-gradient(45deg, #F4F1EC 0 14px, #EEE9E0 14px 28px); color:var(--ink-3); font-weight:600; font-size:14px; border-right:1px solid var(--line); }
+.mill-ph span{ background:#fff; padding:8px 14px; border-radius:999px; border:1px solid var(--line); }
+.mill.pre .mill-ph{ opacity:.6; }
+.mill-ph.has-media{ position:relative; overflow:hidden; background:#1E1A16; padding:0; }
+.mill-ph.has-media video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.mill-ph.has-media .cap{ position:absolute; left:14px; bottom:14px; background:rgba(30,26,22,.62); color:#fff; border:0; font-size:12.5px; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.mill-info{ padding:clamp(24px,4vw,44px); display:grid; gap:10px; align-content:center; }
+.mill-info h3{ margin:0; font-size:clamp(1.6rem,1.3rem + 1vw,2.1rem); font-weight:700; letter-spacing:-0.03em; line-height:1.1; }
+:root[lang="ta"] .mill-info h3{ font-size:1.5rem; line-height:1.45; letter-spacing:0; }
+.mill-info > p{ margin:0; color:var(--ink-2); font-size:16px; max-width:46ch; }
+.mill-facts{ margin:10px 0 0; display:grid; grid-template-columns:1fr 1fr; column-gap:28px; }
+.mill-facts div{ padding:12px 0; border-top:1px solid var(--line); }
+.mill-facts dt{ font-size:13px; color:var(--ink-3); font-weight:600; }
+.mill-facts dd{ margin:2px 0 0; font-size:15.5px; font-weight:500; }
+.steps{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(32px,6vw,88px); align-items:start; }
+.steps-media{ position:sticky; top:104px; aspect-ratio:4/4.3; max-height:74vh; border-radius:24px; overflow:hidden; background:var(--sand); }
+.steps-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1.08); transition:opacity .7s ease, transform 1.4s var(--ease-out); }
+.steps-media img.on{ opacity:1; transform:none; }
+.step-count{ position:absolute; left:18px; bottom:18px; z-index:2; font:600 13px/1 var(--en); color:#fff; background:rgba(30,26,22,.5); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); padding:8px 12px; border-radius:999px; font-variant-numeric:tabular-nums; }
+.steps-list{ list-style:none; margin:0; padding:0; position:relative; --p:0; }
+.steps-list::before,.steps-list::after{ content:""; position:absolute; left:21px; top:calc(min(23vh,210px)); bottom:calc(min(23vh,210px)); width:2px; border-radius:2px; }
+.steps-list::before{ background:var(--line); }
+.steps-list::after{ background:var(--turmeric); transform-origin:top; transform:scaleY(var(--p)); }
+.step-item{ display:grid; grid-template-columns:44px 1fr; gap:22px; min-height:min(46vh,420px); align-content:center; align-items:start; opacity:.3; transition:opacity .5s ease; }
+.step-item.on{ opacity:1; }
+.step-item .n{ width:44px; height:44px; border-radius:50%; display:grid; place-items:center; background:#fff; border:2px solid var(--line-2); font:600 16px/1 var(--en); color:var(--ink-3); position:relative; z-index:1; transition:background-color .35s ease, border-color .35s ease, color .35s ease, transform .5s cubic-bezier(.3,1.6,.5,1); }
+.step-item.on .n{ background:var(--blue-600); border-color:var(--blue-600); color:#fff; transform:scale(1.08); }
+.step-item h3{ margin:6px 0 8px; font-size:clamp(1.4rem,1.2rem + .8vw,1.8rem); font-weight:700; letter-spacing:-0.03em; line-height:1.15; }
+:root[lang="ta"] .step-item h3{ font-size:1.3rem; line-height:1.5; letter-spacing:0; }
+.step-item p{ margin:0; color:var(--ink-2); font-size:16.5px; max-width:42ch; }
+.m-img{ display:none; }
+
+/* our rice: woven-sack texture, the range */
+.sack{ position:relative; background:linear-gradient(rgba(250,246,238,.5), rgba(250,246,238,.5)), #EFE6D3 url("assets/img/sack-texture.jpg") 0 0/760px auto repeat;
+}
+.sack::before,.sack::after{ content:""; position:absolute; left:0; right:0; height:3px; background:repeating-linear-gradient(90deg, #CDB78C 0 16px, transparent 16px 26px); opacity:.9; }
+.sack::before{ top:16px; } .sack::after{ bottom:16px; }
+.range{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px; }
+.prod{ background:#fff; border-radius:20px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 1px 0 rgba(30,26,22,.04), 0 18px 40px -26px rgba(80,60,30,.45); will-change:transform; }
+.prod .shot{ height:300px; display:flex; align-items:center; justify-content:center; padding:22px 22px 8px; background:#fff; overflow:hidden; }
+.brands{ display:flex; flex-wrap:wrap; align-items:center; gap:14px 30px; margin-top:22px; }
+.brands span{ font:600 12px/1 var(--en); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); }
+:root[lang="ta"] .brands span{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:13px; }
+.brands img{ height:40px; width:auto; }
+.brands img.tall{ height:60px; }
+.logo-shot{ position:relative; }
+.logo-shot img{ max-width:62% !important; max-height:70% !important; }
+.logo-shot em{ position:absolute; left:14px; top:14px; font:600 10.5px/1 var(--en); font-style:normal; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); border:1px dashed var(--line-2); padding:5px 8px; border-radius:999px; }
+.prod .shot img{ max-height:100%; max-width:100%; width:auto; height:auto; object-fit:contain; transition:transform .8s var(--ease-out); }
+.prod .ph{ width:70%; height:100%; border-radius:14px; border:2px dashed var(--line-2); display:grid; place-items:center; text-align:center; color:var(--ink-3); font-size:13.5px; padding:12px; background:var(--sand); }
+.prod .info{ padding:16px 22px 22px; display:grid; gap:5px; border-top:1px solid var(--line); }
+.tag{ font:600 11.5px/1.2 var(--en); letter-spacing:.12em; text-transform:uppercase; color:var(--green-600); }
+:root[lang="ta"] .tag{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:13px; line-height:1.4; font-weight:700; }
+.prod h3{ margin:2px 0 0; font-weight:650; font-size:1.3rem; line-height:1.2; letter-spacing:-0.022em; }
+:root[lang="ta"] .prod h3{ font-size:1.1rem; line-height:1.5; font-weight:700; letter-spacing:0; }
+.prod .alt{ font-family:var(--tamil); color:var(--ink-3); font-size:14px; }
+:root[lang="ta"] .prod .alt{ font-family:var(--en); }
+.prod .best{ margin:4px 0 0; font-size:15px; color:var(--ink-2); line-height:1.5; }
+.sizes{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.sizes span{ font:500 12.5px/1 var(--en); padding:6px 10px; border-radius:999px; background:var(--turmeric-50); border:1px solid var(--turmeric-200); font-variant-numeric:tabular-nums; }
+:root[lang="ta"] .sizes span{ font-family:var(--tamil); }
+.range-foot{ margin-top:32px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px 24px; background:#fff; border-radius:20px; padding:22px 26px; box-shadow:0 18px 40px -30px rgba(80,60,30,.45); }
+.range-foot p{ margin:0; font-size:1.05rem; font-weight:500; letter-spacing:-0.01em; }
+:root[lang="ta"] .range-foot p{ letter-spacing:0; }
+.src-note{ margin-top:16px; font-size:13px; color:var(--ink-3); }
+
+/* pick your rice */
+.pick{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(32px,5vw,80px); align-items:center; }
+.chips{ position:relative; display:flex; flex-wrap:wrap; gap:8px; margin-top:28px; }
+.chip{ position:relative; z-index:1; appearance:none; background:#fff; border:1.5px solid var(--line-2); color:var(--ink); font:500 15.5px/1 var(--font); padding:12px 18px; border-radius:999px; cursor:pointer; transition:color .2s ease, border-color .2s ease, transform .12s ease-out; }
+:root[lang="ta"] .chip{ font-size:15px; line-height:1.3; }
+.chip:active{ transform:scale(.95); }
+.chip[aria-pressed="true"]{ color:#fff; border-color:transparent; background:transparent; }
+.chip-ind{ position:absolute; z-index:0; left:0; top:0; height:0; width:0; border-radius:999px; background:var(--blue-600); will-change:transform,width; opacity:0; transition:opacity .2s ease; }
+.result{ background:var(--turmeric-50); border:1px solid var(--turmeric-200); border-radius:28px; padding:clamp(20px,3vw,32px); display:grid; grid-template-columns:200px 1fr; gap:24px; align-items:center; min-height:300px; }
+.r-shot{ height:260px; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:18px; padding:14px; overflow:hidden; will-change:transform; }
+.r-shot img{ max-height:100%; max-width:100%; width:auto; height:auto; object-fit:contain; }
+.r-shot .ph{ width:100%; height:100%; border-radius:12px; border:2px dashed var(--line-2); display:grid; place-items:center; text-align:center; color:var(--ink-3); font-size:13px; padding:10px; background:var(--sand); }
+.r-info{ display:grid; gap:8px; transition:opacity .22s ease, transform .4s var(--ease-out); }
+.r-info.swap{ opacity:0; transform:translateY(8px); }
+.r-for{ font:600 12px/1.2 var(--en); letter-spacing:.12em; text-transform:uppercase; color:var(--green-600); }
+:root[lang="ta"] .r-for{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:13.5px; font-weight:700; }
+.r-info h3{ margin:0; font-weight:700; font-size:1.8rem; line-height:1.1; letter-spacing:-0.03em; }
+:root[lang="ta"] .r-info h3{ font-size:1.35rem; line-height:1.5; letter-spacing:0; }
+.r-why{ margin:0; font-size:16px; color:var(--ink-2); line-height:1.55; }
+.r-also{ margin:0; font-size:14.5px; color:var(--ink-3); }
+.r-also:empty{ display:none; }
+.r-info .link{ margin-top:6px; }
+
+/* quality */
+.qgrid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px; }
+.q{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:26px; display:grid; gap:10px; align-content:start; }
+.q .seal{ width:56px; height:56px; border-radius:50%; display:grid; place-items:center; background:var(--turmeric-50); border:1.5px solid var(--turmeric); color:var(--green-600); transition:transform .7s cubic-bezier(.3,1.6,.5,1); transition-delay:calc(var(--d, 0ms) + 150ms); }
+.q.pre .seal{ transform:scale(.4) rotate(-30deg); }
+.q .seal svg.ic{ width:28px; height:28px; }
+.q h3{ margin:6px 0 0; font-weight:650; font-size:1.22rem; line-height:1.2; letter-spacing:-0.02em; }
+:root[lang="ta"] .q h3{ font-size:1.06rem; line-height:1.5; font-weight:700; letter-spacing:0; }
+.q p{ margin:0; color:var(--ink-2); font-size:15.5px; }
+.qc{ margin-top:28px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); border-radius:var(--r-xl); overflow:hidden; border:1px solid var(--line); background:#fff; }
+.qc .img{ min-height:300px; background:var(--sand); overflow:hidden; }
+.qc .img img{ width:100%; height:100%; object-fit:cover; transition:transform 1.6s var(--ease-out); }
+.qc.pre .img img{ transform:scale(1.12); }
+.qc .txt{ padding:clamp(24px,4vw,48px); display:grid; gap:14px; align-content:center; }
+.checks{ list-style:none; margin:6px 0 0; padding:0; display:grid; gap:12px; }
+.checks li{ display:flex; gap:12px; align-items:flex-start; transition:opacity .5s ease, transform .6s var(--ease-out); transition-delay:calc(var(--i) * 160ms); }
+.qc.pre .checks li{ opacity:.35; transform:translateX(-10px); }
+.checks svg{ width:24px; height:24px; color:var(--green-600); flex:none; margin-top:2px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.checks svg path{ stroke-dasharray:14; stroke-dashoffset:0; transition:stroke-dashoffset .5s ease; transition-delay:calc(var(--i) * 160ms + 250ms); }
+.qc.pre .checks svg path{ stroke-dashoffset:14; }
+
+/* story */
+.story .wrap{ display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:clamp(32px,6vw,96px); align-items:start; }
+.story-media{ display:grid; grid-template-columns:1fr 1fr; gap:16px; position:sticky; top:110px; }
+.story-media figure{ margin:0; border-radius:var(--r-lg); overflow:hidden; background:var(--sand); aspect-ratio:3/4; }
+.story-media figure.wide{ grid-column:1 / -1; aspect-ratio:16/10; }
+.story-media figure img{ width:100%; height:118%; object-fit:cover; will-change:transform; }
+.timeline{ list-style:none; margin:40px 0 0; padding:0; display:grid; position:relative; --p:0; }
+.timeline::before,.timeline::after{ content:""; position:absolute; left:108px; top:14px; bottom:44px; width:2px; border-radius:2px; }
+.timeline::before{ background:#F3E3BE; }
+.timeline::after{ background:var(--turmeric); transform-origin:top; transform:scaleY(var(--p)); }
+.timeline li{ display:grid; grid-template-columns:96px 1fr; gap:20px; position:relative; padding-bottom:30px; }
+.timeline li::before{ content:""; position:absolute; left:103px; top:9px; width:12px; height:12px; border-radius:50%; z-index:1; background:#fff; box-shadow:0 0 0 2px #EBD39C; transition:background-color .4s ease, box-shadow .4s ease, transform .5s cubic-bezier(.3,1.6,.5,1); }
+.timeline li.on::before{ background:var(--turmeric); box-shadow:0 0 0 4px #fff, 0 0 0 5px var(--turmeric); transform:scale(1.15); }
+.timeline .yr{ font:700 1.6rem/1.1 var(--en); letter-spacing:-0.04em; color:var(--ink-3); transition:color .4s ease; font-variant-numeric:tabular-nums; }
+.timeline li.on .yr{ color:var(--blue-700); }
+.timeline .ev{ padding-left:30px; }
+.timeline .ev b{ display:block; font-size:1.08rem; font-weight:650; letter-spacing:-0.015em; }
+:root[lang="ta"] .timeline .ev b{ font-weight:700; letter-spacing:0; }
+.timeline .ev span{ color:var(--ink-2); font-size:15.5px; }
+.philosophy{ margin-top:12px; padding:26px 28px; border-radius:var(--r-lg); background:var(--paper); border:1px solid var(--line); }
+.philosophy p{ margin:0; font-size:1.45rem; line-height:1.3; font-weight:600; letter-spacing:-0.025em; }
+:root[lang="ta"] .philosophy p{ font-size:1.2rem; line-height:1.6; letter-spacing:0; font-weight:700; }
+.philosophy small{ display:block; margin-top:10px; color:var(--ink-3); font-size:14px; }
+.family{ margin-top:22px; color:var(--ink-2); font-size:15.5px; }
+
+/* our story: deep parrot-green band */
+.story{ background:#1F3A2A; color:#EEF2E8; }
+.story .eyebrow{ color:#F2C65A; }
+.story .h2{ color:#FFFDF8; }
+.story .lead{ color:#D3E0CF; }
+.story-media figure{ background:rgba(255,255,255,.06); }
+.story .timeline::before{ background:rgba(255,255,255,.14); }
+.story .timeline li::before{ background:#1F3A2A; box-shadow:0 0 0 2px rgba(242,182,50,.5); }
+.story .timeline li.on::before{ background:var(--turmeric); box-shadow:0 0 0 4px #1F3A2A, 0 0 0 5px var(--turmeric); }
+.story .timeline .yr{ color:rgba(238,242,232,.42); }
+.story .timeline li.on .yr{ color:#F2C65A; }
+.story .timeline .ev b{ color:#FFFDF8; }
+.story .timeline .ev span{ color:#C3D2BF; }
+.story .philosophy{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12); }
+.story .philosophy p{ color:#FFFDF8; }
+.story .philosophy small{ color:#AFC2AA; }
+.story .family{ color:#C3D2BF; }
+.ph-shot{ position:relative; display:grid; place-items:center; text-align:center; padding:22px; border:1.5px dashed rgba(255,255,255,.22); background:radial-gradient(120% 90% at 30% 20%, rgba(242,198,90,.10), transparent 60%), repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 12px, transparent 12px 24px), rgba(255,255,255,.04) !important; }
+.ph-in{ display:grid; justify-items:center; gap:8px; max-width:30ch; }
+.ph-in .ic{ width:34px; height:34px; color:#F2C65A; opacity:.9; }
+.ph-in b{ color:#FFFDF8; font-size:1.02rem; font-weight:650; letter-spacing:-0.01em; }
+.ph-in span{ color:#B9CBB4; font-size:13.5px; line-height:1.5; }
+.ph-shot em{ position:absolute; left:12px; top:12px; font:600 10.5px/1 var(--en); font-style:normal; letter-spacing:.1em; text-transform:uppercase; color:#F2C65A; border:1px solid rgba(242,198,90,.45); padding:5px 8px; border-radius:999px; }
+:root[lang="ta"] .ph-shot em{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:12px; }
+.ph-shot:not(.wide) .ph-in span{ font-size:12.5px; }
+/* our mark */
+.mark-s{ background:var(--blue-900); color:#F3EFE6; overflow:hidden; position:relative; }
+.mark-s .top{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:clamp(32px,6vw,96px); align-items:center; }
+.mark-s .h2{ color:#FFFDF8; font-size:clamp(2.3rem, 1.6rem + 2.8vw, 3.9rem); line-height:1.02; }
+:root[lang="ta"] .mark-s .h2{ font-size:clamp(1.8rem, 1.4rem + 1.8vw, 2.7rem); line-height:1.4; }
+.mark-s .eyebrow{ color:#9CC09C; }
+.mark-s .lead{ color:#D9E6EC; }
+.mark-media{ position:relative; min-width:0; padding-bottom:56px; }
+.mark-media .big{ border-radius:var(--r-xl); overflow:hidden; aspect-ratio:4/4.6; width:80%; }
+.mark-media .big{ position:relative; }
+.mark-media .big img{ width:100%; height:116%; object-fit:cover; object-position:50% 30%; will-change:transform; }
+.mark-media .big .credit{ position:absolute; left:10px; bottom:10px; font-size:10.5px; color:rgba(255,255,255,.85); background:rgba(0,0,0,.35); padding:3px 7px; border-radius:6px; }
+.mark-media .small{ position:absolute; right:0; bottom:0; width:46%; border-radius:var(--r-lg); overflow:hidden; aspect-ratio:1; border:6px solid var(--blue-900); will-change:transform; }
+.mark-media .small img{ width:100%; height:100%; object-fit:cover; }
+.kolam{ display:block; width:100%; max-width:520px; height:40px; margin-top:30px; overflow:visible; }
+.kolam path{ fill:none; stroke:#9CC09C; stroke-width:2; stroke-linecap:round; transition:stroke-dashoffset 2.2s cubic-bezier(.4,0,.2,1); }
+.kolam circle{ fill:var(--turmeric); transform-box:fill-box; transform-origin:center; transition:transform .6s cubic-bezier(.3,1.6,.5,1); transition-delay:calc(var(--i) * 140ms + 200ms); }
+.kolam.pre circle{ transform:scale(0); }
+.pillars{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); margin-top:clamp(48px,6vw,80px); border-top:1px solid rgba(255,255,255,.16); }
+.pillar{ padding:32px 32px 8px 0; display:grid; gap:10px; align-content:start; position:relative; }
+.pillar + .pillar{ padding-left:32px; border-left:1px solid rgba(255,255,255,.16); }
+.pillar .no{ font:600 12px/1 var(--en); letter-spacing:.14em; text-transform:uppercase; color:var(--turmeric); }
+:root[lang="ta"] .pillar .no{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:13.5px; }
+.pillar h3{ margin:0; font-weight:700; font-size:1.65rem; line-height:1.12; letter-spacing:-0.03em; color:#fff; }
+:root[lang="ta"] .pillar h3{ font-size:1.25rem; line-height:1.5; letter-spacing:0; }
+.pillar p{ margin:0; color:#C9D9E1; font-size:16px; line-height:1.55; }
+
+/* stores (compact) */
+.section-head.wide{ max-width:none; }
+.stores{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:24px; }
+.store{ background:#fff; border:1px solid var(--line); border-radius:var(--r-xl); overflow:hidden; display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); }
+.s-photo{ position:relative; overflow:hidden; background:var(--sand); min-height:240px; }
+.s-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 1.4s var(--ease-out); }
+.store.pre .s-photo img{ transform:scale(1.12); }
+.s-body{ padding:22px 24px; display:grid; gap:6px; align-content:start; }
+.s-chip{ justify-self:start; font:600 11.5px/1 var(--en); letter-spacing:.1em; text-transform:uppercase; color:var(--green-600); }
+:root[lang="ta"] .s-chip{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:13px; line-height:1.4; }
+.s-body h3{ margin:2px 0 0; font-weight:700; font-size:clamp(1.6rem,1.3rem + 1vw,2.1rem); letter-spacing:-0.035em; line-height:1.05; }
+:root[lang="ta"] .s-body h3{ font-size:1.5rem; letter-spacing:0; line-height:1.4; }
+.s-name{ margin:0 0 6px; color:var(--ink-2); font-size:15px; }
+.s-facts{ margin:0; display:grid; border-top:1px solid var(--line); }
+.s-facts div{ display:grid; grid-template-columns:84px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); }
+.s-facts dt{ font-size:13px; color:var(--ink-3); font-weight:600; }
+.s-facts dd{ margin:0; font-size:14.5px; }
+.s-cta{ justify-self:start; margin-top:12px; }
+
+/* enquire */
+.enq .wrap{ display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:clamp(24px,4vw,56px); align-items:start; }
+form.form{ background:#fff; border:1px solid var(--line); border-radius:var(--r-xl); padding:clamp(22px,3.5vw,40px); display:grid; gap:18px; }
+.row2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.field{ display:grid; gap:7px; min-width:0; }
+.field label{ font-weight:600; font-size:14.5px; letter-spacing:-0.005em; }
+.field input,.field select,.field textarea{ font:400 16px/1.4 var(--font); color:var(--ink); background:#fff; border:1.5px solid var(--line-2); border-radius:var(--r-sm); padding:13px 14px; width:100%; transition:border-color .15s ease, box-shadow .2s ease; }
+.field textarea{ min-height:110px; resize:vertical; }
+.field input:focus,.field select:focus,.field textarea:focus{ outline:none; border-color:var(--blue-700); box-shadow:0 0 0 4px rgba(11,102,143,.16); }
+.field .err{ color:var(--red); font-size:14px; display:none; }
+.field.invalid input{ border-color:var(--red); animation:nudge .36s cubic-bezier(.3,.7,.4,1); }
+.field.invalid .err{ display:block; }
+@keyframes nudge{ 20%{transform:translateX(-5px)} 45%{transform:translateX(4px)} 70%{transform:translateX(-2px)} }
+.form-foot{ display:flex; flex-wrap:wrap; align-items:center; gap:16px; }
+.form-foot small{ color:var(--ink-2); font-size:14px; }
+.done[hidden]{ display:none; }
+.done{ display:grid; gap:8px; grid-template-columns:auto 1fr; align-items:start; column-gap:14px; background:var(--blue-50); border:1px solid #A3D7EF; border-radius:var(--r-lg); padding:20px 22px; }
+.done svg{ width:32px; height:32px; color:var(--blue-700); grid-row:span 2; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+.done svg circle{ stroke-dasharray:82; stroke-dashoffset:82; animation:draw .6s ease forwards; }
+.done svg path{ stroke-dasharray:18; stroke-dashoffset:18; animation:draw .35s .45s ease forwards; }
+@keyframes draw{ to{ stroke-dashoffset:0; } }
+.done b{ font-size:1.05rem; }
+.ccard{ background:var(--paper); border:1px solid var(--line); border-radius:var(--r-xl); padding:clamp(22px,3vw,32px); display:grid; gap:16px; }
+.ccard h3{ margin:0; font-weight:650; font-size:1.35rem; letter-spacing:-0.025em; }
+:root[lang="ta"] .ccard h3{ font-size:1.15rem; font-weight:700; line-height:1.5; letter-spacing:0; }
+.ci{ display:flex; gap:14px; align-items:flex-start; font-size:15.5px; }
+.ci svg.ic{ width:22px; height:22px; color:var(--green-600); margin-top:3px; }
+.ci b{ display:block; font-size:13.5px; color:var(--ink-3); font-weight:600; }
+.tbc{ color:var(--ink-3); font-style:italic; }
+
+/* footer */
+.ftr{ background:var(--blue-700); color:#E8F3F8; padding-block:56px 40px; }
+.ftr .wrap{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; }
+.ftr h4{ margin:0 0 12px; font:600 12px/1 var(--en); letter-spacing:.14em; text-transform:uppercase; color:#A3D7EF; }
+:root[lang="ta"] .ftr h4{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:14px; }
+.ftr a{ color:#fff; text-decoration:none; display:block; padding-block:4px; }
+.ftr a:hover{ text-decoration:underline; }
+.ftr .logo-ph .mark,.ftr .logo-ph .word{ border-color:rgba(255,255,255,.55); color:#fff; }
+.ftr .legal{ grid-column:1 / -1; border-top:1px solid rgba(255,255,255,.2); padding-top:22px; font-size:14px; color:#BFE0EE; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; }
+
+/* responsive */
+@media (max-width: 1140px){
+  .nav{ display:none; } .menu-btn{ display:grid; }
+  .packs-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+  .proof{ grid-template-columns:1fr 1fr; }
+  .stat:nth-child(3)::before{ display:none; }
+  .stat:nth-child(n+3){ border-top:1px solid var(--line); }
+}
+@media (max-width: 860px){
+  .hero .wrap,.story .wrap,.mark-s .top,.enq .wrap,.qc{ grid-template-columns:minmax(0,1fr); }
+  .hero-copy{ padding-bottom:0; }
+  .proof-wrap{ margin-top:-32px; }
+  .story-media{ position:static; }
+  .hero-media .photo{ aspect-ratio:4/3.6; }
+  .stamp{ left:14px; top:14px; width:98px; height:98px; }
+  .stamp b{ font-size:24px; margin:2px 0 3px; }
+  .stamp .s1,.stamp .s3{ font-size:8.5px; letter-spacing:.14em; }
+  .qgrid,.pillars,.stores{ grid-template-columns:minmax(0,1fr); }
+  .pillar,.pillar + .pillar{ padding:26px 0 6px; border-left:0; }
+  .pillar + .pillar{ border-top:1px solid rgba(255,255,255,.16); }
+  .ftr .wrap{ grid-template-columns:1fr 1fr; column-gap:24px; row-gap:28px; align-items:start; }
+  .ftr .wrap > div:first-child{ grid-column:1 / -1; }
+  .ftr-logo img{ width:110px; }
+  .ftr .legal{ flex-direction:column; justify-content:flex-start; gap:6px; }
+  .hdr-right > .btn{ display:none; }
+}
+@media (max-width: 600px){
+  .packs-grid{ grid-template-columns:minmax(0,1fr); }
+  .pack{ grid-template-columns:120px 1fr; }
+  .pack .img img,.pack .ph{ height:160px; }
+  .row2{ grid-template-columns:minmax(0,1fr); }
+  .proof{ border-radius:22px; }
+  .stat{ padding:20px 18px; }
+  .stat.gold{ grid-template-columns:1fr; }
+  .medal{ width:56px; height:56px; }
+  .num b{ font-size:2.2rem; }
+  .timeline::before,.timeline::after{ left:74px; }
+  .timeline li{ grid-template-columns:64px 1fr; gap:12px; }
+  .timeline li::before{ left:69px; }
+  .timeline .yr{ font-size:1.3rem; }
+  .timeline .ev{ padding-left:26px; }
+  .hero-cta .btn{ flex:1 1 100%; }
+  .ctrls .hint{ display:none; }
+  .lang button{ min-width:48px; padding:8px 10px; }
+  .logo-ph .word{ display:none; }
+  .chip{ padding:11px 15px; font-size:15px; }
+}
+@media (max-width: 1140px){ .range{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (max-width: 960px){ .pick{ grid-template-columns:minmax(0,1fr); } }
+@media (max-width: 600px){
+  .range{ gap:14px; } .prod .shot{ height:200px; padding:16px 12px 4px; } .prod .info{ padding:14px 14px 16px; } .prod h3{ font-size:1.08rem; } .prod .best{ font-size:14px; }
+  .result{ grid-template-columns:110px 1fr; gap:16px; min-height:0; } .r-shot{ height:160px; padding:8px; } .r-info h3{ font-size:1.35rem; }
+  .s-facts div{ grid-template-columns:84px 1fr; } .s-cta{ justify-self:stretch; }
+  .range-foot .btn{ width:100%; }
+}
+@media (max-width: 380px){ .range{ grid-template-columns:minmax(0,1fr); } .prod .shot{ height:240px; } }
+@media (max-width: 1140px){ .store{ grid-template-columns:minmax(0,1fr); } .s-photo{ min-height:0; aspect-ratio:16/7; } }
+@media (max-width: 860px){
+  .steps{ grid-template-columns:minmax(0,1fr); } .steps-media{ display:none; }
+  .steps-list::before,.steps-list::after{ top:22px; bottom:40px; }
+  .step-item{ min-height:0; opacity:1; padding-bottom:36px; } .m-img{ display:block; width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:16px; margin-top:14px; }
+  .mill{ grid-template-columns:minmax(0,1fr); } .mill-ph{ min-height:200px; border-right:0; border-bottom:1px solid var(--line); }
+  .stores{ grid-template-columns:minmax(0,1fr); }
+  .stamp{ left:14px; top:14px; }
+}
+@media (max-width: 600px){ .mill-facts{ grid-template-columns:minmax(0,1fr); } .s-cta{ justify-self:stretch; } }
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ transition-duration:.01ms!important; transition-delay:0ms!important; animation:none!important; }
+}
+@media (prefers-reduced-transparency: reduce){
+  .hdr{ background:#fff; -webkit-backdrop-filter:none; backdrop-filter:none; }
+  .proof{ background:#fff; -webkit-backdrop-filter:none; backdrop-filter:none; }
+}
+/* one hover for every card: lift, deeper shadow, media eases in (translate is separate from the reveal transform) */
+.prod,.q,.store,.v-card{ transition:transform 1s var(--ease-out), opacity 1s var(--ease-out), translate .45s var(--ease-out), box-shadow .45s ease; transition-delay:var(--d, 0ms), var(--d, 0ms), 0ms, 0ms; }
+.prod .shot img,.prod .shot .ph,.s-photo img{ transition:transform .9s var(--ease-out); }
+@media (hover: hover){
+  .prod:hover,.q:hover,.store:hover,.v-card:hover{ translate:0 -6px; box-shadow:0 30px 56px -30px rgba(30,40,50,.42); }
+  .prod:hover .shot img,.prod:hover .shot .ph,.store:hover .s-photo img{ transform:scale(1.04); }
+}
+.prod:active,.q:active,.store:active,.v-card:active{ translate:0 -2px; transition-duration:1s, 1s, .12s, .45s; }
+@media (prefers-reduced-motion: reduce){ .prod:hover,.q:hover,.store:hover,.v-card:hover{ translate:none; } }
+/* our story: on phones and tablets, heading, then photos, then the story */
+@media (max-width: 1024px){
+  .story .wrap{ grid-template-columns:minmax(0,1fr) !important; row-gap:28px; }
+  .story-text{ display:contents; }
+  .story-head{ order:-1; }
+  .story-media{ position:static; }
+  .story-head .h2{ margin-bottom:0; }
+}
+/* margin line art (paddy sprigs, rice grains) and hollow gradient rings; same thin-line language as the field */
+.deco{ position:absolute; z-index:0; pointer-events:none; user-select:none; width:var(--w); translate:0 var(--dy, 0px); }
+.deco.sprig{ opacity:.2; }
+.deco.grains{ opacity:.3; }
+.deco.d-sack{ opacity:.3; }
+.deco.d-feathers{ opacity:.3; }
+@media (max-width: 1100px){ .deco.d-sack,.deco.d-feathers{ width:calc(var(--w) * .7); right:2% !important; } }
+.deco.flip{ transform:scaleX(-1); }
+/* soft glows at section seams (from the reference: 600px circle, blur 500, centre ~290px outside the edge, alternating sides), in Kilimark tints.
+   Drawn as a radial gradient that matches a Gaussian-blurred circle, so there is no filter cost. */
+.section{ overflow:clip visible; }
+main{ overflow:clip; }
+.glow{ position:absolute; z-index:0; pointer-events:none; --S:2600px; width:var(--S); height:var(--S); top:calc(var(--S) / -2); border-radius:50%;
+  background:radial-gradient(closest-side, rgb(var(--c) / var(--a, .2)) 0%, rgb(var(--c) / calc(var(--a, .2) * .62)) 38%, rgb(var(--c) / calc(var(--a, .2) * .14)) 76%, rgb(var(--c) / 0) 100%);
+  animation:glowDrift 26s ease-in-out infinite alternate; }
+.glow.r{ left:calc(100% + 290px - var(--S) / 2); }
+.glow.l{ left:calc(-190px - var(--S) / 2); animation-delay:-13s; }
+.glow.blue{ --c:120 196 232; --a:.26; }
+.glow.sun{ --c:246 208 112; --a:.3; }
+.glow.leaf{ --c:150 196 138; --a:.24; }
+@keyframes glowDrift{ from{ translate:0 -24px; } to{ translate:0 24px; } }
+@media (prefers-reduced-motion: reduce){ .glow{ animation:none; } }
+@media (max-width: 860px){ .deco{ display:none; } .glow{ --S:1300px; } .glow.r{ left:calc(100% + 120px - var(--S) / 2); } .glow.l{ left:calc(-120px - var(--S) / 2); } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"/><path d="M5 19l7-7"/></symbol>
+    <symbol id="i-grain" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="4.5" ry="8.5"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-nav" viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  </defs>
+</svg>
+
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a class="brandmark" href="#top" aria-label="Kilimark, since 1998: home"><img class="bm-parrot" src="assets/img/brand/kilimark-parrot.webp" alt=""><img class="bm-badge" src="assets/img/brand/kilimark-badge.webp" alt="Kilimark since 1998"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#rice" data-i="nav.rice">Our rice</a>
+      <a href="#quality" data-i="nav.quality">Quality</a>
+      <a href="#story" data-i="nav.story">Our story</a>
+      <a href="#stores" data-i="nav.stores">Stores</a>
+      <a href="#enquire" data-i="nav.contact">Contact</a>
+    </nav>
+    <div class="hdr-right">
+      <div class="lang" role="group" aria-label="Language">
+        <span class="thumb" aria-hidden="true"></span>
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="ta" aria-pressed="false" lang="ta">தமிழ்</button>
+      </div>
+      <a class="btn sm" href="#enquire" data-i="cta.enquire">Enquire</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Open menu"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" hidden aria-label="Mobile">
+    <a href="#rice" data-i="nav.rice">Our rice</a>
+    <a href="#quality" data-i="nav.quality">Quality</a>
+    <a href="#process" data-i="nav.process">How it's made</a>
+    <a href="#story" data-i="nav.story">Our story</a>
+    <a href="#pick" data-i="nav.pick">Pick your rice</a>
+    <a href="#stores" data-i="nav.stores">Stores</a>
+    <a class="btn" href="#enquire" data-i="cta.enquire">Enquire</a>
+  </nav>
+</header>
+<div class="hdr-spacer" aria-hidden="true"></div>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i="hero.eyebrow">Sastha Ayyanar Modern Rice Mill's</p>
+        <h1 class="display" data-i="hero.title" data-split>Kilimark rice, milled in Madurai.</h1>
+        <p class="lead" data-i="hero.lead">Ponni, double boiled and idli rice, milled and packed in-house at our Madurai mill. We supply retailers, wholesalers and hotels across Tamil Nadu and beyond, with consistent quality in every sack.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#rice"><span data-i="cta.explore">See our rice</span><svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="stage" id="stage" role="img" aria-label="Kilimark rice sacks of Nei Kichadi, Rajabogam and Atchaya Ponni, set in a heap of rice">
+          <span class="hp l" data-depth="0.058"><img src="assets/img/packs2/nei-kichadi-red.webp" alt=""></span>
+          <span class="hp r" data-depth="0.062"><img src="assets/img/packs2/atchaya-ponni-blue.webp" alt=""></span>
+          <span class="hp c" data-depth="0.064"><img src="assets/img/packs2/rajabogam-green.webp" alt=""></span>
+          <img class="heap" src="assets/img/heap.webp" alt="" aria-hidden="true">
+        </div>
+        <div class="stamp" id="stamp" aria-label="Since 1998, Madurai"><div><span class="s1" data-i="stamp.1">Since</span><b>1998</b><span class="s3" data-i="stamp.3">Madurai</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="proof-wrap">
+    <div class="wrap">
+      <section class="proof" id="proof" aria-label="Kilimark in numbers">
+        <div class="stat"><span class="k" data-i="st1.k">In Madurai</span><div class="num"><b data-count="28">28</b><i data-i="st1.u">years</i></div><p data-i="st1.p">Started as a rice shop in Thathaneri.</p></div>
+        <div class="stat"><span class="k" data-i="st2.k">Milled every day</span><div class="num"><b data-count="90" data-suffix="+">90+</b><i data-i="st2.u">tonnes</i></div><p data-i="st2.p">Automated since 2012, so volume never costs consistency.</p></div>
+        <div class="stat"><span class="k" data-i="st3.k">Pack sizes</span><div class="num"><b>5–26</b><i>kg</i></div><p data-i="st3.p">From a family's monthly bag to a hotel's daily sack.</p></div>
+        <div class="stat gold">
+          <span class="k" data-i="st4.k">Government of India</span>
+          <div><div class="num" style="margin-top:0"><b data-i="st4.b">ZED Gold</b></div><p data-i="st4.p">The top MSME rating for quality and zero waste, awarded in 2024.</p></div>
+          <div class="chips-row"><span class="mini" data-i="st4.c1">FSSAI licensed</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <section class="section" id="rice">
+    <span class="glow r blue" aria-hidden="true"></span>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i="rice.eyebrow">Products</p>
+        <h2 class="h2" data-i="rice.title" data-split>Four brands, one quality standard.</h2>
+        <p class="lead" data-i="rice.lead" data-reveal>Kilimark, Ammu, Sastha Gold and Super Gold rice, all milled and packed at our own mill. Supplied in 5 to 26 kg sacks for retail, wholesale and food service.</p>
+        <div class="brands" data-reveal><span data-i="brands.k">Our brands</span><img src="assets/img/brand/kilimark-badge.webp" alt="Kilimark"><img src="assets/img/brand/ammu-logo.webp" alt="Ammu"><img src="assets/img/brand/sastha-gold-logo.webp" alt="Sastha Gold"><img src="assets/img/brand/super-gold-logo.webp" alt="Super Gold" class="tall"></div>
+      </div>
+      <div class="range" id="range">
+        <article class="prod" data-rice="atchaya" data-reveal><div class="shot"><img src="assets/img/packs2/atchaya-ponni-blue.webp" alt="Kilimark Atchaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r1.tag">Kilimark · Ponni</span><h3 data-i="r1.name">Atchaya Ponni</h3><span class="alt" data-alt="r1">அட்சயா பொன்னி</span><p class="best" data-i="r1.best">Soft, separate grains for everyday meals.</p><div class="sizes"><span>5 kg</span><span>10 kg</span><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="nei" data-reveal style="--d:80ms"><div class="shot"><img src="assets/img/packs2/nei-kichadi-red.webp" alt="Kilimark Nei Kichadi sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r4.tag">Kilimark · Boiled rice</span><h3 data-i="r4.name">Nei Kichadi</h3><span class="alt" data-alt="r4">நெய் கிச்சடி</span><p class="best" data-i="r4.best">Short grains for biryani, ghee rice and kichadi.</p><div class="sizes"><span>5 kg</span><span>10 kg</span><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="rajabogam" data-reveal style="--d:160ms"><div class="shot"><img src="assets/img/packs2/rajabogam-green.webp" alt="Kilimark Rajabogam rice sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r3.tag">Kilimark · Aged, double boiled</span><h3 data-i="r3.name">Rajabogam Old Rice</h3><span class="alt" data-alt="r3">ராஜபோகம் பழைய அரிசி</span><p class="best" data-i="r3.best">Aged Ponni that cooks firmer and fluffier. Our premium sack.</p><div class="sizes"><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="ammu" data-reveal><div class="shot"><img src="assets/img/packs2/ammu-idly.webp" alt="Ammu Idly Rice sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r5.tag">Ammu · Idli rice</span><h3 data-i="r5.name">Ammu Idli Rice</h3><span class="alt" data-alt="r5">அம்மு இட்லி அரிசி</span><p class="best" data-i="r5.best">Soaks evenly and ferments well, for soft idli and crisp dosa.</p><div class="sizes"><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="sastha" data-reveal style="--d:80ms"><div class="shot"><img src="assets/img/packs2/sastha-gold-yellow.webp" alt="Sastha Gold Atchaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r2.tag">Sastha Gold · Ponni</span><h3 data-i="r2.name">Sastha Gold Atchaya Ponni</h3><span class="alt" data-alt="r2">சாஸ்தா கோல்ட் அட்சயா பொன்னி</span><p class="best" data-i="r2.best">Atchaya Ponni under our Sastha Gold label.</p><div class="sizes"><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="supergold" data-reveal style="--d:160ms"><div class="shot logo-shot"><img src="assets/img/brand/super-gold-logo.webp" alt="Super Gold logo" loading="lazy"><em data-i="ph.pack">Pack photo to come</em></div><div class="info"><span class="tag" data-i="r7.tag">Super Gold</span><h3 data-i="r7.name">Super Gold</h3><span class="alt" data-alt="r7">சூப்பர் கோல்ட்</span><p class="best" data-i="r7.best">Variety and pack details to be added.</p><div class="sizes"><span data-i="sz.ask">Sizes on request</span></div></div></article>
+      </div>
+      <div class="range-foot" data-reveal>
+        <p data-i="rice.foot">Pricing depends on volume and frequency. Double boiled and broken rice are also available in bulk.</p>
+        <a class="btn" href="#enquire"><span data-i="cta.prices">Ask for prices</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <p class="src-note" data-i="rice.note">Pack artwork supplied by Kilimark. Super Gold pack photo to come.</p>
+    </div>
+  </section>
+  <section class="section band" id="quality">
+    <img class="deco d-feathers" src="assets/img/deco-feathers.svg" alt="" aria-hidden="true" data-drift="0.04" style="--w:210px; right:6%; top:28px;">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i="q.eyebrow">Quality</p>
+        <h2 class="h2" data-i="q.title" data-split>White, fluffy and never sticky.</h2>
+        <p class="lead" data-i="q.lead" data-reveal>That's what our customers ask rice to be. So that's what we check for, batch after batch.</p>
+      </div>
+      <div class="qgrid">
+        <div class="q" data-stage><span class="seal"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="4.5" ry="8.5"/><path d="M12 5v14"/></svg></span><h3 data-i="q1.h">Paddy checked at the gate</h3><p data-i="q1.p">Good rice can't be made from poor paddy. We reject it before it enters the mill.</p></div>
+        <div class="q" data-stage style="--d:120ms"><span class="seal"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><h3 data-i="q2.h">Rated ZED Gold</h3><p data-i="q2.p">The Government of India's highest MSME rating for quality and zero waste, earned in 2024.</p></div>
+        <div class="q" data-stage style="--d:240ms"><span class="seal"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"/><path d="M5 19l7-7"/></svg></span><h3 data-i="q3.h">FSSAI licensed</h3><p data-i="q3.p">Every sack is milled and packed under a food safety licence.</p></div>
+      </div>
+      <div class="qc" data-stage>
+        <div class="img"><img src="assets/img/rice-sack.jpg" alt="Rice in an open sack with a scoop" loading="lazy"></div>
+        <div class="txt">
+          <h3 class="h3s" data-i="qc.h">Before a sack is stitched, we check</h3>
+          <ul class="checks">
+            <li style="--i:0"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg><span data-i="qc.1">That the grains are clean: no stones, husk or dust</span></li>
+            <li style="--i:1"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg><span data-i="qc.2">That colour and grain size match the last batch</span></li>
+            <li style="--i:2"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg><span data-i="qc.3">That it cooks white and fluffy, and stays non-sticky for hours</span></li>
+            <li style="--i:3"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg><span data-i="qc.4">That every sack weighs what it says</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section process" id="process">
+    <span class="glow l sun" aria-hidden="true"></span>
+    <img class="deco grains" src="assets/img/deco-grains.svg" alt="" aria-hidden="true" data-drift="0.05" style="--w:280px; left:-60px; bottom:24px;">
+    <img class="deco grains flip" src="assets/img/deco-grains.svg" alt="" aria-hidden="true" data-drift="0.05" style="--w:280px; right:-60px; top:40px;">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i="proc.eyebrow">Paddy to pack</p>
+        <h2 class="h2" data-i="proc.title" data-split>How paddy becomes Kilimark rice.</h2>
+        <p class="lead" data-i="proc.lead" data-reveal>We buy only paddy that passes our check. It is cleaned, parboiled and dried, then milled, sorted and packed by machine. The same steps and the same settings, every day.</p>
+      </div>
+      <div class="mill" data-stage>
+        <div class="mill-ph has-media"><video id="millVid" autoplay muted loop playsinline preload="metadata" poster="assets/img/mill-poster.jpg" aria-label="Footage from our mill: paddy arriving, milling, sorting and Kilimark sacks being packed"><source src="assets/img/mill-loop.mp4" type="video/mp4"></video><span class="cap" data-i="mill.cap">Inside our mill, Madurai</span></div>
+        <div class="mill-info">
+          <span class="tag" data-i="mill.tag">Our mill</span>
+          <h3 data-i="mill.h">One mill. Every sack.</h3>
+          <p data-i="mill.p">Every grain of Kilimark rice is milled, checked and packed here, at our own mill in Madurai.</p>
+          <dl class="mill-facts">
+            <div><dt data-i="mill.k1">Registered as</dt><dd data-i="mill.v1">Sastha Ayyanar Modern Rice Mill</dd></div>
+            <div><dt data-i="mill.k2">Location</dt><dd data-i="mill.v2">46/3, Chintamani Road, Rajaman Nagar, Madurai 625009</dd></div>
+            <div><dt data-i="mill.k3">Capacity</dt><dd data-i="mill.v3">90+ tonnes of paddy a day</dd></div>
+            <div><dt data-i="mill.k4">Machinery</dt><dd data-i="mill.v4">Automated since 2012</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section story" id="story">
+    <div class="wrap">
+      <div class="story-media">
+        <figure class="ph-shot wide"><div class="ph-in"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><b data-i="ph1.t">The first shop, Thathaneri</b><span data-i="ph1.s">An archive photo from the 1990s, or the shop counter as it is today.</span></div><em data-i="ph.tag">Photo to come</em></figure>
+        <figure class="ph-shot"><div class="ph-in"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><b data-i="ph2.t">P. T. Janakiraman</b><span data-i="ph2.s">Portrait of the founder at the mill or the shop.</span></div><em data-i="ph.tag">Photo to come</em></figure>
+        <figure class="ph-shot"><div class="ph-in"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><b data-i="ph3.t">Father and son</b><span data-i="ph3.s">P. T. Janakiraman and Himalesh together at the mill.</span></div><em data-i="ph.tag">Photo to come</em></figure>
+      </div>
+      <div class="story-text">
+        <div class="story-head">
+          <p class="eyebrow" data-i="story.eyebrow">Our story</p>
+          <h2 class="h2" data-i="story.title" data-split>He sold rice for years before he milled any.</h2>
+        </div>
+        <div class="story-body">
+        <p class="lead" data-i="story.lead" data-reveal>P. T. Janakiraman started behind the counter of a rice shop in Thathaneri, listening to what families expected from every sack. In 1998 he began milling to deliver exactly that.</p>
+        <ol class="timeline" id="timeline">
+          <li><span class="yr">1996</span><div class="ev"><b data-i="tl1.b">PTJ Rice Mill Depot opens</b><span data-i="tl1.s">A rice shop in Thathaneri, Madurai. Still open today.</span></div></li>
+          <li><span class="yr">1998</span><div class="ev"><b data-i="tl2.b">Kilimark begins</b><span data-i="tl2.s">From trader to miller, with no milling legacy to inherit.</span></div></li>
+          <li><span class="yr">2012</span><div class="ev"><b data-i="tl3.b">The mill goes automatic</b><span data-i="tl3.s">Machines take over the heavy manual work, and every batch comes out the same.</span></div></li>
+          <li><span class="yr">2018</span><div class="ev"><b data-i="tl4.b">Supplying beyond Tamil Nadu</b><span data-i="tl4.s">Kilimark reaches buyers across state borders.</span></div></li>
+          <li><span class="yr">2024</span><div class="ev"><b data-i="tl5.b">Rated ZED Gold</b><span data-i="tl5.s">India's highest MSME rating for quality and zero waste.</span></div></li>
+        </ol>
+        <div class="philosophy" data-reveal>
+          <p data-i="story.quote">Source carefully. Process responsibly. Deliver consistently.</p>
+          <small data-i="story.quoteby">How we've worked since 1998</small>
+        </div>
+        <p class="family" data-i="story.family" data-reveal>Today he runs the mill with his son, Himalesh, who joined after his MBA to take Kilimark beyond Madurai.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section mark-s" id="mark">
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <p class="eyebrow" data-i="mk.eyebrow">Why a parrot</p>
+          <h2 class="h2" data-i="mk.title" data-split>A parrot never changes its word.</h2>
+          <p class="lead" data-i="mk.lead" data-reveal>In Madurai, the green parrot in Goddess Meenakshi's hand is said to carry devotees' prayers to her, word for word. That parrot is on every Kilimark sack. It stands for three things we will not change.</p>
+          <svg class="kolam" viewBox="0 0 520 40" aria-hidden="true" id="kolam"></svg>
+        </div>
+        <div class="mark-media">
+          <div class="big"><img src="assets/img/temple-gopuram.jpg" alt="A gopuram of the Meenakshi Amman Temple, Madurai, rising against the sky" loading="lazy" data-parallax="0.08"><span class="credit">Photo: Ashwin Kumar, CC BY-SA 2.0</span></div>
+          <div class="small" id="parrotSmall"><img src="assets/img/parrot.jpg" alt="A rose-ringed parakeet" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="pillars">
+        <div class="pillar" data-reveal><span class="no" data-i="p1.no">Tradition</span><h3 data-i="p1.h">Rooted in Madurai.</h3><p data-i="p1.p">The parrot of our city's goddess, on rice milled in our city since 1998.</p></div>
+        <div class="pillar" data-reveal style="--d:120ms"><span class="no" data-i="p2.no">Trust</span><h3 data-i="p2.h">It carries your word.</h3><p data-i="p2.p">What we promise across the counter is what reaches your kitchen. No surprises in the sack.</p></div>
+        <div class="pillar" data-reveal style="--d:240ms"><span class="no" data-i="p3.no">Consistency</span><h3 data-i="p3.h">It repeats, exactly.</h3><p data-i="p3.p">A parrot repeats what it hears. Every Kilimark sack repeats the last one.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="pick">
+    <div class="wrap pick">
+      <div class="pick-copy">
+        <p class="eyebrow" data-i="pick.eyebrow">Pick your rice</p>
+        <h2 class="h2" data-i="pick.title" data-split>Pick the dish. We'll pick the rice.</h2>
+        <p class="lead" data-i="pick.lead" data-reveal>Idli needs rice that ferments. Biryani needs grains that stay apart. Tell us what you're cooking.</p>
+        <div class="chips" id="chips" role="group" aria-label="Dishes" data-reveal>
+          <span class="chip-ind" id="chipInd" aria-hidden="true"></span>
+          <button class="chip" type="button" data-dish="meals" aria-pressed="true" data-i="dish.meals">Everyday meals</button>
+          <button class="chip" type="button" data-dish="idli" aria-pressed="false" data-i="dish.idli">Idli and dosa</button>
+          <button class="chip" type="button" data-dish="biryani" aria-pressed="false" data-i="dish.biryani">Biryani</button>
+          <button class="chip" type="button" data-dish="kanji" aria-pressed="false" data-i="dish.kanji">Kanji and pongal</button>
+        </div>
+      </div>
+      <div class="result" id="result" aria-live="polite" data-reveal style="--d:120ms">
+        <div class="r-shot" id="rShot"><img id="rImg" src="assets/img/packs/atchaya-ponni.jpg" alt=""></div>
+        <div class="r-info" id="rInfo">
+          <span class="r-for" id="rFor">For everyday meals</span>
+          <h3 id="rName">Atchaya Ponni</h3>
+          <p class="r-why" id="rWhy">Soft grains that stay separate and don't clump, meal after meal.</p>
+          <p class="r-also" id="rAlso"></p>
+          <a class="link" href="#enquire" id="rCta"><span id="rCtaT">Enquire about Atchaya Ponni</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section voices" id="voices">
+    <span class="glow r blue" aria-hidden="true"></span>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i="v.eyebrow">Our customers</p>
+        <h2 class="h2" data-i="v.title" data-split>Customer testimonials</h2>
+      </div>
+      <div class="v-grid">
+        <figure class="v-card" data-reveal><span class="v-tag" data-i="v.tag">Placeholder</span><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v1.q"></blockquote><figcaption class="v-who"><span class="v-av">S</span><span><b data-i="v.name">Name to be added</b><span data-i="v1.role"></span></span></figcaption></figure>
+        <figure class="v-card lift" data-reveal style="--d:100ms"><span class="v-tag" data-i="v.tag">Placeholder</span><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v2.q"></blockquote><figcaption class="v-who"><span class="v-av">H</span><span><b data-i="v.name">Name to be added</b><span data-i="v2.role"></span></span></figcaption></figure>
+        <figure class="v-card" data-reveal style="--d:200ms"><span class="v-tag" data-i="v.tag">Placeholder</span><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v3.q"></blockquote><figcaption class="v-who"><span class="v-av">M</span><span><b data-i="v.name">Name to be added</b><span data-i="v3.role"></span></span></figcaption></figure>
+      </div>
+      <p class="src-note" data-i="v.note">Placeholder quotes. Real ones will come from Kilimark's customers.</p>
+    </div>
+  </section>
+  <section class="section band" id="stores">
+    <span class="glow l leaf" aria-hidden="true"></span>
+    <div class="wrap">
+      <div class="section-head wide">
+        <p class="eyebrow" data-i="sto.eyebrow">Visit us</p>
+        <h2 class="h2" data-i="sto.title" data-split>Two stores in Madurai. Both ours.</h2>
+        <p class="lead" data-i="sto.lead" data-reveal>Buy by the bag or the sack, straight from the mill.</p>
+      </div>
+      <div class="stores">
+        <article class="store" data-stage>
+          <div class="s-photo"><img src="assets/img/store-thathaneri.jpg" alt="PTJ Rice Mill Depot, Thathaneri: the shopfront with rice sacks at the entrance" loading="lazy" style="object-position:50% 40%"></div>
+          <div class="s-body">
+            <span class="s-chip" data-i="sto1.chip"></span>
+            <h3 data-i="sto1.area"></h3>
+            <p class="s-name" data-i="sto1.name"></p>
+            <dl class="s-facts">
+              <div><dt data-i="sto.lm">Landmark</dt><dd class="tbc" data-i="sto.tbc">To be added</dd></div>
+              <div><dt data-i="sto.hrs">Open</dt><dd class="tbc" data-i="sto.tbc2">Hours to be added</dd></div>
+            </dl>
+            <a class="btn sm s-cta" href="https://maps.app.goo.gl/4bEenXoBZAM8mZDP7" target="_blank" rel="noopener"><svg class="ic"><use href="#i-nav"/></svg><span data-i="sto.dir">Get directions</span></a>
+          </div>
+        </article>
+        <article class="store" data-stage style="--d:120ms">
+          <div class="s-photo"><div class="s-ph" data-i="sto.photo">Store photo coming</div></div>
+          <div class="s-body">
+            <span class="s-chip" data-i="sto2.chip"></span>
+            <h3 data-i="sto2.area"></h3>
+            <p class="s-name" data-i="sto2.name"></p>
+            <dl class="s-facts">
+              <div><dt data-i="sto.lm">Landmark</dt><dd class="tbc" data-i="sto.tbc">To be added</dd></div>
+              <div><dt data-i="sto.hrs">Open</dt><dd class="tbc" data-i="sto.tbc2">Hours to be added</dd></div>
+            </dl>
+            <a class="btn sm s-cta" href="https://share.google/C72xj38U9pqHQQWn0" target="_blank" rel="noopener"><svg class="ic"><use href="#i-nav"/></svg><span data-i="sto.dir">Get directions</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section enq" id="enquire">
+    <span class="glow r sun" aria-hidden="true"></span>
+    <div class="wrap enq-grid">
+      <div class="enq-copy">
+        <p class="eyebrow" data-i="e.eyebrow">Enquire</p>
+        <h2 class="h2" data-i="e.title" data-split>Tell us what you need.</h2>
+        <p class="lead" data-i="e.lead" data-reveal></p>
+        <ol class="next" data-reveal>
+          <li><b>1</b><span data-i="e.next1"></span></li>
+          <li><b>2</b><span data-i="e.next2"></span></li>
+          <li><b>3</b><span data-i="e.next3"></span></li>
+        </ol>
+        <p class="walk" data-reveal><span data-i="e.call">Prefer to call?</span> <a class="link" href="tel:+917010138130">+91 70101 38130</a></p>
+        <p class="walk" data-reveal style="margin-top:10px"><span data-i="e.walk"></span> <a class="link" href="#stores"><span data-i="e.walkL"></span><svg class="ic"><use href="#i-arrow"/></svg></a></p>
+      </div>
+      <form class="form open" id="form" novalidate data-reveal style="--d:120ms">
+        <div class="field" id="f-name"><label for="name" data-i="f.name">Your name</label><input id="name" name="name" autocomplete="name"><span class="err" data-i="f.nameErr">Enter your name</span></div>
+        <div class="field" id="f-phone"><label for="phone" data-i="f.phone">Phone</label><input id="phone" name="phone" inputmode="numeric" autocomplete="tel" placeholder="98765 43210"><span class="err" data-i="f.phoneErr">Enter a 10-digit mobile number</span></div>
+        <fieldset class="field fs"><legend data-i="f.who">You are</legend>
+          <div class="who">
+            <input type="radio" name="who" id="w1" value="retailer" checked><label for="w1" data-i="o.retailer">A retailer</label>
+            <input type="radio" name="who" id="w2" value="wholesaler"><label for="w2" data-i="o.wholesaler">A wholesaler</label>
+            <input type="radio" name="who" id="w3" value="hotel"><label for="w3" data-i="o.hotel">A hotel or caterer</label>
+            <input type="radio" name="who" id="w4" value="home"><label for="w4" data-i="o.home">Buying for home</label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="riceSel" data-i="f.rice">Rice you need</label>
+          <select id="riceSel" name="rice"><option data-i="r1.name">Atchaya Ponni</option><option data-i="r2.name">Sastha Gold Atchaya Ponni</option><option data-i="r3.name">Rajabogam Old Rice</option><option data-i="r4.name">Nei Kichadi</option><option data-i="r5.name">Ammu Idli Rice</option><option data-i="r6.name">Broken Rice</option><option data-i="r7.name">Super Gold</option><option data-i="o.notsure">Not sure yet</option></select></div>
+        <div class="field"><label for="msg" data-i="f.msg">How much, and how often?</label><textarea id="msg" name="msg" data-ph="f.msgPh" placeholder="For example: 50 sacks of Atchaya Ponni every month"></textarea></div>
+        <div class="form-foot">
+          <button class="btn" type="submit"><span data-i="f.send">Send enquiry</span><svg class="ic"><use href="#i-arrow"/></svg></button>
+          <small data-i="f.note">Prototype: nothing is sent.</small>
+        </div>
+        <div class="done" id="done" hidden>
+          <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/><path d="M10.5 16.5l4 4 7-8"/></svg>
+          <b id="doneTitle"></b><span data-i="f.done">This is a prototype, so nothing was sent. On the live site, our office calls or emails you back.</span>
+        </div>
+      </form>
+    </div>
+    <div class="crop" aria-hidden="true"><img class="cf" src="assets/img/field-line.svg" alt=""></div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div><a class="ftr-logo" href="#top" aria-label="Kilimark home"><img src="assets/img/brand/kilimark-logo.webp" alt="Kilimark since 1998"></a></div>
+    <div><h4 data-i="ft.explore">Explore</h4><a href="#rice" data-i="nav.rice">Our rice</a><a href="#quality" data-i="nav.quality">Quality</a><a href="#process" data-i="nav.process">How it's made</a><a href="#story" data-i="nav.story">Our story</a></div>
+    <div><h4 data-i="ft.visit">Visit</h4><a href="#stores" data-i="ft.s1">Thathaneri store</a><a href="#stores" data-i="ft.s2">S. Alangulam store</a><a href="#enquire" data-i="cta.enquire">Enquire</a><a href="tel:+917010138130"><span data-i="ft.call">Call</span> +91 70101 38130</a></div>
+    <div><h4 data-i="ft.lang">Language</h4><a href="#top" data-setlang="en">English</a><a href="#top" data-setlang="ta" lang="ta">தமிழ்</a></div>
+    <div class="legal"><span data-i="ft.legal">© 2026 Sastha Ayyanar Modern Rice Mill. Kilimark is our brand, since 1998.</span><span data-i="ft.proto">Prototype by PTJ. Some photos are stand-ins.</span></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const RM = () => reduce.matches;
+  const hiddenBoot = document.visibilityState === 'hidden';
+  const ENTER = () => !RM() && !hiddenBoot;
+
+  /* Spring: damping ratio + response. Animates from the current value and keeps velocity on re-target. */
+  function makeSpring(apply, { damping = 1, response = 0.4, value = 0 } = {}) {
+    const s = { value, velocity: 0, target: value, raf: 0, damping, response };
+    const tick = (last) => (now) => {
+      const dt = Math.min(0.064, (now - last) / 1000);
+      const k = Math.pow(2 * Math.PI / s.response, 2), c = 4 * Math.PI * s.damping / s.response;
+      const n = Math.max(1, Math.ceil(dt / 0.004)), h = dt / n;
+      for (let i = 0; i < n; i++) { const a = -k * (s.value - s.target) - c * s.velocity; s.velocity += a * h; s.value += s.velocity * h; }
+      apply(s.value);
+      const eps = Math.max(0.005, Math.abs(s.target) * 0.0005);
+      if (Math.abs(s.velocity) < eps * 20 && Math.abs(s.value - s.target) < eps * 10) { s.value = s.target; s.velocity = 0; apply(s.value); s.raf = 0; return; }
+      s.raf = requestAnimationFrame(tick(now));
+    };
+    s.to = (target, o = {}) => {
+      s.target = target;
+      if (o.velocity !== undefined) s.velocity = o.velocity;
+      s.damping = o.damping ?? damping; s.response = o.response ?? response;
+      if (RM() || document.visibilityState === 'hidden') { s.stop(); s.value = target; s.velocity = 0; apply(target); return; }
+      if (!s.raf) s.raf = requestAnimationFrame((t) => { s.raf = requestAnimationFrame(tick(t)); });
+    };
+    s.set = (v) => { s.stop(); s.value = v; s.target = v; s.velocity = 0; apply(v); };
+    s.stop = () => { cancelAnimationFrame(s.raf); s.raf = 0; };
+    return s;
+  }
+  const project = (v, d = 0.998) => (v / 1000) * d / (1 - d);
+  const rubber = (o, dim, c = 0.55) => (o * dim * c) / (dim + c * Math.abs(o));
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+  /* Copy (English / Tamil). Tamil is a working translation for client review. */
+  const T = {
+    "nav.rice":["Our rice", "எங்கள் அரிசி"],
+    "nav.quality":["Quality", "தரம்"],
+    "nav.process":["How it's made", "தயாரிப்பு முறை"],
+    "nav.story":["Our story", "எங்கள் கதை"],
+    "nav.pick":["Pick your rice", "அரிசி தேர்வு"],
+    "nav.stores":["Stores", "கடைகள்"],
+    "nav.contact":["Contact", "தொடர்புக்கு"],
+    "cta.enquire":["Enquire", "விசாரியுங்கள்"],
+    "cta.explore":["See our rice", "அரிசி வகைகளைப் பாருங்கள்"],
+    "hero.eyebrow":["Sastha Ayyanar Modern Rice Mill's", "சாஸ்தா அய்யனார் மாடர்ன் ரைஸ் மில்லின்"],
+    "hero.title":["Kilimark rice, milled in Madurai.", "கிளிமார்க் அரிசி. மதுரையில் எங்கள் ஆலையிலிருந்து."],
+    "hero.lead":["Ponni, double boiled and idli rice, milled and packed in-house at our Madurai mill. We supply retailers, wholesalers and hotels across Tamil Nadu and beyond, with consistent quality in every sack.", "பொன்னி, டபுள் பாயில்டு, இட்லி அரிசி. மதுரையில் உள்ள எங்கள் ஆலையிலேயே அரைத்து, பேக் செய்கிறோம். தமிழ்நாடு முழுவதும், அதற்கு அப்பாலும் உள்ள சில்லறை வியாபாரிகள், மொத்த வியாபாரிகள், ஹோட்டல்களுக்கு, ஒவ்வொரு மூட்டையிலும் ஒரே தரத்துடன் வழங்குகிறோம்."],
+    "hero.sig":["From Madurai. Built on Trust.", "மதுரையிலிருந்து, நம்பிக்கையுடன்."],
+    "stamp.1":["Since", "மதுரை"],
+    "stamp.3":["Madurai", "முதல்"],
+    "st1.k":["In Madurai", "மதுரையில்"],
+    "st1.u":["years", "ஆண்டுகள்"],
+    "st1.p":["Started as a rice shop in Thathaneri.", "தத்தனேரியில் ஒரு அரிசிக் கடையாகத் தொடங்கியது."],
+    "st2.k":["Milled every day", "தினசரி அரவை"],
+    "st2.u":["tonnes", "டன்"],
+    "st2.p":["Automated since 2012, so volume never costs consistency.", "2012 முதல் இயந்திர அரவை. எவ்வளவு அரைத்தாலும் தரம் குறையாது."],
+    "st3.k":["Pack sizes", "மூட்டை அளவுகள்"],
+    "st3.p":["From a family's monthly bag to a hotel's daily sack.", "வீட்டுக்கு மாதம் ஒரு பை முதல், ஹோட்டலுக்கு தினம் ஒரு மூட்டை வரை."],
+    "st4.k":["Government of India", "இந்திய அரசு"],
+    "st4.b":["ZED Gold", "ZED Gold"],
+    "st4.p":["The top MSME rating for quality and zero waste, awarded in 2024.", "தரத்துக்கும் கழிவில்லா உற்பத்திக்கும் MSME வழங்கும் மிக உயர்ந்த சான்று. 2024-இல் பெற்றோம்."],
+    "st4.c1":["FSSAI licensed", "FSSAI உரிமம் பெற்றது"],
+    "rice.eyebrow":["Products", "எங்கள் தயாரிப்புகள்"],
+    "rice.title":["Four brands, one quality standard.", "நான்கு பிராண்டுகள், ஒரே தரம்."],
+    "rice.lead":["Kilimark, Ammu, Sastha Gold and Super Gold rice, all milled and packed at our own mill. Supplied in 5 to 26 kg sacks for retail, wholesale and food service.", "கிளிமார்க், அம்மு, சாஸ்தா கோல்ட், சூப்பர் கோல்ட் அரிசி வகைகள் அனைத்தும் எங்கள் ஆலையிலேயே அரைத்து பேக் செய்யப்படுகின்றன. சில்லறை விற்பனை, மொத்த விற்பனை, உணவகங்களுக்கு 5 முதல் 26 கிலோ மூட்டைகளில் வழங்குகிறோம்."],
+    "r1.tag":["Kilimark · Ponni", "கிளிமார்க் · பொன்னி"],
+    "r1.name":["Atchaya Ponni", "அட்சயா பொன்னி"],
+    "r1.best":["Soft, separate grains for everyday meals.", "தினசரி சாப்பாட்டுக்கு. சாதம் மிருதுவாக, மணி மணியாக வரும்."],
+    "r2.tag":["Sastha Gold · Ponni", "சாஸ்தா கோல்ட் · பொன்னி"],
+    "r2.name":["Sastha Gold Atchaya Ponni", "சாஸ்தா கோல்ட் அட்சயா பொன்னி"],
+    "r2.best":["Atchaya Ponni under our Sastha Gold label.", "எங்கள் சாஸ்தா கோல்ட் பெயரில் அட்சயா பொன்னி."],
+    "r3.tag":["Kilimark · Aged, double boiled", "கிளிமார்க் · பழைய அரிசி, டபுள் பாயில்டு"],
+    "r3.name":["Rajabogam Old Rice", "ராஜபோகம் பழைய அரிசி"],
+    "r3.best":["Aged Ponni that cooks firmer and fluffier. Our premium sack.", "பழைய பொன்னி அரிசி. சாதம் இன்னும் மணி மணியாக வரும். எங்கள் சிறப்பு ரகம்."],
+    "r4.tag":["Kilimark · Boiled rice", "கிளிமார்க் · புழுங்கல் அரிசி"],
+    "r4.name":["Nei Kichadi", "நெய் கிச்சடி"],
+    "r4.best":["Short grains for biryani, ghee rice and kichadi.", "பிரியாணி, நெய் சோறு, கிச்சடிக்கு ஏற்ற சின்ன மணி அரிசி."],
+    "r5.tag":["Ammu · Idli rice", "அம்மு · இட்லி அரிசி"],
+    "r5.name":["Ammu Idli Rice", "அம்மு இட்லி அரிசி"],
+    "r5.best":["Soaks evenly and ferments well, for soft idli and crisp dosa.", "சீராக ஊறி, நன்றாகப் புளிக்கும். இட்லி பஞ்சு போல, தோசை மொறுமொறுவென வரும்."],
+    "r6.tag":["Broken", "நொய்"],
+    "r6.name":["Broken Rice", "நொய் அரிசி"],
+    "r6.best":["Cooks soft and quick. For kanji, upma and pongal.", "சீக்கிரம் வெந்து குழைவாக வரும். கஞ்சி, உப்புமா, பொங்கலுக்கு."],
+    "ph.photo":["Pack photo coming", "மூட்டைப் படம் விரைவில்"],
+    "sz.ask":["Sizes on request", "அளவுகளுக்குக் கேளுங்கள்"],
+    "sz.bulk":["Loose and bulk", "சில்லறையாகவும் மொத்தமாகவும்"],
+    "rice.foot":["Pricing depends on volume and frequency. Double boiled and broken rice are also available in bulk.", "விலை, நீங்கள் வாங்கும் அளவையும் எத்தனை முறை வாங்குகிறீர்கள் என்பதையும் பொறுத்தது. டபுள் பாயில்டு, நொய் அரிசியும் மொத்தமாகக் கிடைக்கும்."],
+    "cta.prices":["Ask for prices", "விலை கேளுங்கள்"],
+    "rice.note":["Pack artwork supplied by Kilimark. Super Gold pack photo to come.", "மூட்டைப் படங்கள் கிளிமார்க் வழங்கியவை. சூப்பர் கோல்ட் மூட்டைப் படம் விரைவில்."],
+    "story.eyebrow":["Our story", "எங்கள் கதை"],
+    "story.title":["He sold rice for years before he milled any.", "ஆலை தொடங்கும் முன்பே, பல ஆண்டுகள் அரிசி விற்றவர்."],
+    "story.lead":["P. T. Janakiraman started behind the counter of a rice shop in Thathaneri, listening to what families expected from every sack. In 1998 he began milling to deliver exactly that.", "தத்தனேரியில் ஒரு அரிசிக் கடையில்தான் பி. டி. ஜானகிராமன் தொடங்கினார். ஒவ்வொரு மூட்டையிலும் குடும்பங்கள் என்ன எதிர்பார்க்கிறார்கள் என்பதைக் கடையில் நின்றே தெரிந்துகொண்டார். அதைத் தருவதற்காகவே 1998-இல் சொந்த ஆலையைத் தொடங்கினார்."],
+    "tl1.b":["PTJ Rice Mill Depot opens", "பி.டி.ஜே ரைஸ் மில் டிப்போ திறப்பு"],
+    "tl1.s":["A rice shop in Thathaneri, Madurai. Still open today.", "மதுரை தத்தனேரியில் அரிசிக் கடை. இன்றும் இயங்குகிறது."],
+    "tl2.b":["Kilimark begins", "கிளிமார்க் பிறந்தது"],
+    "tl2.s":["From trader to miller, with no milling legacy to inherit.", "பரம்பரைத் தொழில் இல்லை. அரிசி வியாபாரியிலிருந்து ஆலை முதலாளி ஆனார்."],
+    "tl3.b":["The mill goes automatic", "ஆலை இயந்திரமயமானது"],
+    "tl3.s":["Machines take over the heavy manual work, and every batch comes out the same.", "கடின உடல் உழைப்பை இயந்திரங்கள் ஏற்றன. ஒவ்வொரு தொகுப்பும் ஒரே தரத்தில் வருகிறது."],
+    "tl4.b":["Supplying beyond Tamil Nadu", "தமிழ்நாட்டுக்கு அப்பாலும் விநியோகம்"],
+    "tl4.s":["Kilimark reaches buyers across state borders.", "மாநில எல்லைகளைத் தாண்டி கிளிமார்க் வாங்குபவர்களைச் சென்றடைகிறது."],
+    "tl5.b":["Rated ZED Gold", "ZED Gold சான்று"],
+    "tl5.s":["India's highest MSME rating for quality and zero waste.", "தரத்துக்கும் கழிவில்லா உற்பத்திக்கும் இந்தியாவின் மிக உயர்ந்த MSME சான்று."],
+    "story.quote":["Source carefully. Process responsibly. Deliver consistently.", "நல்ல நெல்லைத் தேர்ந்தெடு. பொறுப்போடு அரை. எப்போதும் ஒரே தரம் கொடு."],
+    "story.quoteby":["How we've worked since 1998", "1998 முதல் நாங்கள் பின்பற்றும் வழி"],
+    "story.family":["Today he runs the mill with his son, Himalesh, who joined after his MBA to take Kilimark beyond Madurai.", "இன்று, எம்.பி.ஏ முடித்துவிட்டு வந்த மகன் ஹிமலேஷுடன் சேர்ந்து அவர் ஆலையை நடத்துகிறார். கிளிமார்க்கை மதுரைக்கு அப்பாலும் கொண்டு செல்வதே ஹிமலேஷின் இலக்கு."],
+    "q.eyebrow":["Quality", "தரம்"],
+    "q.title":["White, fluffy and never sticky.", "வெள்ளையாக, மணி மணியாக, ஒட்டாமல்."],
+    "q.lead":["That's what our customers ask rice to be. So that's what we check for, batch after batch.", "வாடிக்கையாளர்கள் அரிசியிடம் எதிர்பார்ப்பது இதைத்தான். அதனால்தான் ஒவ்வொரு தொகுப்பிலும் இதையே சரிபார்க்கிறோம்."],
+    "q1.h":["Paddy checked at the gate", "நெல் சோதனை வாசலிலேயே"],
+    "q1.p":["Good rice can't be made from poor paddy. We reject it before it enters the mill.", "தரமில்லாத நெல்லிலிருந்து நல்ல அரிசி வராது. அதனால் அப்படிப்பட்ட நெல்லை ஆலைக்குள்ளேயே விடுவதில்லை."],
+    "q2.h":["Rated ZED Gold", "ZED Gold சான்று"],
+    "q2.p":["The Government of India's highest MSME rating for quality and zero waste, earned in 2024.", "தரத்துக்கும் கழிவில்லா உற்பத்திக்கும் இந்திய அரசு வழங்கும் மிக உயர்ந்த MSME சான்று. 2024-இல் பெற்றோம்."],
+    "q3.h":["FSSAI licensed", "FSSAI உரிமம்"],
+    "q3.p":["Every sack is milled and packed under a food safety licence.", "ஒவ்வொரு மூட்டையும் உணவுப் பாதுகாப்பு உரிமத்தின் கீழ் அரைத்துக் கட்டப்படுகிறது."],
+    "qc.h":["Before a sack is stitched, we check", "மூட்டையைத் தைப்பதற்கு முன் சரிபார்ப்பவை"],
+    "qc.1":["That the grains are clean: no stones, husk or dust", "கல், உமி, தூசி எதுவும் இல்லாமல் சுத்தமாக இருக்கிறதா"],
+    "qc.2":["That colour and grain size match the last batch", "நிறமும் மணியின் அளவும் முந்தைய தொகுப்பைப் போலவே இருக்கிறதா"],
+    "qc.3":["That it cooks white and fluffy, and stays non-sticky for hours", "சாதம் வெள்ளையாக, மணி மணியாக வெந்து, பல மணி நேரம் ஒட்டாமல் இருக்கிறதா"],
+    "qc.4":["That every sack weighs what it says", "மூட்டையில் சொன்ன எடை சரியாக இருக்கிறதா"],
+    "proc.eyebrow":["Paddy to pack", "நெல்லிலிருந்து மூட்டை வரை"],
+    "proc.title":["How paddy becomes Kilimark rice.", "நெல், கிளிமார்க் அரிசியாக மாறுவது இப்படித்தான்."],
+    "proc.lead":["We buy only paddy that passes our check. It is cleaned, parboiled and dried, then milled, sorted and packed by machine. The same steps and the same settings, every day.", "எங்கள் சோதனையில் தேறிய நெல்லை மட்டுமே வாங்குகிறோம். அதைச் சுத்தம் செய்து, ஊறவைத்து அவித்து உலர்த்தி, இயந்திரத்தில் அரைத்து, தரம் பிரித்து, மூட்டை கட்டுகிறோம். தினமும் அதே படிகள், அதே அளவுகள்."],
+    "mill.photo":["Mill photo coming", "ஆலைப் படம் விரைவில்"],
+    "mill.tag":["Our mill", "எங்கள் ஆலை"],
+    "mill.h":["One mill. Every sack.", "ஒரே ஆலை. ஒவ்வொரு மூட்டையும் இங்கிருந்துதான்."],
+    "mill.p":["Every grain of Kilimark rice is milled, checked and packed here, at our own mill in Madurai.", "கிளிமார்க் அரிசியின் ஒவ்வொரு மணியும் மதுரையில் உள்ள எங்கள் சொந்த ஆலையில்தான் அரைக்கப்பட்டு, சரிபார்க்கப்பட்டு, மூட்டை கட்டப்படுகிறது."],
+    "mill.k1":["Registered as", "பதிவுப் பெயர்"],
+    "mill.v1":["Sastha Ayyanar Modern Rice Mill", "சாஸ்தா அய்யனார் மாடர்ன் ரைஸ் மில்"],
+    "mill.k2":["Location", "இடம்"],
+    "mill.v2":["46/3, Chintamani Road, Rajaman Nagar, Madurai 625009", "46/3, சிந்தாமணி சாலை, ராஜமான் நகர், மதுரை 625009"],
+    "mill.k3":["Capacity", "அரவைத் திறன்"],
+    "mill.v3":["90+ tonnes of paddy a day", "நாளொன்றுக்கு 90+ டன் நெல்"],
+    "mill.k4":["Machinery", "இயந்திரங்கள்"],
+    "mill.v4":["Automated since 2012", "2012 முதல் தானியங்கி"],
+    "s1.h":["Choose the paddy", "நெல் தேர்வு"],
+    "s1.p":["Our biggest quality check happens before milling. Paddy that doesn't meet our standard never enters the mill.", "எங்களின் முதல் தரச் சோதனை அரவைக்கு முன்பே நடக்கிறது. தரம் இல்லாத நெல் ஆலைக்குள் வருவதே இல்லை."],
+    "s2.h":["Clean and sort", "சுத்தம் செய்தல்"],
+    "s2.p":["Stones, husk and dust come out first, so none of it ends up in your sack.", "கல், உமி, தூசியை முதலிலேயே நீக்கிவிடுகிறோம். உங்கள் மூட்டையில் அவை சேராது."],
+    "s3.h":["Parboil and dry", "ஊறவைத்து, அவித்து, உலர்த்துதல்"],
+    "s3.p":["Soaked, steamed and dried so every grain stays firm and separate when cooked.", "சமைக்கும்போது ஒவ்வொரு மணியும் உடையாமல், தனித்தனியாக நிற்க இதுவே காரணம்."],
+    "s4.h":["Mill and polish", "அரவையும் பாலிஷும்"],
+    "s4.p":["Machines, not guesswork. Every batch is milled to the same setting.", "கைக் கணக்கு இல்லை, இயந்திரக் கணக்கு. ஒவ்வொரு தொகுப்பும் ஒரே அளவில் அரைக்கப்படுகிறது."],
+    "s5.h":["Pack and dispatch", "மூட்டை கட்டி அனுப்புதல்"],
+    "s5.p":["Weighed, packed and stitched in 5 to 26 kg sacks, ready for shops, hotels and homes.", "எடை பார்த்து, 5 முதல் 26 கிலோ மூட்டைகளில் தைத்து, கடைகளுக்கும் ஹோட்டல்களுக்கும் வீடுகளுக்கும் அனுப்புகிறோம்."],
+    "mk.eyebrow":["Why a parrot", "ஏன் கிளி?"],
+    "mk.title":["A parrot never changes its word.", "கிளி சொன்ன சொல் மாறாது."],
+    "mk.lead":["In Madurai, the green parrot in Goddess Meenakshi's hand is said to carry devotees' prayers to her, word for word. That parrot is on every Kilimark sack. It stands for three things we will not change.", "மீனாட்சி அம்மன் கையில் இருக்கும் பச்சைக் கிளி, பக்தர்களின் வேண்டுதலை ஒரு சொல்லும் மாறாமல் அம்மனிடம் சேர்க்கும் என்பது மதுரை மக்களின் நம்பிக்கை. அதே கிளிதான் ஒவ்வொரு கிளிமார்க் மூட்டையிலும். நாங்கள் ஒருபோதும் மாற்றாத மூன்று விஷயங்களை அது சொல்கிறது."],
+    "p1.no":["Tradition", "பாரம்பரியம்"],
+    "p1.h":["Rooted in Madurai.", "மதுரை மண்ணில் வேரூன்றியது."],
+    "p1.p":["The parrot of our city's goddess, on rice milled in our city since 1998.", "நம் ஊர் அம்மனின் கிளி, 1998 முதல் நம் ஊரிலேயே அரைக்கப்படும் அரிசியில்."],
+    "p2.no":["Trust", "நம்பிக்கை"],
+    "p2.h":["It carries your word.", "கொடுத்த வாக்கைக் காப்பது."],
+    "p2.p":["What we promise across the counter is what reaches your kitchen. No surprises in the sack.", "கடையில் என்ன சொல்கிறோமோ, அதுவே உங்கள் சமையலறைக்கு வரும். மூட்டையைத் திறந்தால் ஏமாற்றம் இருக்காது."],
+    "p3.no":["Consistency", "நிலைத்தன்மை"],
+    "p3.h":["It repeats, exactly.", "சொன்னதையே திரும்பச் சொல்வது."],
+    "p3.p":["A parrot repeats what it hears. Every Kilimark sack repeats the last one.", "கிளி கேட்டதையே திரும்பச் சொல்லும். ஒவ்வொரு கிளிமார்க் மூட்டையும் முந்தைய மூட்டையைப் போலவே இருக்கும்."],
+    "pick.eyebrow":["Pick your rice", "உங்களுக்கான அரிசி"],
+    "pick.title":["Pick the dish. We'll pick the rice.", "சமையலைச் சொல்லுங்கள். அரிசியை நாங்கள் சொல்கிறோம்."],
+    "pick.lead":["Idli needs rice that ferments. Biryani needs grains that stay apart. Tell us what you're cooking.", "இட்லிக்கு நன்றாகப் புளிக்கும் அரிசி வேண்டும். பிரியாணிக்கு உதிரியாக நிற்கும் அரிசி வேண்டும். இன்று என்ன சமைக்கிறீர்கள்?"],
+    "dish.meals":["Everyday meals", "தினசரி சாப்பாடு"],
+    "dish.idli":["Idli and dosa", "இட்லி, தோசை"],
+    "dish.biryani":["Biryani", "பிரியாணி"],
+    "dish.kanji":["Kanji and pongal", "கஞ்சி, பொங்கல்"],
+    "for.meals":["For everyday meals", "தினசரி சாப்பாட்டுக்கு"],
+    "for.idli":["For idli and dosa", "இட்லி, தோசைக்கு"],
+    "for.biryani":["For biryani", "பிரியாணிக்கு"],
+    "for.kanji":["For kanji and pongal", "கஞ்சி, பொங்கலுக்கு"],
+    "why.meals":["Soft grains that stay separate and don't clump, meal after meal.", "சாதம் மிருதுவாக, மணி மணியாக வரும். ஒட்டாது, கட்டியாகாது."],
+    "why.idli":["Soaks evenly and ferments well, so idlis come out soft and dosas crisp.", "சீராக ஊறி நன்றாகப் புளிக்கும். இட்லி பஞ்சு போல, தோசை மொறுமொறுவென வரும்."],
+    "why.biryani":["Short grains that soak up ghee and masala without breaking.", "சின்ன மணிகள், உடையாமல் நெய்யையும் மசாலாவையும் நன்றாக உள்வாங்கும்."],
+    "why.kanji":["Cooks soft and quick, just right for kanji, upma and pongal.", "சீக்கிரம் வெந்து குழைவாக வரும். கஞ்சி, உப்புமா, பொங்கலுக்கு ஏற்றது."],
+    "also.meals":["Cooking for a function? <b>Rajabogam Old Rice</b> cooks firmer.", "விசேஷ சமையலா? <b>ராஜபோகம் பழைய அரிசி</b> இன்னும் மணி மணியாக வரும்."],
+    "cta.about":["Enquire about {r}", "{r} பற்றி விசாரியுங்கள்"],
+    "sto.eyebrow":["Visit us", "நேரில் வாருங்கள்"],
+    "sto.title":["Two stores in Madurai. Both ours.", "மதுரையில் எங்களுக்கு இரண்டு கடைகள்."],
+    "sto.lead":["Buy by the bag or the sack, straight from the mill.", "ஆலையிலிருந்து நேரடியாக, பையாகவோ மூட்டையாகவோ வாங்கலாம்."],
+    "sto1.chip":["Our first store · 1996", "எங்கள் முதல் கடை · 1996"],
+    "sto1.area":["Thathaneri", "தத்தனேரி"],
+    "sto1.name":["PTJ Rice Mill Depot", "பி.டி.ஜே ரைஸ் மில் டிப்போ"],
+    "sto2.chip":["Second store", "இரண்டாவது கடை"],
+    "sto2.area":["S. Alangulam", "எஸ். ஆலங்குளம்"],
+    "sto2.name":["PTJ Ricemill Depot", "பி.டி.ஜே ரைஸ்மில் டிப்போ"],
+    "sto.lm":["Landmark", "அருகில்"],
+    "sto.hrs":["Open", "நேரம்"],
+    "sto.tbc":["To be added", "விரைவில் சேர்க்கப்படும்"],
+    "sto.tbc2":["Hours to be added", "விரைவில் சேர்க்கப்படும்"],
+    "sto.dir":["Get directions", "வழி பார்க்க"],
+    "e.eyebrow":["Enquire", "விசாரணை"],
+    "e.title":["Tell us what you need.", "உங்களுக்கு என்ன தேவை என்று சொல்லுங்கள்."],
+    "e.lead":["Share the rice and the quantity, and we'll take it from there.", "எந்த அரிசி, எவ்வளவு என்று சொல்லுங்கள். மற்றதை நாங்கள் பார்த்துக்கொள்கிறோம்."],
+    "f.name":["Your name", "உங்கள் பெயர்"],
+    "f.nameErr":["Enter your name", "உங்கள் பெயரைக் குறிப்பிடுங்கள்"],
+    "f.phone":["Phone", "கைபேசி எண்"],
+    "f.phoneErr":["Enter a 10-digit mobile number", "10 இலக்கக் கைபேசி எண்ணைக் குறிப்பிடுங்கள்"],
+    "f.who":["You are", "நீங்கள்"],
+    "o.retailer":["A retailer", "சில்லறை வியாபாரி"],
+    "o.wholesaler":["A wholesaler", "மொத்த வியாபாரி"],
+    "o.hotel":["A hotel or caterer", "ஹோட்டல் / கேட்டரிங்"],
+    "o.home":["Buying for home", "வீட்டுத் தேவைக்கு"],
+    "f.rice":["Rice you need", "தேவையான அரிசி"],
+    "o.notsure":["Not sure yet", "இன்னும் முடிவு செய்யவில்லை"],
+    "f.msg":["How much, and how often?", "எவ்வளவு, எத்தனை நாளுக்கு ஒருமுறை?"],
+    "f.msgPh":["For example: 50 sacks of Atchaya Ponni every month", "உதாரணம்: மாதம் 50 மூட்டை அட்சயா பொன்னி"],
+    "f.send":["Send enquiry", "அனுப்புங்கள்"],
+    "f.note":["Prototype: nothing is sent.", "இது மாதிரி வடிவம், எதுவும் அனுப்பப்படாது."],
+    "f.done":["This is a prototype, so nothing was sent. On the live site, our office calls or emails you back.", "இது மாதிரி வடிவம் என்பதால் எதுவும் அனுப்பப்படவில்லை. உண்மையான தளத்தில் எங்கள் அலுவலகம் உங்களைத் தொடர்புகொள்ளும்."],
+    "c.title":["Mill and office", "ஆலையும் அலுவலகமும்"],
+    "c.addr":["Address", "முகவரி"],
+    "c.addrV":["46/C Chinthamani Nagar, Madurai 625009", "46/C, சிந்தாமணி நகர், மதுரை 625009"],
+    "c.phone":["Phone", "தொலைபேசி"],
+    "c.email":["Email", "மின்னஞ்சல்"],
+    "c.hours":["Office hours", "அலுவலக நேரம்"],
+    "c.tbc":["To be confirmed", "விரைவில் சேர்க்கப்படும்"],
+    "ft.explore":["Explore", "பார்க்க"],
+    "ft.visit":["Visit", "கடைகள்"],
+    "ft.lang":["Language", "மொழி"],
+    "ft.s1":["Thathaneri store", "தத்தனேரி கடை"],
+    "ft.s2":["S. Alangulam store", "எஸ். ஆலங்குளம் கடை"],
+    "ft.legal":["© 2026 Sastha Ayyanar Modern Rice Mill. Kilimark is our brand, since 1998.", "© 2026 சாஸ்தா அய்யனார் மாடர்ன் ரைஸ் மில். 1998 முதல் கிளிமார்க் எங்கள் பிராண்ட்."],
+    "ft.proto":["Prototype by PTJ. Some photos are stand-ins.", "PTJ வடிவமைத்த மாதிரி. சில படங்கள் தற்காலிகமானவை."],
+    "e.next1":["Tell us the rice and how much you need.", "எந்த அரிசி, எவ்வளவு தேவை என்று சொல்லுங்கள்."],
+    "e.next2":["Our office calls or emails you back.", "எங்கள் அலுவலகம் உங்களை அழைக்கும் அல்லது மின்னஞ்சல் அனுப்பும்."],
+    "e.next3":["You get the price and the delivery date.", "விலையும் டெலிவரி தேதியும் உங்களுக்குத் தெரிவிக்கப்படும்."],
+    "e.walk":["Prefer to see the rice first?", "அரிசியை நேரில் பார்க்க வேண்டுமா?"],
+    "e.walkL":["Visit our stores", "எங்கள் கடைக்கு வாருங்கள்"],
+    "sto.photo":["Store photo coming", "கடையின் படம் விரைவில்"],
+    "v.eyebrow":["Our customers", "எங்கள் வாடிக்கையாளர்கள்"],
+    "v.title":["Customer testimonials", "வாடிக்கையாளர் கருத்துகள்"],
+    "v.tag":["Placeholder", "மாதிரி"],
+    "v.name":["Name to be added", "பெயர் விரைவில்"],
+    "v.note":["Placeholder quotes. Real ones will come from Kilimark's customers.", "இவை மாதிரி மேற்கோள்கள். உண்மையான கருத்துகள் விரைவில்."],
+    "v1.q":["Customers walk in and ask for the parrot sack by name. In all these years, not one complaint about the rice.", "வாடிக்கையாளர்கள் கடைக்கு வந்தாலே “கிளி மூட்டை” என்று பெயர் சொல்லிக் கேட்கிறார்கள். இத்தனை வருடத்தில் அரிசியைப் பற்றி ஒரு புகார் கூட வந்ததில்லை."],
+    "v1.role":["Shop owner, Madurai", "கடை உரிமையாளர், மதுரை"],
+    "v2.q":["In a hotel kitchen, rice has to behave the same at 7 am and at 2 pm. Kilimark double boiled does.", "ஹோட்டல் சமையலறையில் காலை 7 மணிக்கும் மதியம் 2 மணிக்கும் சாதம் ஒரே மாதிரி இருக்க வேண்டும். கிளிமார்க் டபுள் பாயில்டு அப்படித்தான் இருக்கிறது."],
+    "v2.role":["Hotel owner, Madurai", "ஹோட்டல் உரிமையாளர், மதுரை"],
+    "v3.q":["My idlis come out soft every time with Ammu idli rice. I don't try other rice anymore.", "அம்மு இட்லி அரிசியில் இட்லி எப்போதும் பஞ்சு போல வருகிறது. இப்போது வேறு அரிசியை முயற்சிப்பதே இல்லை."],
+    "v3.role":["Home cook, Thathaneri", "இல்லத்தரசி, தத்தனேரி"],
+    "ph.tag":["Photo to come", "படம் விரைவில்"],
+    "ph1.t":["The first shop, Thathaneri", "தத்தனேரியில் முதல் கடை"],
+    "ph1.s":["An archive photo from the 1990s, or the shop counter as it is today.", "1990களின் பழைய புகைப்படம், அல்லது இன்றைய கடை கவுண்டர்."],
+    "ph2.t":["P. T. Janakiraman", "பி. டி. ஜானகிராமன்"],
+    "ph2.s":["Portrait of the founder at the mill or the shop.", "ஆலையிலோ கடையிலோ நிறுவனரின் படம்."],
+    "ph3.t":["Father and son", "அப்பாவும் மகனும்"],
+    "ph3.s":["P. T. Janakiraman and Himalesh together at the mill.", "ஆலையில் பி. டி. ஜானகிராமனும் ஹிமலேஷும் சேர்ந்து."],
+    "r7.tag":["Super Gold", "சூப்பர் கோல்ட்"],
+    "r7.name":["Super Gold", "சூப்பர் கோல்ட்"],
+    "r7.best":["Variety and pack details to be added.", "வகை மற்றும் மூட்டை விவரங்கள் விரைவில்."],
+    "ph.pack":["Pack photo to come", "மூட்டைப் படம் விரைவில்"],
+    "brands.k":["Our brands", "எங்கள் பிராண்டுகள்"],
+    "mill.cap":["Inside our mill, Madurai", "மதுரையில் எங்கள் ஆலைக்குள்"],
+    "e.call":["Prefer to call?", "அழைத்துப் பேச விரும்புகிறீர்களா?"],
+    "ft.call":["Call", "அழைக்க"],
+    "done.title":["Thank you, {n}.", "நன்றி, {n}."]
+  };
+  const altNames = { r1:['அட்சயா பொன்னி','Atchaya Ponni'], r2:['சாஸ்தா கோல்ட் அட்சயா பொன்னி','Sastha Gold Atchaya Ponni'], r3:['ராஜபோகம் பழைய அரிசி','Rajabogam Old Rice'], r4:['நெய் கிச்சடி','Nei Kichadi'], r5:['அம்மு இட்லி அரிசி','Ammu Idli Rice'], r6:['நொய் அரிசி','Broken Rice'], r7:['சூப்பர் கோல்ட்','Super Gold'] };
+  let lang = 'en';
+  const L = () => (lang === 'en' ? 0 : 1);
+  const t = (k) => (T[k] ? T[k][L()] : k);
+
+  function split(el) {
+    const txt = el.textContent.trim();
+    el.setAttribute('aria-label', txt);
+    el.innerHTML = txt.split(/\s+/).map((w, i) => `<span class="w" aria-hidden="true"><span style="--i:${i}">${w}</span></span>`).join(' ');
+  }
+
+  function applyLang(next, animate = true) {
+    const swap = () => {
+      lang = next; root.lang = next;
+      document.querySelectorAll('[data-i]').forEach((el) => { const k = el.dataset.i; if (T[k]) el.textContent = T[k][L()]; });
+      document.querySelectorAll('[data-ph]').forEach((el) => { el.placeholder = t(el.dataset.ph); });
+      document.querySelectorAll('[data-alt]').forEach((el) => { el.textContent = altNames[el.dataset.alt][L()]; });
+      document.querySelectorAll('[data-split]').forEach(split);
+      document.querySelectorAll('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === next)));
+      writeAnswer(false);
+      requestAnimationFrame(() => { placeIndicator(false); layoutTrack(); });
+      try { localStorage.setItem('km-lang', next); } catch (e) {}
+    };
+    moveThumb(animate, next);
+    const main = document.querySelector('main');
+    if (animate && !RM() && main.animate) {
+      main.animate([{ opacity: 1 }, { opacity: 0.15 }], { duration: 140, easing: 'ease-in' }).onfinish = () => {
+        swap(); main.animate([{ opacity: 0.15, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      };
+    } else swap();
+  }
+
+  /* language thumb */
+  const lgEl = document.querySelector('.lang'), thumb = lgEl.querySelector('.thumb');
+  const thumbX = makeSpring((v) => { thumb.style.transform = `translateX(${v}px)`; }, { damping: 0.86, response: 0.34 });
+  function moveThumb(animate, which = lang) {
+    const btn = lgEl.querySelector(`[data-lang="${which}"]`);
+    thumb.style.width = btn.offsetWidth + 'px';
+    const x = btn.offsetLeft - 3;
+    if (animate) thumbX.to(x); else thumbX.set(x);
+  }
+  lgEl.addEventListener('pointerdown', (e) => { const b = e.target.closest('button'); if (b && b.dataset.lang !== lang) applyLang(b.dataset.lang); });
+  lgEl.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset.lang) { e.preventDefault(); if (e.target.dataset.lang !== lang) applyLang(e.target.dataset.lang); } });
+  document.querySelectorAll('[data-setlang]').forEach((a) => a.addEventListener('click', () => { if (a.dataset.setlang !== lang) applyLang(a.dataset.setlang); }));
+
+  /* header */
+  const hdr = document.getElementById('hdr'), mnav = document.getElementById('mnav'), mbtn = document.querySelector('.menu-btn');
+  const hdrY = makeSpring((v) => { hdr.style.transform = `translate3d(0,${v}px,0)`; }, { damping: 1, response: 0.35 });
+  let lastY = scrollY, hdrHidden = false;
+  function headerOnScroll(y) {
+    hdr.classList.toggle('scrolled', y > 8);
+    const dy = y - lastY; lastY = y;
+    if (!mnav.hidden) return;
+    if (dy > 6 && y > 160 && !hdrHidden) { hdrHidden = true; hdrY.to(-(hdr.offsetHeight + 12)); }
+    else if ((dy < -6 || y < 80) && hdrHidden) { hdrHidden = false; hdrY.to(0); }
+  }
+  const closeMenu = () => { mnav.hidden = true; mbtn.setAttribute('aria-expanded', 'false'); mbtn.setAttribute('aria-label', 'Open menu'); };
+  mbtn.addEventListener('click', () => { const open = mnav.hidden; mnav.hidden = !open; mbtn.setAttribute('aria-expanded', String(open)); mbtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); });
+  mnav.addEventListener('click', (e) => { if (e.target.closest('a')) closeMenu(); });
+  document.addEventListener('pointerdown', (e) => { if (!mnav.hidden && !e.target.closest('#mnav,.menu-btn')) closeMenu(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !mnav.hidden) { closeMenu(); mbtn.focus(); } });
+
+  /* hero: packs rise in, then drift with scroll */
+  const stamp = document.getElementById('stamp');
+  let stampRot = 0, stampSc = 1;
+  const renderStamp = () => { stamp.style.transform = `rotate(${stampRot}deg) scale(${stampSc})`; };
+  const stampS = makeSpring((v) => { stampSc = v; renderStamp(); }, { damping: 0.6, response: 0.55, value: 1 });
+  const hps = [...document.querySelectorAll('.hp')].map((el) => { const o = { el, depth: +el.dataset.depth, enter: 0, par: 0 }; o.render = () => el.style.setProperty('--ty', (o.enter + o.par).toFixed(2) + 'px'); o.sp = makeSpring((v) => { o.enter = v; o.render(); }, { damping: 0.72, response: 0.7 }); return o; });
+  const heaps = [...document.querySelectorAll('.heap')];
+  const packParallax = (y) => { const k = -Math.min(y, 700); heaps.forEach((h) => h.style.setProperty('--hy', (k * 0.06).toFixed(2) + 'px')); hps.forEach((o) => { o.par = k * o.depth; o.render(); }); };
+
+  /* count-up */
+  const counted = new WeakSet();
+  function countUp(el) {
+    if (counted.has(el)) return; counted.add(el);
+    const to = +el.dataset.count, suf = el.dataset.suffix || '';
+    if (RM() || document.visibilityState === 'hidden') { el.textContent = to + suf; return; }
+    const s = makeSpring((v) => { el.textContent = Math.max(0, Math.round(v)) + suf; }, { damping: 1, response: 1.2, value: 0 });
+    el.textContent = '0' + suf; s.to(to);
+  }
+  
+
+  /* kolam */
+  const kolam = document.getElementById('kolam');
+  (function () {
+    let p = 'M6 20', d = '';
+    for (let i = 0; i < 9; i++) { const cx = 26 + i * 56; d += `<circle cx="${cx}" cy="20" r="3.4" style="--i:${i}"/>`; p += ` C ${cx - 18} ${i % 2 ? 40 : 0}, ${cx + 18} ${i % 2 ? 40 : 0}, ${cx + 28} 20`; }
+    kolam.innerHTML = `<path d="${p}"/>${d}`;
+    const path = kolam.querySelector('path'); const len = path.getTotalLength();
+    path.style.strokeDasharray = len; path.style.strokeDashoffset = ENTER() ? len : 0;
+    if (ENTER()) kolam.classList.add('pre');
+  })();
+  const drawKolam = () => { kolam.querySelector('path').style.strokeDashoffset = 0; kolam.classList.remove('pre'); };
+  const ps = document.getElementById('parrotSmall');
+  const psY = makeSpring((v) => { ps.style.transform = `translate3d(${v * 0.4}px,${v}px,0) rotate(${v * 0.08}deg)`; }, { damping: 0.7, response: 0.7 });
+  if (ENTER()) psY.set(60);
+
+  /* reveal on enter */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      const el = en.target;
+      el.classList.remove('pre', 'split-pre');
+      if (el.id === 'proof') el.querySelectorAll('[data-count]').forEach((n, i) => setTimeout(() => countUp(n), 250 + i * 140));
+      if (el.id === 'kolam') drawKolam();
+      if (el.id === 'parrotSmall') psY.to(0);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+  function armReveals() {
+    const vh = innerHeight;
+    document.querySelectorAll('[data-reveal],[data-stage]').forEach((el) => { if (ENTER() && el.getBoundingClientRect().top > vh * 0.9) el.classList.add('pre'); io.observe(el); });
+    document.querySelectorAll('[data-split]').forEach((el) => { if (ENTER() && (el.closest('.hero') || el.getBoundingClientRect().top > vh * 0.9)) el.classList.add('split-pre'); io.observe(el); });
+    ['proof', 'kolam', 'parrotSmall'].forEach((id) => io.observe(document.getElementById(id)));
+  }
+
+  /* margin line art drifts slower than the page */
+  const drifts = [...document.querySelectorAll('[data-drift]')];
+  function driftFrame(vh) { if (RM()) return; drifts.forEach((el) => { const r = el.parentElement.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return; el.style.setProperty('--dy', ((r.top + r.height / 2 - vh / 2) * -el.dataset.drift).toFixed(1) + 'px'); }); }
+
+  /* in-page links: smooth, interruptible scroll that lands with the section in view */
+  let scrollAnim = 0;
+  const stopScroll = () => { cancelAnimationFrame(scrollAnim); scrollAnim = 0; };
+  ['wheel', 'touchstart', 'keydown'].forEach((ev) => addEventListener(ev, stopScroll, { passive: true }));
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]'); if (!a) return;
+    const id = a.getAttribute('href'); const el = id.length > 1 && document.querySelector(id); if (!el) return;
+    e.preventDefault(); closeMenu();
+    const from = scrollY, down = el.getBoundingClientRect().top > 0;
+    const to = Math.max(0, Math.min(el.getBoundingClientRect().top + from - (down ? 0 : hdr.offsetHeight), document.documentElement.scrollHeight - innerHeight));
+    history.replaceState(null, '', id);
+    const reveal = () => el.querySelectorAll('.pre, .split-pre').forEach((n) => { if (n.getBoundingClientRect().top < innerHeight) n.classList.remove('pre', 'split-pre'); });
+    if (RM()) { scrollTo(0, to); reveal(); return; }
+    stopScroll();
+    const dist = Math.abs(to - from), dur = Math.min(1100, Math.max(520, 380 + dist * 0.18)), t0 = performance.now();
+    const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    let revealed = false;
+    const step = (now) => {
+      const t = Math.min(1, (now - t0) / dur);
+      scrollTo(0, from + (to - from) * ease(t));
+      if (!revealed && t > 0.7) { revealed = true; reveal(); }
+      scrollAnim = t < 1 ? requestAnimationFrame(step) : 0;
+    };
+    scrollAnim = requestAnimationFrame(step);
+    setTimeout(() => { if (scrollY === from && scrollAnim) { stopScroll(); scrollTo(0, to); reveal(); } }, 200);
+  });
+
+  /* scroll loop */
+  const parallaxEls = [...document.querySelectorAll('[data-parallax]')];
+  const tl = document.getElementById('timeline'), tlItems = [...tl.children];
+  const navLinks = [...document.querySelectorAll('#nav a')], sections = navLinks.map((a) => document.querySelector(a.getAttribute('href')));
+  let ticking = false;
+  function onScrollFrame() {
+    ticking = false;
+    const y = scrollY, vh = innerHeight;
+    headerOnScroll(y);
+    if (!RM()) {
+      packParallax(y);
+      stampRot = y * 0.06; renderStamp();
+      
+      parallaxEls.forEach((el) => { const r = el.parentElement.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return; const c = r.top + r.height / 2 - vh / 2; el.style.transform = `translate3d(0,${-c * +el.dataset.parallax - r.height * 0.08}px,0)`; });
+    }
+    const tr = tl.getBoundingClientRect(); const p = clamp((vh * 0.62 - tr.top) / (tr.height - 40), 0, 1);
+    tl.style.setProperty('--p', p.toFixed(3));
+    tlItems.forEach((li) => { li.classList.toggle('on', li.getBoundingClientRect().top + 10 < vh * 0.62); });
+    let cur = -1; sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < vh * 0.4) cur = i; });
+    navLinks.forEach((a, i) => a.classList.toggle('active', i === cur));
+    updateSteps(vh);
+    driftFrame(vh);
+  }
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScrollFrame); } }, { passive: true });
+
+
+  /* pick your rice: one recommendation, swapped with a spring */
+  const chips = document.getElementById('chips'), ind = document.getElementById('chipInd');
+  const PRODS = { atchaya:{ n:'r1.name', img:'assets/img/packs2/atchaya-ponni-blue.webp' }, rajabogam:{ n:'r3.name', img:'assets/img/packs2/rajabogam-green.webp' }, nei:{ n:'r4.name', img:'assets/img/packs2/nei-kichadi-red.webp' }, ammu:{ n:'r5.name', img:'assets/img/packs2/ammu-idly.webp' }, broken:{ n:'r6.name', img:null } };
+  const MAP = { meals:{ r:'atchaya', also:'also.meals' }, idli:{ r:'ammu' }, biryani:{ r:'nei' }, kanji:{ r:'broken' } };
+  let dish = 'meals';
+  let indYv = 0;
+  const indX = makeSpring((v) => { ind.style.transform = `translate(${v}px, ${indYv}px)`; }, { damping: 0.88, response: 0.38 });
+  const indY = makeSpring((v) => { indYv = v; ind.style.transform = `translate(${indX.value}px, ${v}px)`; }, { damping: 0.88, response: 0.38 });
+  const indW = makeSpring((v) => { ind.style.width = v + 'px'; }, { damping: 0.88, response: 0.38 });
+  function placeIndicator(animate = true) {
+    const b = chips.querySelector(`[data-dish="${dish}"]`);
+    ind.style.height = b.offsetHeight + 'px';
+    const first = ind.style.opacity !== '1';
+    ind.style.opacity = '1';
+    if (!animate || first) { indY.set(b.offsetTop); indX.set(b.offsetLeft); indW.set(b.offsetWidth); } else { indX.to(b.offsetLeft); indY.to(b.offsetTop); indW.to(b.offsetWidth); }
+  }
+  const rShot = document.getElementById('rShot'), rInfo = document.getElementById('rInfo');
+  const shotS = makeSpring((v) => { rShot.style.transform = `translate3d(0,${v * 18}px,0) scale(${1 - v * 0.06})`; rShot.style.opacity = String(1 - v * 0.6); }, { damping: 0.75, response: 0.45 });
+  function fillResult() {
+    const m = MAP[dish], pr = PRODS[m.r];
+    document.getElementById('rFor').textContent = t('for.' + dish);
+    document.getElementById('rName').textContent = t(pr.n);
+    document.getElementById('rWhy').textContent = t('why.' + dish);
+    document.getElementById('rAlso').innerHTML = m.also ? t(m.also) : '';
+    document.getElementById('rCtaT').textContent = t('cta.about').replace('{r}', t(pr.n));
+    rShot.innerHTML = pr.img ? `<img src="${pr.img}" alt="${t(pr.n)}">` : `<div class="ph">${t('ph.photo')}</div>`;
+  }
+  function renderResult(anim = true) {
+    if (!anim || RM()) { fillResult(); return; }
+    rInfo.classList.add('swap'); shotS.to(1, { response: 0.25, damping: 1 });
+    setTimeout(() => { fillResult(); rInfo.classList.remove('swap'); shotS.set(1); shotS.to(0); }, 180);
+  }
+  const writeAnswer = renderResult;
+  function pick(d) {
+    if (d === dish) return;
+    dish = d;
+    chips.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.dish === dish)));
+    placeIndicator(true); renderResult(true);
+  }
+  chips.addEventListener('click', (e) => { const c = e.target.closest('.chip'); if (c) pick(c.dataset.dish); });
+  document.getElementById('rCta').addEventListener('click', () => { const s = document.getElementById('riceSel'); const key = PRODS[MAP[dish].r].n; [...s.options].forEach((o, i) => { if (o.dataset.i === key) s.selectedIndex = i; }); });
+
+  /* process: scroll story (no dragging) */
+  const stepItems = [...document.querySelectorAll('.step-item')], stepImgs = [...document.querySelectorAll('.steps-media img')];
+  const stepCount = document.getElementById('stepCount'), stepsList = document.getElementById('stepsList');
+  let curStep = 0;
+  function updateSteps(vh) {
+    if (!stepsList) return;
+    let best = 0, bd = Infinity;
+    stepItems.forEach((li, i) => { const r = li.getBoundingClientRect(); const d = Math.abs(r.top + r.height / 2 - vh * 0.5); if (d < bd) { bd = d; best = i; } });
+    if (best !== curStep) { curStep = best; stepItems.forEach((li, i) => li.classList.toggle('on', i === best)); stepImgs.forEach((im, i) => im.classList.toggle('on', i === best)); stepCount.textContent = (best + 1) + ' / ' + stepItems.length; }
+    const r = stepsList.getBoundingClientRect(); stepsList.style.setProperty('--p', clamp((vh * 0.5 - r.top - 40) / (r.height - 80), 0, 1).toFixed(3));
+  }
+  function layoutTrack() {}
+
+  /* form */
+  const form = document.getElementById('form'), fn = document.getElementById('f-name'), fp = document.getElementById('f-phone');
+  const reflag = (f, bad) => { f.classList.remove('invalid'); if (bad) { void f.offsetWidth; f.classList.add('invalid'); } };
+  const vName = () => { const ok = form.name.value.trim().length > 1; reflag(fn, !ok); return ok; };
+  const vPhone = () => { const ok = form.phone.value.replace(/\D/g, '').length === 10; reflag(fp, !ok); return ok; };
+  form.name.addEventListener('blur', () => { if (form.name.value) vName(); });
+  form.phone.addEventListener('blur', () => { if (form.phone.value) vPhone(); });
+  form.name.addEventListener('input', () => { if (fn.classList.contains('invalid') && form.name.value.trim().length > 1) fn.classList.remove('invalid'); });
+  form.phone.addEventListener('input', () => { if (fp.classList.contains('invalid') && form.phone.value.replace(/\D/g, '').length === 10) fp.classList.remove('invalid'); });
+  const done = document.getElementById('done');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const a = vName(), b = vPhone();
+    if (!a || !b) { (!a ? form.name : form.phone).focus(); return; }
+    document.getElementById('doneTitle').textContent = t('done.title').replace('{n}', form.name.value.trim().split(' ')[0]);
+    done.hidden = false;
+    if (!RM() && done.animate) done.animate([{ opacity: 0, transform: 'scale(.94) translateY(-6px)' }, { opacity: 1, transform: 'none' }], { duration: 520, easing: 'cubic-bezier(.3,1.4,.5,1)' });
+  });
+
+  addEventListener('resize', () => { layoutTrack(); placeIndicator(false); moveThumb(false); });
+
+  const millVid = document.getElementById('millVid');
+  if (millVid && RM()) { millVid.removeAttribute('autoplay'); millVid.pause(); millVid.controls = true; }
+
+  /* boot */
+  let saved = 'en'; try { saved = localStorage.getItem('km-lang') || 'en'; } catch (e) {}
+  applyLang(saved, false);
+  layoutTrack();
+  armReveals();
+  document.querySelectorAll('.store').forEach((s) => io.observe(s));
+  if (ENTER()) {
+    stampS.set(0.4); hps.forEach((o) => o.sp.set(140));
+    requestAnimationFrame(() => { document.querySelector('.hero .display').classList.remove('split-pre'); [2, 0, 1].forEach((k, i) => setTimeout(() => hps[k].sp.to(0), 120 + i * 130)); setTimeout(() => stampS.to(1), 620); });
+  }
+  onScrollFrame();
+  if (document.fonts) document.fonts.ready.then(() => { moveThumb(false); placeIndicator(false); layoutTrack(); });
+})();
+</script>
