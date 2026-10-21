@@ -9,6 +9,8 @@ def rep(m):
     return f'<svg{attrs} viewBox="{vb}" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{body}</svg>'
 s, n = re.subn(r'<svg([^>]*)><use href="#([^"]+)"/></svg>', rep, s)
 assert '<use ' not in s
-open('index.html','w').write(s)
-open('_preview.html','w').write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>\n'+s+'\n</body></html>')
+# artifact.html: page fragment for the Claude artifact (it adds the document wrapper itself)
+open('artifact.html','w').write(s)
+# index.html: complete page for GitHub Pages and local preview
+open('index.html','w').write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Kilimark rice, milled in Madurai</title></head><body>\n'+s+'\n</body></html>')
 print('icons inlined:', n)
