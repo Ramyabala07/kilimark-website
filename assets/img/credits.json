@@ -151,9 +151,15 @@
   },
   {
     "file": "temple-gopuram.jpg",
-    "title": "Meenakshi Amman Temple",
-    "author": "Ashwin Kumar",
-    "source": "https://commons.wikimedia.org/wiki/File:Meenakshi_Amman_Temple_(11876030544).jpg",
-    "license": "CC BY-SA 2.0"
+    "title": "Madurai Meenakshi temple",
+    "source": "https://commons.wikimedia.org/wiki/File:Madurai_meenakshi_temple.jpg",
+    "license": "Public domain (no attribution required)"
+  },
+  {
+    "file": "parrot-ringneck.jpg",
+    "title": "Rose-ringed parakeet on a branch",
+    "author": "Sreenivas",
+    "source": "https://unsplash.com/photos/a1f-hNNoMGg",
+    "license": "Unsplash License (free, no attribution required)"
   }
 ]

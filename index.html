@@ -111,7 +111,7 @@ svg.ic{ width:20px; height:20px; flex:none; fill:none; stroke:currentColor; stro
 
 .sig{ margin:22px 0 0; font-size:15px; font-weight:600; letter-spacing:.01em; color:var(--ink-3); display:flex; align-items:center; gap:10px; }
 .sig::before{ content:""; width:28px; height:1.5px; background:var(--line-2); }
-.stage{ position:relative; border-radius:28px; overflow:hidden; aspect-ratio:4/4.3; background:radial-gradient(70% 60% at 0% 6%, rgba(200,50,58,.55), transparent 70%), radial-gradient(70% 60% at 100% 8%, rgba(15,143,194,.55), transparent 70%), radial-gradient(60% 46% at 50% 24%, rgba(132,186,64,.42), transparent 72%), radial-gradient(90% 60% at 50% 100%, rgba(242,190,30,.75), transparent 75%), #FBE9BE; box-shadow:0 40px 80px -40px rgba(120,70,10,.45), inset 0 0 0 1px rgba(120,80,10,.08); }
+.stage{ position:relative; border-radius:28px; overflow:hidden; aspect-ratio:4/4.3; background:radial-gradient(70% 60% at 0% 6%, rgba(15,143,194,.55), transparent 70%), radial-gradient(70% 60% at 100% 8%, rgba(110,176,52,.55), transparent 70%), radial-gradient(60% 46% at 50% 24%, rgba(200,50,58,.4), transparent 72%), radial-gradient(90% 60% at 50% 100%, rgba(242,190,30,.75), transparent 75%), #FBE9BE; box-shadow:0 40px 80px -40px rgba(120,70,10,.45), inset 0 0 0 1px rgba(120,80,10,.08); }
 .heap{ position:absolute; left:0; top:0; width:100%; height:106.05%; transform:translate3d(0,var(--hy,0px),0); will-change:transform; pointer-events:none; user-select:none; }
 .heap{ z-index:3; }
 .hp{ position:absolute; display:block; transform:translate3d(0,var(--ty,0px),0) rotate(var(--r,0deg)); will-change:transform; filter:drop-shadow(0 18px 18px rgba(90,50,10,.22)); }
@@ -220,6 +220,10 @@ form.form.open{ background:transparent; border:0; padding:0; gap:20px; box-shado
 .mill-info{ padding:clamp(24px,4vw,44px); display:grid; gap:10px; align-content:center; }
 .mill-info h3{ margin:0; font-size:clamp(1.6rem,1.3rem + 1vw,2.1rem); font-weight:700; letter-spacing:-0.03em; line-height:1.1; }
 :root[lang="ta"] .mill-info h3{ font-size:1.5rem; line-height:1.45; letter-spacing:0; }
+.qc .img{ position:relative; }
+.ph-flag{ position:absolute; left:14px; top:14px; z-index:2; font:600 11px/1 var(--en); letter-spacing:.08em; text-transform:uppercase; color:#fff; background:rgba(30,26,22,.6); padding:6px 9px; border-radius:999px; }
+:root[lang="ta"] .ph-flag{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:12px; }
+.mill-dir{ justify-self:start; margin-top:8px; }
 .mill-info > p{ margin:0; color:var(--ink-2); font-size:16px; max-width:46ch; }
 .mill-facts{ margin:10px 0 0; display:grid; grid-template-columns:1fr 1fr; column-gap:28px; }
 .mill-facts div{ padding:12px 0; border-top:1px solid var(--line); }
@@ -248,7 +252,7 @@ form.form.open{ background:transparent; border:0; padding:0; gap:20px; box-shado
 }
 .sack::before,.sack::after{ content:""; position:absolute; left:0; right:0; height:3px; background:repeating-linear-gradient(90deg, #CDB78C 0 16px, transparent 16px 26px); opacity:.9; }
 .sack::before{ top:16px; } .sack::after{ bottom:16px; }
-.range{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px; }
+.range{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:20px; }
 .prod{ background:#fff; border-radius:20px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 1px 0 rgba(30,26,22,.04), 0 18px 40px -26px rgba(80,60,30,.45); will-change:transform; }
 .prod .shot{ height:300px; display:flex; align-items:center; justify-content:center; padding:22px 22px 8px; background:#fff; overflow:hidden; }
 .brands{ display:flex; flex-wrap:wrap; align-items:center; gap:14px 30px; margin-top:22px; }
@@ -288,6 +292,9 @@ form.form.open{ background:transparent; border:0; padding:0; gap:20px; box-shado
 .result{ background:var(--turmeric-50); border:1px solid var(--turmeric-200); border-radius:28px; padding:clamp(20px,3vw,32px); display:grid; grid-template-columns:200px 1fr; gap:24px; align-items:center; min-height:300px; }
 .r-shot{ height:260px; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:18px; padding:14px; overflow:hidden; will-change:transform; }
 .r-shot img{ max-height:100%; max-width:100%; width:auto; height:auto; object-fit:contain; }
+.r-shot.two{ gap:8px; }
+.r-shot.two img{ max-width:48%; }
+.r-why.tbc{ color:var(--ink-3); font-style:italic; }
 .r-shot .ph{ width:100%; height:100%; border-radius:12px; border:2px dashed var(--line-2); display:grid; place-items:center; text-align:center; color:var(--ink-3); font-size:13px; padding:10px; background:var(--sand); }
 .r-info{ display:grid; gap:8px; transition:opacity .22s ease, transform .4s var(--ease-out); }
 .r-info.swap{ opacity:0; transform:translateY(8px); }
@@ -449,7 +456,9 @@ form.form{ background:#fff; border:1px solid var(--line); border-radius:var(--r-
 
 /* footer */
 .ftr{ background:var(--blue-700); color:#E8F3F8; padding-block:56px 40px; }
-.ftr .wrap{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; }
+.ftr .wrap{ display:grid; grid-template-columns:1fr 1.5fr 1fr 1fr 0.9fr; gap:32px; }
+.ftr-mill p{ margin:0 0 6px; display:grid; gap:4px; color:#E8F3F8; font-size:15px; line-height:1.5; }
+.ftr-mill b{ font-weight:600; color:#fff; }
 .ftr h4{ margin:0 0 12px; font:600 12px/1 var(--en); letter-spacing:.14em; text-transform:uppercase; color:#A3D7EF; }
 :root[lang="ta"] .ftr h4{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:14px; }
 .ftr a{ color:#fff; text-decoration:none; display:block; padding-block:4px; }
@@ -478,7 +487,7 @@ form.form{ background:#fff; border:1px solid var(--line); border-radius:var(--r-
   .pillar,.pillar + .pillar{ padding:26px 0 6px; border-left:0; }
   .pillar + .pillar{ border-top:1px solid rgba(255,255,255,.16); }
   .ftr .wrap{ grid-template-columns:1fr 1fr; column-gap:24px; row-gap:28px; align-items:start; }
-  .ftr .wrap > div:first-child{ grid-column:1 / -1; }
+  .ftr .wrap > div:first-child, .ftr .wrap > .ftr-mill{ grid-column:1 / -1; }
   .ftr-logo img{ width:110px; }
   .ftr .legal{ flex-direction:column; justify-content:flex-start; gap:6px; }
   .hdr-right > .btn{ display:none; }
@@ -616,10 +625,10 @@ main{ overflow:clip; }
         </div>
       </div>
       <div class="hero-media">
-        <div class="stage" id="stage" role="img" aria-label="Kilimark rice sacks of Nei Kichadi, Rajabogam and Atchaya Ponni, set in a heap of rice">
-          <span class="hp l" data-depth="0.058"><img src="assets/img/packs2/nei-kichadi-red.webp" alt=""></span>
-          <span class="hp r" data-depth="0.062"><img src="assets/img/packs2/atchaya-ponni-blue.webp" alt=""></span>
-          <span class="hp c" data-depth="0.064"><img src="assets/img/packs2/rajabogam-green.webp" alt=""></span>
+        <div class="stage" id="stage" role="img" aria-label="Kilimark rice sacks of Atchaya Ponni, Nei Kichadi and Rajabogam, set in a heap of rice">
+          <span class="hp l" data-depth="0.058"><img src="assets/img/packs2/atchaya-ponni-blue.webp" alt=""></span>
+          <span class="hp r" data-depth="0.062"><img src="assets/img/packs2/rajabogam-green.webp" alt=""></span>
+          <span class="hp c" data-depth="0.064"><img src="assets/img/packs2/nei-kichadi-red.webp" alt=""></span>
           <img class="heap" src="assets/img/heap.webp" alt="" aria-hidden="true">
         </div>
         <div class="stamp" id="stamp" aria-label="Since 1998, Madurai"><div><span class="s1" data-i="stamp.1">Since</span><b>1998</b><span class="s3" data-i="stamp.3">Madurai</span></div></div>
@@ -630,7 +639,7 @@ main{ overflow:clip; }
   <div class="proof-wrap">
     <div class="wrap">
       <section class="proof" id="proof" aria-label="Kilimark in numbers">
-        <div class="stat"><span class="k" data-i="st1.k">In Madurai</span><div class="num"><b data-count="28">28</b><i data-i="st1.u">years</i></div><p data-i="st1.p">Started as a rice shop in Thathaneri.</p></div>
+        <div class="stat"><span class="k" data-i="st1.k">Since 1994</span><div class="num"><b data-count="32">32</b><i data-i="st1.u">years</i></div><p data-i="st1.p">The same Thathaneri store has served Madurai for over three decades.</p></div>
         <div class="stat"><span class="k" data-i="st2.k">Milled every day</span><div class="num"><b data-count="90" data-suffix="+">90+</b><i data-i="st2.u">tonnes</i></div><p data-i="st2.p">Automated since 2012, so volume never costs consistency.</p></div>
         <div class="stat"><span class="k" data-i="st3.k">Pack sizes</span><div class="num"><b>5–26</b><i>kg</i></div><p data-i="st3.p">From a family's monthly bag to a hotel's daily sack.</p></div>
         <div class="stat gold">
@@ -647,22 +656,23 @@ main{ overflow:clip; }
       <div class="section-head">
         <p class="eyebrow" data-i="rice.eyebrow">Products</p>
         <h2 class="h2" data-i="rice.title" data-split>Four brands, one quality standard.</h2>
-        <p class="lead" data-i="rice.lead" data-reveal>Kilimark, Ammu, Sastha Gold and Super Gold rice, all milled and packed at our own mill. Supplied in 5 to 26 kg sacks for retail, wholesale and food service.</p>
-        <div class="brands" data-reveal><span data-i="brands.k">Our brands</span><img src="assets/img/brand/kilimark-badge.webp" alt="Kilimark"><img src="assets/img/brand/ammu-logo.webp" alt="Ammu"><img src="assets/img/brand/sastha-gold-logo.webp" alt="Sastha Gold"><img src="assets/img/brand/super-gold-logo.webp" alt="Super Gold" class="tall"></div>
+        <p class="lead" data-i="rice.lead" data-reveal>Kilimark, Sastha Gold, Super Gold and Ammu rice, all milled and packed at our own mill. Supplied in 5 to 26 kg sacks for retail, wholesale and food service.</p>
+        <div class="brands" data-reveal><span data-i="brands.k">Our brands</span><img src="assets/img/brand/kilimark-badge.webp" alt="Kilimark"><img src="assets/img/brand/sastha-gold-logo.webp" alt="Sastha Gold"><img src="assets/img/brand/super-gold-logo.webp" alt="Super Gold" class="tall"><img src="assets/img/brand/ammu-logo.webp" alt="Ammu Idly Rice"></div>
       </div>
       <div class="range" id="range">
-        <article class="prod" data-rice="atchaya" data-reveal><div class="shot"><img src="assets/img/packs2/atchaya-ponni-blue.webp" alt="Kilimark Atchaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r1.tag">Kilimark · Ponni</span><h3 data-i="r1.name">Atchaya Ponni</h3><span class="alt" data-alt="r1">அட்சயா பொன்னி</span><p class="best" data-i="r1.best">Soft, separate grains for everyday meals.</p><div class="sizes"><span>5 kg</span><span>10 kg</span><span>26 kg</span></div></div></article>
-        <article class="prod" data-rice="nei" data-reveal style="--d:80ms"><div class="shot"><img src="assets/img/packs2/nei-kichadi-red.webp" alt="Kilimark Nei Kichadi sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r4.tag">Kilimark · Boiled rice</span><h3 data-i="r4.name">Nei Kichadi</h3><span class="alt" data-alt="r4">நெய் கிச்சடி</span><p class="best" data-i="r4.best">Short grains for biryani, ghee rice and kichadi.</p><div class="sizes"><span>5 kg</span><span>10 kg</span><span>26 kg</span></div></div></article>
-        <article class="prod" data-rice="rajabogam" data-reveal style="--d:160ms"><div class="shot"><img src="assets/img/packs2/rajabogam-green.webp" alt="Kilimark Rajabogam rice sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r3.tag">Kilimark · Aged, double boiled</span><h3 data-i="r3.name">Rajabogam Old Rice</h3><span class="alt" data-alt="r3">ராஜபோகம் பழைய அரிசி</span><p class="best" data-i="r3.best">Aged Ponni that cooks firmer and fluffier. Our premium sack.</p><div class="sizes"><span>26 kg</span></div></div></article>
-        <article class="prod" data-rice="ammu" data-reveal><div class="shot"><img src="assets/img/packs2/ammu-idly.webp" alt="Ammu Idly Rice sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r5.tag">Ammu · Idli rice</span><h3 data-i="r5.name">Ammu Idli Rice</h3><span class="alt" data-alt="r5">அம்மு இட்லி அரிசி</span><p class="best" data-i="r5.best">Soaks evenly and ferments well, for soft idli and crisp dosa.</p><div class="sizes"><span>26 kg</span></div></div></article>
-        <article class="prod" data-rice="sastha" data-reveal style="--d:80ms"><div class="shot"><img src="assets/img/packs2/sastha-gold-yellow.webp" alt="Sastha Gold Atchaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r2.tag">Sastha Gold · Ponni</span><h3 data-i="r2.name">Sastha Gold Atchaya Ponni</h3><span class="alt" data-alt="r2">சாஸ்தா கோல்ட் அட்சயா பொன்னி</span><p class="best" data-i="r2.best">Atchaya Ponni under our Sastha Gold label.</p><div class="sizes"><span>26 kg</span></div></div></article>
-        <article class="prod" data-rice="supergold" data-reveal style="--d:160ms"><div class="shot logo-shot"><img src="assets/img/brand/super-gold-logo.webp" alt="Super Gold logo" loading="lazy"><em data-i="ph.pack">Pack photo to come</em></div><div class="info"><span class="tag" data-i="r7.tag">Super Gold</span><h3 data-i="r7.name">Super Gold</h3><span class="alt" data-alt="r7">சூப்பர் கோல்ட்</span><p class="best" data-i="r7.best">Variety and pack details to be added.</p><div class="sizes"><span data-i="sz.ask">Sizes on request</span></div></div></article>
+        <article class="prod" data-rice="atchaya" data-reveal><div class="shot"><img src="assets/img/packs2/atchaya-ponni-blue.webp" alt="Kilimark Atchaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r1.tag">Kilimark · Ponni</span><h3 data-i="r1.name">Atchaya Ponni</h3><span class="alt" data-alt="r1">அட்சயா பொன்னி</span><div class="sizes"><span>5 kg</span><span>10 kg</span><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="nei" data-reveal style="--d:70ms"><div class="shot"><img src="assets/img/packs2/nei-kichadi-red.webp" alt="Kilimark Nei Kichadi sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r4.tag">Kilimark · Boiled rice</span><h3 data-i="r4.name">Nei Kichadi</h3><span class="alt" data-alt="r4">நெய் கிச்சடி</span><div class="sizes"><span>5 kg</span><span>10 kg</span><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="rajabogam" data-reveal style="--d:140ms"><div class="shot"><img src="assets/img/packs2/rajabogam-green.webp" alt="Kilimark Rajabogam rice sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r3.tag">Kilimark · Aged, double boiled</span><h3 data-i="r3.name">Rajabogam Old Rice</h3><span class="alt" data-alt="r3">ராஜபோகம் பழைய அரிசி</span><div class="sizes"><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="kalyana" data-reveal style="--d:210ms"><div class="shot"><img src="assets/img/packs2/kalyana-ponni-pink.webp" alt="Kilimark Kalyana Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r8.tag">Kilimark · Ponni</span><h3 data-i="r8.name">Kalyana Ponni</h3><span class="alt" data-alt="r8">கல்யாண பொன்னி</span><div class="sizes"><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="sastha" data-reveal><div class="shot"><img src="assets/img/packs2/sastha-gold-yellow.webp" alt="Sastha Gold Atchaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r2.tag">Sastha Gold · Ponni</span><h3 data-i="r2.name">Sastha Gold Atchaya Ponni</h3><span class="alt" data-alt="r2">சாஸ்தா கோல்ட் அட்சயா பொன்னி</span><div class="sizes"><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="sg-nei" data-reveal style="--d:70ms"><div class="shot"><img src="assets/img/packs2/supergold-nei-kitchadi.webp" alt="Super Gold Nei Kitchadi sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r7.tag">Super Gold · Boiled rice</span><h3 data-i="r7.name">Super Gold Nei Kitchadi</h3><span class="alt" data-alt="r7">சூப்பர் கோல்ட் நெய் கிச்சடி</span><div class="sizes"><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="sg-ponni" data-reveal style="--d:140ms"><div class="shot"><img src="assets/img/packs2/supergold-superponni.webp" alt="Super Gold Superponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r9.tag">Super Gold · Ponni</span><h3 data-i="r9.name">Super Gold Superponni</h3><span class="alt" data-alt="r9">சூப்பர் கோல்ட் சூப்பர் பொன்னி</span><div class="sizes"><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="ammu" data-reveal style="--d:210ms"><div class="shot"><img src="assets/img/packs2/ammu-idly.webp" alt="Ammu Idly Rice sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r5.tag">Ammu · Idli rice</span><h3 data-i="r5.name">Ammu Idli Rice</h3><span class="alt" data-alt="r5">அம்மு இட்லி அரிசி</span><div class="sizes"><span>26 kg</span></div></div></article>
       </div>
       <div class="range-foot" data-reveal>
         <p data-i="rice.foot">Pricing depends on volume and frequency. Double boiled and broken rice are also available in bulk.</p>
         <a class="btn" href="#enquire"><span data-i="cta.prices">Ask for prices</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-      <p class="src-note" data-i="rice.note">Pack artwork supplied by Kilimark. Super Gold pack photo to come.</p>
     </div>
   </section>
   <section class="section band" id="quality">
@@ -679,7 +689,7 @@ main{ overflow:clip; }
         <div class="q" data-stage style="--d:240ms"><span class="seal"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"/><path d="M5 19l7-7"/></svg></span><h3 data-i="q3.h">FSSAI licensed</h3><p data-i="q3.p">Every sack is milled and packed under a food safety licence.</p></div>
       </div>
       <div class="qc" data-stage>
-        <div class="img"><img src="assets/img/rice-sack.jpg" alt="Rice in an open sack with a scoop" loading="lazy"></div>
+        <div class="img"><span class="ph-flag" data-i="q.phflag">Client photo to come</span><img src="assets/img/rice-sack.jpg" alt="Rice in an open sack with a scoop" loading="lazy"></div>
         <div class="txt">
           <h3 class="h3s" data-i="qc.h">Before a sack is stitched, we check</h3>
           <ul class="checks">
@@ -714,6 +724,7 @@ main{ overflow:clip; }
             <div><dt data-i="mill.k3">Capacity</dt><dd data-i="mill.v3">90+ tonnes of paddy a day</dd></div>
             <div><dt data-i="mill.k4">Machinery</dt><dd data-i="mill.v4">Automated since 2012</dd></div>
           </dl>
+          <a class="btn sm mill-dir" href="https://www.google.com/maps/search/?api=1&amp;query=Sastha+Ayyanar+Modern+Rice+Mill+Chintamani+Road+Rajaman+Nagar+Madurai+625009" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8z"/></svg><span data-i="sto.dir">Get directions</span></a>
         </div>
       </div>
     </div>
@@ -733,7 +744,7 @@ main{ overflow:clip; }
         <div class="story-body">
         <p class="lead" data-i="story.lead" data-reveal>P. T. Janakiraman started behind the counter of a rice shop in Thathaneri, listening to what families expected from every sack. In 1998 he began milling to deliver exactly that.</p>
         <ol class="timeline" id="timeline">
-          <li><span class="yr">1996</span><div class="ev"><b data-i="tl1.b">PTJ Rice Mill Depot opens</b><span data-i="tl1.s">A rice shop in Thathaneri, Madurai. Still open today.</span></div></li>
+          <li><span class="yr">1994</span><div class="ev"><b data-i="tl1.b">PTJ Rice Mill Depot opens</b><span data-i="tl1.s">A rice shop in Thathaneri, Madurai. Still open today.</span></div></li>
           <li><span class="yr">1998</span><div class="ev"><b data-i="tl2.b">Kilimark begins</b><span data-i="tl2.s">From trader to miller, with no milling legacy to inherit.</span></div></li>
           <li><span class="yr">2012</span><div class="ev"><b data-i="tl3.b">The mill goes automatic</b><span data-i="tl3.s">Machines take over the heavy manual work, and every batch comes out the same.</span></div></li>
           <li><span class="yr">2018</span><div class="ev"><b data-i="tl4.b">Supplying beyond Tamil Nadu</b><span data-i="tl4.s">Kilimark reaches buyers across state borders.</span></div></li>
@@ -743,7 +754,6 @@ main{ overflow:clip; }
           <p data-i="story.quote">Source carefully. Process responsibly. Deliver consistently.</p>
           <small data-i="story.quoteby">How we've worked since 1998</small>
         </div>
-        <p class="family" data-i="story.family" data-reveal>Today he runs the mill with his son, Himalesh, who joined after his MBA to take Kilimark beyond Madurai.</p>
         </div>
       </div>
     </div>
@@ -758,8 +768,8 @@ main{ overflow:clip; }
           <svg class="kolam" viewBox="0 0 520 40" aria-hidden="true" id="kolam"></svg>
         </div>
         <div class="mark-media">
-          <div class="big"><img src="assets/img/temple-gopuram.jpg" alt="A gopuram of the Meenakshi Amman Temple, Madurai, rising against the sky" loading="lazy" data-parallax="0.08"><span class="credit">Photo: Ashwin Kumar, CC BY-SA 2.0</span></div>
-          <div class="small" id="parrotSmall"><img src="assets/img/parrot.jpg" alt="A rose-ringed parakeet" loading="lazy"></div>
+          <div class="big"><img src="assets/img/temple-gopuram.jpg" alt="A gopuram of the Meenakshi Amman Temple, Madurai, against a clear sky" loading="lazy" data-parallax="0.08"></div>
+          <div class="small" id="parrotSmall"><img src="assets/img/parrot-ringneck.jpg" alt="A rose-ringed parakeet perched on a branch" loading="lazy"></div>
         </div>
       </div>
       <div class="pillars">
@@ -778,17 +788,18 @@ main{ overflow:clip; }
         <div class="chips" id="chips" role="group" aria-label="Dishes" data-reveal>
           <span class="chip-ind" id="chipInd" aria-hidden="true"></span>
           <button class="chip" type="button" data-dish="meals" aria-pressed="true" data-i="dish.meals">Everyday meals</button>
-          <button class="chip" type="button" data-dish="idli" aria-pressed="false" data-i="dish.idli">Idli and dosa</button>
+          <button class="chip" type="button" data-dish="idli" aria-pressed="false" data-i="dish.idli">Idli</button>
+          <button class="chip" type="button" data-dish="dosa" aria-pressed="false" data-i="dish.dosa">Dosa</button>
           <button class="chip" type="button" data-dish="biryani" aria-pressed="false" data-i="dish.biryani">Biryani</button>
-          <button class="chip" type="button" data-dish="kanji" aria-pressed="false" data-i="dish.kanji">Kanji and pongal</button>
+          <button class="chip" type="button" data-dish="func" aria-pressed="false" data-i="dish.func">Special functions</button>
         </div>
       </div>
       <div class="result" id="result" aria-live="polite" data-reveal style="--d:120ms">
         <div class="r-shot" id="rShot"><img id="rImg" src="assets/img/packs/atchaya-ponni.jpg" alt=""></div>
         <div class="r-info" id="rInfo">
           <span class="r-for" id="rFor">For everyday meals</span>
-          <h3 id="rName">Atchaya Ponni</h3>
-          <p class="r-why" id="rWhy">Soft grains that stay separate and don't clump, meal after meal.</p>
+          <h3 id="rName">Atchaya Ponni or Nei Kichadi</h3>
+          <p class="r-why" id="rWhy">Two everyday favourites. Both cook soft, with grains that stay separate and never turn sticky.</p>
           <p class="r-also" id="rAlso"></p>
           <a class="link" href="#enquire" id="rCta"><span id="rCtaT">Enquire about Atchaya Ponni</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
@@ -807,7 +818,7 @@ main{ overflow:clip; }
         <figure class="v-card lift" data-reveal style="--d:100ms"><span class="v-tag" data-i="v.tag">Placeholder</span><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v2.q"></blockquote><figcaption class="v-who"><span class="v-av">H</span><span><b data-i="v.name">Name to be added</b><span data-i="v2.role"></span></span></figcaption></figure>
         <figure class="v-card" data-reveal style="--d:200ms"><span class="v-tag" data-i="v.tag">Placeholder</span><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v3.q"></blockquote><figcaption class="v-who"><span class="v-av">M</span><span><b data-i="v.name">Name to be added</b><span data-i="v3.role"></span></span></figcaption></figure>
       </div>
-      <p class="src-note" data-i="v.note">Placeholder quotes. Real ones will come from Kilimark's customers.</p>
+      <p class="src-note" data-i="v.note">Placeholder quotes. Customer testimonials will be shared by Kilimark.</p>
     </div>
   </section>
   <section class="section band" id="stores">
@@ -822,12 +833,11 @@ main{ overflow:clip; }
         <article class="store" data-stage>
           <div class="s-photo"><img src="assets/img/store-thathaneri.jpg" alt="PTJ Rice Mill Depot, Thathaneri: the shopfront with rice sacks at the entrance" loading="lazy" style="object-position:50% 40%"></div>
           <div class="s-body">
-            <span class="s-chip" data-i="sto1.chip"></span>
+            <span class="s-chip" data-i="sto1.chip">Our first store · 1994</span>
             <h3 data-i="sto1.area"></h3>
             <p class="s-name" data-i="sto1.name"></p>
             <dl class="s-facts">
-              <div><dt data-i="sto.lm">Landmark</dt><dd class="tbc" data-i="sto.tbc">To be added</dd></div>
-              <div><dt data-i="sto.hrs">Open</dt><dd class="tbc" data-i="sto.tbc2">Hours to be added</dd></div>
+              <div><dt data-i="sto.hrs">Open</dt><dd data-i="sto.h1">8:00 AM to 9:30 PM</dd></div>
             </dl>
             <a class="btn sm s-cta" href="https://maps.app.goo.gl/4bEenXoBZAM8mZDP7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8z"/></svg><span data-i="sto.dir">Get directions</span></a>
           </div>
@@ -839,8 +849,7 @@ main{ overflow:clip; }
             <h3 data-i="sto2.area"></h3>
             <p class="s-name" data-i="sto2.name"></p>
             <dl class="s-facts">
-              <div><dt data-i="sto.lm">Landmark</dt><dd class="tbc" data-i="sto.tbc">To be added</dd></div>
-              <div><dt data-i="sto.hrs">Open</dt><dd class="tbc" data-i="sto.tbc2">Hours to be added</dd></div>
+              <div><dt data-i="sto.hrs">Open</dt><dd data-i="sto.h2">8:00 AM to 9:00 PM</dd></div>
             </dl>
             <a class="btn sm s-cta" href="https://share.google/C72xj38U9pqHQQWn0" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8z"/></svg><span data-i="sto.dir">Get directions</span></a>
           </div>
@@ -860,12 +869,13 @@ main{ overflow:clip; }
           <li><b>2</b><span data-i="e.next2"></span></li>
           <li><b>3</b><span data-i="e.next3"></span></li>
         </ol>
-        <p class="walk" data-reveal><span data-i="e.call">Prefer to call?</span> <a class="link" href="tel:+917010138130">+91 70101 38130</a></p>
+        <p class="walk" data-reveal><span data-i="e.call">Prefer to call?</span> <a class="link" href="tel:+917200873557">+91 72008 73557</a></p>
         <p class="walk" data-reveal style="margin-top:10px"><span data-i="e.walk"></span> <a class="link" href="#stores"><span data-i="e.walkL"></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
       </div>
       <form class="form open" id="form" novalidate data-reveal style="--d:120ms">
         <div class="field" id="f-name"><label for="name" data-i="f.name">Your name</label><input id="name" name="name" autocomplete="name"><span class="err" data-i="f.nameErr">Enter your name</span></div>
         <div class="field" id="f-phone"><label for="phone" data-i="f.phone">Phone</label><input id="phone" name="phone" inputmode="numeric" autocomplete="tel" placeholder="98765 43210"><span class="err" data-i="f.phoneErr">Enter a 10-digit mobile number</span></div>
+        <div class="field"><label for="city" data-i="f.city">City</label><input id="city" name="city" autocomplete="address-level2" data-ph="f.cityPh" placeholder="For example: Madurai"></div>
         <fieldset class="field fs"><legend data-i="f.who">You are</legend>
           <div class="who">
             <input type="radio" name="who" id="w1" value="retailer" checked><label for="w1" data-i="o.retailer">A retailer</label>
@@ -875,7 +885,7 @@ main{ overflow:clip; }
           </div>
         </fieldset>
         <div class="field"><label for="riceSel" data-i="f.rice">Rice you need</label>
-          <select id="riceSel" name="rice"><option data-i="r1.name">Atchaya Ponni</option><option data-i="r2.name">Sastha Gold Atchaya Ponni</option><option data-i="r3.name">Rajabogam Old Rice</option><option data-i="r4.name">Nei Kichadi</option><option data-i="r5.name">Ammu Idli Rice</option><option data-i="r6.name">Broken Rice</option><option data-i="r7.name">Super Gold</option><option data-i="o.notsure">Not sure yet</option></select></div>
+          <select id="riceSel" name="rice"><option data-i="r1.name">Atchaya Ponni</option><option data-i="r4.name">Nei Kichadi</option><option data-i="r3.name">Rajabogam Old Rice</option><option data-i="r8.name">Kalyana Ponni</option><option data-i="r2.name">Sastha Gold Atchaya Ponni</option><option data-i="r7.name">Super Gold Nei Kitchadi</option><option data-i="r9.name">Super Gold Superponni</option><option data-i="r5.name">Ammu Idli Rice</option><option data-i="o.notsure">Not sure yet</option></select></div>
         <div class="field"><label for="msg" data-i="f.msg">How much, and how often?</label><textarea id="msg" name="msg" data-ph="f.msgPh" placeholder="For example: 50 sacks of Atchaya Ponni every month"></textarea></div>
         <div class="form-foot">
           <button class="btn" type="submit"><span data-i="f.send">Send enquiry</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -894,10 +904,11 @@ main{ overflow:clip; }
 <footer class="ftr">
   <div class="wrap">
     <div><a class="ftr-logo" href="#top" aria-label="Kilimark home"><img src="assets/img/brand/kilimark-logo.webp" alt="Kilimark since 1998"></a></div>
+    <div class="ftr-mill"><h4 data-i="ft.mill">Our mill</h4><p><b data-i="mill.v1">Sastha Ayyanar Modern Rice Mill</b><span data-i="mill.v2">46/3, Chintamani Road, Rajaman Nagar, Madurai 625009</span></p><a href="https://www.google.com/maps/search/?api=1&amp;query=Sastha+Ayyanar+Modern+Rice+Mill+Chintamani+Road+Rajaman+Nagar+Madurai+625009" target="_blank" rel="noopener" data-i="sto.dir">Get directions</a><a href="tel:+917200873557"><span data-i="ft.call">Call</span> +91 72008 73557</a></div>
     <div><h4 data-i="ft.explore">Explore</h4><a href="#rice" data-i="nav.rice">Our rice</a><a href="#quality" data-i="nav.quality">Quality</a><a href="#process" data-i="nav.process">How it's made</a><a href="#story" data-i="nav.story">Our story</a></div>
-    <div><h4 data-i="ft.visit">Visit</h4><a href="#stores" data-i="ft.s1">Thathaneri store</a><a href="#stores" data-i="ft.s2">S. Alangulam store</a><a href="#enquire" data-i="cta.enquire">Enquire</a><a href="tel:+917010138130"><span data-i="ft.call">Call</span> +91 70101 38130</a></div>
+    <div><h4 data-i="ft.visit">Visit</h4><a href="#stores" data-i="ft.s1">Thathaneri store</a><a href="#stores" data-i="ft.s2">S. Alangulam store</a><a href="#enquire" data-i="cta.enquire">Enquire</a></div>
     <div><h4 data-i="ft.lang">Language</h4><a href="#top" data-setlang="en">English</a><a href="#top" data-setlang="ta" lang="ta">தமிழ்</a></div>
-    <div class="legal"><span data-i="ft.legal">© 2026 Sastha Ayyanar Modern Rice Mill. Kilimark is our brand, since 1998.</span><span data-i="ft.proto">Prototype by PTJ. Some photos are stand-ins.</span></div>
+    <div class="legal"><span data-i="ft.legal">Sastha Ayyanar Modern Rice Mill, Madurai. Kilimark is our brand, since 1998.</span><span data-i="ft.proto">Prototype by PTJ. Some photos are stand-ins.</span></div>
   </div>
 </footer>
 
@@ -954,9 +965,9 @@ main{ overflow:clip; }
     "hero.sig":["From Madurai. Built on Trust.", "மதுரையிலிருந்து, நம்பிக்கையுடன்."],
     "stamp.1":["Since", "மதுரை"],
     "stamp.3":["Madurai", "முதல்"],
-    "st1.k":["In Madurai", "மதுரையில்"],
+    "st1.k":["Since 1994", "1994 முதல்"],
     "st1.u":["years", "ஆண்டுகள்"],
-    "st1.p":["Started as a rice shop in Thathaneri.", "தத்தனேரியில் ஒரு அரிசிக் கடையாகத் தொடங்கியது."],
+    "st1.p":["The same Thathaneri store has served Madurai for over three decades.", "அதே தத்தனேரி கடை, முப்பது ஆண்டுகளுக்கும் மேலாக மதுரைக்குச் சேவை செய்கிறது."],
     "st2.k":["Milled every day", "தினசரி அரவை"],
     "st2.u":["tonnes", "டன்"],
     "st2.p":["Automated since 2012, so volume never costs consistency.", "2012 முதல் இயந்திர அரவை. எவ்வளவு அரைத்தாலும் தரம் குறையாது."],
@@ -968,7 +979,7 @@ main{ overflow:clip; }
     "st4.c1":["FSSAI licensed", "FSSAI உரிமம் பெற்றது"],
     "rice.eyebrow":["Products", "எங்கள் தயாரிப்புகள்"],
     "rice.title":["Four brands, one quality standard.", "நான்கு பிராண்டுகள், ஒரே தரம்."],
-    "rice.lead":["Kilimark, Ammu, Sastha Gold and Super Gold rice, all milled and packed at our own mill. Supplied in 5 to 26 kg sacks for retail, wholesale and food service.", "கிளிமார்க், அம்மு, சாஸ்தா கோல்ட், சூப்பர் கோல்ட் அரிசி வகைகள் அனைத்தும் எங்கள் ஆலையிலேயே அரைத்து பேக் செய்யப்படுகின்றன. சில்லறை விற்பனை, மொத்த விற்பனை, உணவகங்களுக்கு 5 முதல் 26 கிலோ மூட்டைகளில் வழங்குகிறோம்."],
+    "rice.lead":["Kilimark, Sastha Gold, Super Gold and Ammu rice, all milled and packed at our own mill. Supplied in 5 to 26 kg sacks for retail, wholesale and food service.", "கிளிமார்க், சாஸ்தா கோல்ட், சூப்பர் கோல்ட், அம்மு அரிசி வகைகள் அனைத்தும் எங்கள் ஆலையிலேயே அரைத்து பேக் செய்யப்படுகின்றன. சில்லறை விற்பனை, மொத்த விற்பனை, உணவகங்களுக்கு 5 முதல் 26 கிலோ மூட்டைகளில் வழங்குகிறோம்."],
     "r1.tag":["Kilimark · Ponni", "கிளிமார்க் · பொன்னி"],
     "r1.name":["Atchaya Ponni", "அட்சயா பொன்னி"],
     "r1.best":["Soft, separate grains for everyday meals.", "தினசரி சாப்பாட்டுக்கு. சாதம் மிருதுவாக, மணி மணியாக வரும்."],
@@ -1064,15 +1075,15 @@ main{ overflow:clip; }
     "pick.title":["Pick the dish. We'll pick the rice.", "சமையலைச் சொல்லுங்கள். அரிசியை நாங்கள் சொல்கிறோம்."],
     "pick.lead":["Idli needs rice that ferments. Biryani needs grains that stay apart. Tell us what you're cooking.", "இட்லிக்கு நன்றாகப் புளிக்கும் அரிசி வேண்டும். பிரியாணிக்கு உதிரியாக நிற்கும் அரிசி வேண்டும். இன்று என்ன சமைக்கிறீர்கள்?"],
     "dish.meals":["Everyday meals", "தினசரி சாப்பாடு"],
-    "dish.idli":["Idli and dosa", "இட்லி, தோசை"],
+    "dish.idli":["Idli", "இட்லி"],
     "dish.biryani":["Biryani", "பிரியாணி"],
     "dish.kanji":["Kanji and pongal", "கஞ்சி, பொங்கல்"],
     "for.meals":["For everyday meals", "தினசரி சாப்பாட்டுக்கு"],
-    "for.idli":["For idli and dosa", "இட்லி, தோசைக்கு"],
+    "for.idli":["For idli", "இட்லிக்கு"],
     "for.biryani":["For biryani", "பிரியாணிக்கு"],
     "for.kanji":["For kanji and pongal", "கஞ்சி, பொங்கலுக்கு"],
-    "why.meals":["Soft grains that stay separate and don't clump, meal after meal.", "சாதம் மிருதுவாக, மணி மணியாக வரும். ஒட்டாது, கட்டியாகாது."],
-    "why.idli":["Soaks evenly and ferments well, so idlis come out soft and dosas crisp.", "சீராக ஊறி நன்றாகப் புளிக்கும். இட்லி பஞ்சு போல, தோசை மொறுமொறுவென வரும்."],
+    "why.meals":["Two everyday favourites. Both cook soft, with grains that stay separate and never turn sticky.", "இரண்டுமே தினசரி சாப்பாட்டுக்கு ஏற்றவை. சாதம் மிருதுவாக, மணி மணியாக வரும். ஒட்டாது."],
+    "why.idli":["Soaks evenly and ferments well, so idlis come out soft and fluffy.", "சீராக ஊறி நன்றாகப் புளிக்கும். இட்லி பஞ்சு போல வரும்."],
     "why.biryani":["Short grains that soak up ghee and masala without breaking.", "சின்ன மணிகள், உடையாமல் நெய்யையும் மசாலாவையும் நன்றாக உள்வாங்கும்."],
     "why.kanji":["Cooks soft and quick, just right for kanji, upma and pongal.", "சீக்கிரம் வெந்து குழைவாக வரும். கஞ்சி, உப்புமா, பொங்கலுக்கு ஏற்றது."],
     "also.meals":["Cooking for a function? <b>Rajabogam Old Rice</b> cooks firmer.", "விசேஷ சமையலா? <b>ராஜபோகம் பழைய அரிசி</b> இன்னும் மணி மணியாக வரும்."],
@@ -1080,7 +1091,7 @@ main{ overflow:clip; }
     "sto.eyebrow":["Visit us", "நேரில் வாருங்கள்"],
     "sto.title":["Two stores in Madurai. Both ours.", "மதுரையில் எங்களுக்கு இரண்டு கடைகள்."],
     "sto.lead":["Buy by the bag or the sack, straight from the mill.", "ஆலையிலிருந்து நேரடியாக, பையாகவோ மூட்டையாகவோ வாங்கலாம்."],
-    "sto1.chip":["Our first store · 1996", "எங்கள் முதல் கடை · 1996"],
+    "sto1.chip":["Our first store · 1994", "எங்கள் முதல் கடை · 1994"],
     "sto1.area":["Thathaneri", "தத்தனேரி"],
     "sto1.name":["PTJ Rice Mill Depot", "பி.டி.ஜே ரைஸ் மில் டிப்போ"],
     "sto2.chip":["Second store", "இரண்டாவது கடை"],
@@ -1122,7 +1133,7 @@ main{ overflow:clip; }
     "ft.lang":["Language", "மொழி"],
     "ft.s1":["Thathaneri store", "தத்தனேரி கடை"],
     "ft.s2":["S. Alangulam store", "எஸ். ஆலங்குளம் கடை"],
-    "ft.legal":["© 2026 Sastha Ayyanar Modern Rice Mill. Kilimark is our brand, since 1998.", "© 2026 சாஸ்தா அய்யனார் மாடர்ன் ரைஸ் மில். 1998 முதல் கிளிமார்க் எங்கள் பிராண்ட்."],
+    "ft.legal":["Sastha Ayyanar Modern Rice Mill, Madurai. Kilimark is our brand, since 1998.", "சாஸ்தா அய்யனார் மாடர்ன் ரைஸ் மில், மதுரை. கிளிமார்க் எங்கள் பிராண்ட், 1998 முதல்."],
     "ft.proto":["Prototype by PTJ. Some photos are stand-ins.", "PTJ வடிவமைத்த மாதிரி. சில படங்கள் தற்காலிகமானவை."],
     "e.next1":["Tell us the rice and how much you need.", "எந்த அரிசி, எவ்வளவு தேவை என்று சொல்லுங்கள்."],
     "e.next2":["Our office calls or emails you back.", "எங்கள் அலுவலகம் உங்களை அழைக்கும் அல்லது மின்னஞ்சல் அனுப்பும்."],
@@ -1134,7 +1145,7 @@ main{ overflow:clip; }
     "v.title":["Customer testimonials", "வாடிக்கையாளர் கருத்துகள்"],
     "v.tag":["Placeholder", "மாதிரி"],
     "v.name":["Name to be added", "பெயர் விரைவில்"],
-    "v.note":["Placeholder quotes. Real ones will come from Kilimark's customers.", "இவை மாதிரி மேற்கோள்கள். உண்மையான கருத்துகள் விரைவில்."],
+    "v.note":["Placeholder quotes. Customer testimonials will be shared by Kilimark.", "இவை மாதிரி மேற்கோள்கள். வாடிக்கையாளர் கருத்துகளை கிளிமார்க் வழங்கும்."],
     "v1.q":["Customers walk in and ask for the parrot sack by name. In all these years, not one complaint about the rice.", "வாடிக்கையாளர்கள் கடைக்கு வந்தாலே “கிளி மூட்டை” என்று பெயர் சொல்லிக் கேட்கிறார்கள். இத்தனை வருடத்தில் அரிசியைப் பற்றி ஒரு புகார் கூட வந்ததில்லை."],
     "v1.role":["Shop owner, Madurai", "கடை உரிமையாளர், மதுரை"],
     "v2.q":["In a hotel kitchen, rice has to behave the same at 7 am and at 2 pm. Kilimark double boiled does.", "ஹோட்டல் சமையலறையில் காலை 7 மணிக்கும் மதியம் 2 மணிக்கும் சாதம் ஒரே மாதிரி இருக்க வேண்டும். கிளிமார்க் டபுள் பாயில்டு அப்படித்தான் இருக்கிறது."],
@@ -1148,17 +1159,34 @@ main{ overflow:clip; }
     "ph2.s":["Portrait of the founder at the mill or the shop.", "ஆலையிலோ கடையிலோ நிறுவனரின் படம்."],
     "ph3.t":["Father and son", "அப்பாவும் மகனும்"],
     "ph3.s":["P. T. Janakiraman and Himalesh together at the mill.", "ஆலையில் பி. டி. ஜானகிராமனும் ஹிமலேஷும் சேர்ந்து."],
-    "r7.tag":["Super Gold", "சூப்பர் கோல்ட்"],
-    "r7.name":["Super Gold", "சூப்பர் கோல்ட்"],
+    "r7.tag":["Super Gold · Boiled rice", "சூப்பர் கோல்ட் · புழுங்கல் அரிசி"],
+    "r7.name":["Super Gold Nei Kitchadi", "சூப்பர் கோல்ட் நெய் கிச்சடி"],
     "r7.best":["Variety and pack details to be added.", "வகை மற்றும் மூட்டை விவரங்கள் விரைவில்."],
     "ph.pack":["Pack photo to come", "மூட்டைப் படம் விரைவில்"],
     "brands.k":["Our brands", "எங்கள் பிராண்டுகள்"],
     "mill.cap":["Inside our mill, Madurai", "மதுரையில் எங்கள் ஆலைக்குள்"],
     "e.call":["Prefer to call?", "அழைத்துப் பேச விரும்புகிறீர்களா?"],
     "ft.call":["Call", "அழைக்க"],
+    "r8.tag":["Kilimark · Ponni", "கிளிமார்க் · பொன்னி"],
+    "r8.name":["Kalyana Ponni", "கல்யாண பொன்னி"],
+    "r9.tag":["Super Gold · Ponni", "சூப்பர் கோல்ட் · பொன்னி"],
+    "r9.name":["Super Gold Superponni", "சூப்பர் கோல்ட் சூப்பர் பொன்னி"],
+    "dish.dosa":["Dosa", "தோசை"],
+    "dish.func":["Special functions", "விசேஷ சமையல்"],
+    "for.dosa":["For dosa", "தோசைக்கு"],
+    "for.func":["For special functions", "விசேஷ சமையலுக்கு"],
+    "why.dosa":["Grinds to a smooth batter that spreads thin and turns crisp and golden.", "மென்மையான மாவாக அரைபடும். தோசை மெல்லியதாக, பொன்னிறமாக, மொறுமொறுப்பாக வரும்."],
+    "why.func":["[Description to come from Kilimark]", "[விளக்கம் கிளிமார்க்கிடமிருந்து விரைவில்]"],
+    "join.or":[" or ", " அல்லது "],
+    "sto.h1":["8:00 AM to 9:30 PM", "காலை 8:00 முதல் இரவு 9:30 வரை"],
+    "sto.h2":["8:00 AM to 9:00 PM", "காலை 8:00 முதல் இரவு 9:00 வரை"],
+    "f.city":["City", "ஊர்"],
+    "f.cityPh":["For example: Madurai", "உதாரணம்: மதுரை"],
+    "q.phflag":["Client photo to come", "படம் கிளிமார்க்கிடமிருந்து விரைவில்"],
+    "ft.mill":["Our mill", "எங்கள் ஆலை"],
     "done.title":["Thank you, {n}.", "நன்றி, {n}."]
   };
-  const altNames = { r1:['அட்சயா பொன்னி','Atchaya Ponni'], r2:['சாஸ்தா கோல்ட் அட்சயா பொன்னி','Sastha Gold Atchaya Ponni'], r3:['ராஜபோகம் பழைய அரிசி','Rajabogam Old Rice'], r4:['நெய் கிச்சடி','Nei Kichadi'], r5:['அம்மு இட்லி அரிசி','Ammu Idli Rice'], r6:['நொய் அரிசி','Broken Rice'], r7:['சூப்பர் கோல்ட்','Super Gold'] };
+  const altNames = { r1:['அட்சயா பொன்னி','Atchaya Ponni'], r2:['சாஸ்தா கோல்ட் அட்சயா பொன்னி','Sastha Gold Atchaya Ponni'], r3:['ராஜபோகம் பழைய அரிசி','Rajabogam Old Rice'], r4:['நெய் கிச்சடி','Nei Kichadi'], r5:['அம்மு இட்லி அரிசி','Ammu Idli Rice'], r6:['நொய் அரிசி','Broken Rice'], r7:['சூப்பர் கோல்ட் நெய் கிச்சடி','Super Gold Nei Kitchadi'], r8:['கல்யாண பொன்னி','Kalyana Ponni'], r9:['சூப்பர் கோல்ட் சூப்பர் பொன்னி','Super Gold Superponni'] };
   let lang = 'en';
   const L = () => (lang === 'en' ? 0 : 1);
   const t = (k) => (T[k] ? T[k][L()] : k);
@@ -1334,7 +1362,7 @@ main{ overflow:clip; }
   /* pick your rice: one recommendation, swapped with a spring */
   const chips = document.getElementById('chips'), ind = document.getElementById('chipInd');
   const PRODS = { atchaya:{ n:'r1.name', img:'assets/img/packs2/atchaya-ponni-blue.webp' }, rajabogam:{ n:'r3.name', img:'assets/img/packs2/rajabogam-green.webp' }, nei:{ n:'r4.name', img:'assets/img/packs2/nei-kichadi-red.webp' }, ammu:{ n:'r5.name', img:'assets/img/packs2/ammu-idly.webp' }, broken:{ n:'r6.name', img:null } };
-  const MAP = { meals:{ r:'atchaya', also:'also.meals' }, idli:{ r:'ammu' }, biryani:{ r:'nei' }, kanji:{ r:'broken' } };
+  const MAP = { meals:{ r:'atchaya', r2:'nei' }, idli:{ r:'ammu' }, dosa:{ r:'ammu' }, biryani:{ r:'nei' }, func:{ r:'rajabogam', tbc:true } };
   let dish = 'meals';
   let indYv = 0;
   const indX = makeSpring((v) => { ind.style.transform = `translate(${v}px, ${indYv}px)`; }, { damping: 0.88, response: 0.38 });
@@ -1350,13 +1378,15 @@ main{ overflow:clip; }
   const rShot = document.getElementById('rShot'), rInfo = document.getElementById('rInfo');
   const shotS = makeSpring((v) => { rShot.style.transform = `translate3d(0,${v * 18}px,0) scale(${1 - v * 0.06})`; rShot.style.opacity = String(1 - v * 0.6); }, { damping: 0.75, response: 0.45 });
   function fillResult() {
-    const m = MAP[dish], pr = PRODS[m.r];
+    const m = MAP[dish], prs = [PRODS[m.r]].concat(m.r2 ? [PRODS[m.r2]] : []);
+    const names = prs.map((p) => t(p.n)).join(t('join.or'));
     document.getElementById('rFor').textContent = t('for.' + dish);
-    document.getElementById('rName').textContent = t(pr.n);
-    document.getElementById('rWhy').textContent = t('why.' + dish);
-    document.getElementById('rAlso').innerHTML = m.also ? t(m.also) : '';
-    document.getElementById('rCtaT').textContent = t('cta.about').replace('{r}', t(pr.n));
-    rShot.innerHTML = pr.img ? `<img src="${pr.img}" alt="${t(pr.n)}">` : `<div class="ph">${t('ph.photo')}</div>`;
+    document.getElementById('rName').textContent = names;
+    const why = document.getElementById('rWhy'); why.textContent = t('why.' + dish); why.classList.toggle('tbc', !!m.tbc);
+    document.getElementById('rAlso').innerHTML = '';
+    document.getElementById('rCtaT').textContent = t('cta.about').replace('{r}', names);
+    rShot.classList.toggle('two', prs.length > 1);
+    rShot.innerHTML = prs.map((p) => p.img ? `<img src="${p.img}" alt="${t(p.n)}">` : `<div class="ph">${t('ph.photo')}</div>`).join('');
   }
   function renderResult(anim = true) {
     if (!anim || RM()) { fillResult(); return; }
