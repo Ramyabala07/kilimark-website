@@ -418,6 +418,9 @@ form.form.open{ background:transparent; border:0; padding:0; gap:20px; box-shado
 .s-body h3{ margin:2px 0 0; font-weight:700; font-size:clamp(1.6rem,1.3rem + 1vw,2.1rem); letter-spacing:-0.035em; line-height:1.05; }
 :root[lang="ta"] .s-body h3{ font-size:1.5rem; letter-spacing:0; line-height:1.4; }
 .s-name{ margin:0 0 6px; color:var(--ink-2); font-size:15px; }
+.s-hours{ margin:2px 0 6px; display:flex; align-items:center; gap:8px; font-size:14.5px; color:var(--ink-2); }
+.s-hours .ic{ width:17px; height:17px; color:var(--green-600); flex:none; }
+.s-hours [data-i="sto.hrs"]{ font-weight:600; color:var(--ink); }
 .s-facts{ margin:0; display:grid; border-top:1px solid var(--line); }
 .s-facts div{ display:grid; grid-template-columns:84px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); }
 .s-facts dt{ font-size:13px; color:var(--ink-3); font-weight:600; }
@@ -625,7 +628,7 @@ main{ overflow:clip; }
         </div>
       </div>
       <div class="hero-media">
-        <div class="stage" id="stage" role="img" aria-label="Kilimark rice sacks of Atchaya Ponni, Nei Kichadi and Rajabogam, set in a heap of rice">
+        <div class="stage" id="stage" role="img" aria-label="Kilimark rice sacks of Akshaya Ponni, Nei Kichadi and Rajabogam, set in a heap of rice">
           <span class="hp l" data-depth="0.058"><img src="assets/img/packs2/atchaya-ponni-blue.webp" alt=""></span>
           <span class="hp r" data-depth="0.062"><img src="assets/img/packs2/rajabogam-green.webp" alt=""></span>
           <span class="hp c" data-depth="0.064"><img src="assets/img/packs2/nei-kichadi-red.webp" alt=""></span>
@@ -660,11 +663,11 @@ main{ overflow:clip; }
         <div class="brands" data-reveal><span data-i="brands.k">Our brands</span><img src="assets/img/brand/kilimark-badge.webp" alt="Kilimark"><img src="assets/img/brand/sastha-gold-logo.webp" alt="Sastha Gold"><img src="assets/img/brand/super-gold-logo.webp" alt="Super Gold" class="tall"><img src="assets/img/brand/ammu-logo.webp" alt="Ammu Idly Rice"></div>
       </div>
       <div class="range" id="range">
-        <article class="prod" data-rice="atchaya" data-reveal><div class="shot"><img src="assets/img/packs2/atchaya-ponni-blue.webp" alt="Kilimark Atchaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r1.tag">Kilimark · Ponni</span><h3 data-i="r1.name">Atchaya Ponni</h3><span class="alt" data-alt="r1">அட்சயா பொன்னி</span><div class="sizes"><span>5 kg</span><span>10 kg</span><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="atchaya" data-reveal><div class="shot"><img src="assets/img/packs2/atchaya-ponni-blue.webp" alt="Kilimark Akshaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r1.tag">Kilimark · Ponni</span><h3 data-i="r1.name">Akshaya Ponni</h3><span class="alt" data-alt="r1">அக்ஷயா பொன்னி</span><div class="sizes"><span>5 kg</span><span>10 kg</span><span>26 kg</span></div></div></article>
         <article class="prod" data-rice="nei" data-reveal style="--d:70ms"><div class="shot"><img src="assets/img/packs2/nei-kichadi-red.webp" alt="Kilimark Nei Kichadi sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r4.tag">Kilimark · Boiled rice</span><h3 data-i="r4.name">Nei Kichadi</h3><span class="alt" data-alt="r4">நெய் கிச்சடி</span><div class="sizes"><span>5 kg</span><span>10 kg</span><span>26 kg</span></div></div></article>
         <article class="prod" data-rice="rajabogam" data-reveal style="--d:140ms"><div class="shot"><img src="assets/img/packs2/rajabogam-green.webp" alt="Kilimark Rajabogam rice sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r3.tag">Kilimark · Aged, double boiled</span><h3 data-i="r3.name">Rajabogam Old Rice</h3><span class="alt" data-alt="r3">ராஜபோகம் பழைய அரிசி</span><div class="sizes"><span>26 kg</span></div></div></article>
         <article class="prod" data-rice="kalyana" data-reveal style="--d:210ms"><div class="shot"><img src="assets/img/packs2/kalyana-ponni-pink.webp" alt="Kilimark Kalyana Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r8.tag">Kilimark · Ponni</span><h3 data-i="r8.name">Kalyana Ponni</h3><span class="alt" data-alt="r8">கல்யாண பொன்னி</span><div class="sizes"><span>26 kg</span></div></div></article>
-        <article class="prod" data-rice="sastha" data-reveal><div class="shot"><img src="assets/img/packs2/sastha-gold-yellow.webp" alt="Sastha Gold Atchaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r2.tag">Sastha Gold · Ponni</span><h3 data-i="r2.name">Sastha Gold Atchaya Ponni</h3><span class="alt" data-alt="r2">சாஸ்தா கோல்ட் அட்சயா பொன்னி</span><div class="sizes"><span>26 kg</span></div></div></article>
+        <article class="prod" data-rice="sastha" data-reveal><div class="shot"><img src="assets/img/packs2/sastha-gold-yellow.webp" alt="Sastha Gold Akshaya Ponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r2.tag">Sastha Gold · Ponni</span><h3 data-i="r2.name">Sastha Gold Akshaya Ponni</h3><span class="alt" data-alt="r2">சாஸ்தா கோல்ட் அக்ஷயா பொன்னி</span><div class="sizes"><span>26 kg</span></div></div></article>
         <article class="prod" data-rice="sg-nei" data-reveal style="--d:70ms"><div class="shot"><img src="assets/img/packs2/supergold-nei-kitchadi.webp" alt="Super Gold Nei Kitchadi sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r7.tag">Super Gold · Boiled rice</span><h3 data-i="r7.name">Super Gold Nei Kitchadi</h3><span class="alt" data-alt="r7">சூப்பர் கோல்ட் நெய் கிச்சடி</span><div class="sizes"><span>26 kg</span></div></div></article>
         <article class="prod" data-rice="sg-ponni" data-reveal style="--d:140ms"><div class="shot"><img src="assets/img/packs2/supergold-superponni.webp" alt="Super Gold Superponni sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r9.tag">Super Gold · Ponni</span><h3 data-i="r9.name">Super Gold Superponni</h3><span class="alt" data-alt="r9">சூப்பர் கோல்ட் சூப்பர் பொன்னி</span><div class="sizes"><span>26 kg</span></div></div></article>
         <article class="prod" data-rice="ammu" data-reveal style="--d:210ms"><div class="shot"><img src="assets/img/packs2/ammu-idly.webp" alt="Ammu Idly Rice sack" loading="lazy"></div><div class="info"><span class="tag" data-i="r5.tag">Ammu · Idli rice</span><h3 data-i="r5.name">Ammu Idli Rice</h3><span class="alt" data-alt="r5">அம்மு இட்லி அரிசி</span><div class="sizes"><span>26 kg</span></div></div></article>
@@ -744,7 +747,7 @@ main{ overflow:clip; }
         <div class="story-body">
         <p class="lead" data-i="story.lead" data-reveal>P. T. Janakiraman started behind the counter of a rice shop in Thathaneri, listening to what families expected from every sack. In 1998 he began milling to deliver exactly that.</p>
         <ol class="timeline" id="timeline">
-          <li><span class="yr">1994</span><div class="ev"><b data-i="tl1.b">PTJ Rice Mill Depot opens</b><span data-i="tl1.s">A rice shop in Thathaneri, Madurai. Still open today.</span></div></li>
+          <li><span class="yr">1994</span><div class="ev"><b data-i="tl1.b">PTJ Rice Mill Depot opens</b><span data-i="tl1.s">A rice shop in Thathaneri, Madurai, serving the same street for over three decades.</span></div></li>
           <li><span class="yr">1998</span><div class="ev"><b data-i="tl2.b">Kilimark begins</b><span data-i="tl2.s">From trader to miller, with no milling legacy to inherit.</span></div></li>
           <li><span class="yr">2012</span><div class="ev"><b data-i="tl3.b">The mill goes automatic</b><span data-i="tl3.s">Machines take over the heavy manual work, and every batch comes out the same.</span></div></li>
           <li><span class="yr">2018</span><div class="ev"><b data-i="tl4.b">Supplying beyond Tamil Nadu</b><span data-i="tl4.s">Kilimark reaches buyers across state borders.</span></div></li>
@@ -769,7 +772,7 @@ main{ overflow:clip; }
         </div>
         <div class="mark-media">
           <div class="big"><img src="assets/img/temple-gopuram.jpg" alt="A gopuram of the Meenakshi Amman Temple, Madurai, against a clear sky" loading="lazy" data-parallax="0.08"></div>
-          <div class="small" id="parrotSmall"><img src="assets/img/parrot-ringneck.jpg" alt="A rose-ringed parakeet perched on a branch" loading="lazy"></div>
+          <div class="small" id="parrotSmall"><img src="assets/img/meenakshi-parrot.jpg" alt="Goddess Meenakshi with a green parrot perched on her raised right hand, from a painting of about 1820" loading="lazy"></div>
         </div>
       </div>
       <div class="pillars">
@@ -790,7 +793,6 @@ main{ overflow:clip; }
           <button class="chip" type="button" data-dish="meals" aria-pressed="true" data-i="dish.meals">Everyday meals</button>
           <button class="chip" type="button" data-dish="idli" aria-pressed="false" data-i="dish.idli">Idli</button>
           <button class="chip" type="button" data-dish="dosa" aria-pressed="false" data-i="dish.dosa">Dosa</button>
-          <button class="chip" type="button" data-dish="biryani" aria-pressed="false" data-i="dish.biryani">Biryani</button>
           <button class="chip" type="button" data-dish="func" aria-pressed="false" data-i="dish.func">Special functions</button>
         </div>
       </div>
@@ -798,10 +800,10 @@ main{ overflow:clip; }
         <div class="r-shot" id="rShot"><img id="rImg" src="assets/img/packs/atchaya-ponni.jpg" alt=""></div>
         <div class="r-info" id="rInfo">
           <span class="r-for" id="rFor">For everyday meals</span>
-          <h3 id="rName">Atchaya Ponni or Nei Kichadi</h3>
+          <h3 id="rName">Akshaya Ponni or Nei Kichadi</h3>
           <p class="r-why" id="rWhy">Two everyday favourites. Both cook soft, with grains that stay separate and never turn sticky.</p>
           <p class="r-also" id="rAlso"></p>
-          <a class="link" href="#enquire" id="rCta"><span id="rCtaT">Enquire about Atchaya Ponni</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="link" href="#enquire" id="rCta"><span id="rCtaT">Enquire about Akshaya Ponni</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
     </div>
@@ -836,9 +838,7 @@ main{ overflow:clip; }
             <span class="s-chip" data-i="sto1.chip">Our first store · 1994</span>
             <h3 data-i="sto1.area"></h3>
             <p class="s-name" data-i="sto1.name"></p>
-            <dl class="s-facts">
-              <div><dt data-i="sto.hrs">Open</dt><dd data-i="sto.h1">8:00 AM to 9:30 PM</dd></div>
-            </dl>
+            <p class="s-hours"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><span data-i="sto.hrs">Open</span> <span data-i="sto.h1">8:00 AM to 9:30 PM</span></span></p>
             <a class="btn sm s-cta" href="https://maps.app.goo.gl/4bEenXoBZAM8mZDP7" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8z"/></svg><span data-i="sto.dir">Get directions</span></a>
           </div>
         </article>
@@ -848,9 +848,7 @@ main{ overflow:clip; }
             <span class="s-chip" data-i="sto2.chip"></span>
             <h3 data-i="sto2.area"></h3>
             <p class="s-name" data-i="sto2.name"></p>
-            <dl class="s-facts">
-              <div><dt data-i="sto.hrs">Open</dt><dd data-i="sto.h2">8:00 AM to 9:00 PM</dd></div>
-            </dl>
+            <p class="s-hours"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><span data-i="sto.hrs">Open</span> <span data-i="sto.h2">8:00 AM to 9:00 PM</span></span></p>
             <a class="btn sm s-cta" href="https://share.google/C72xj38U9pqHQQWn0" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8z"/></svg><span data-i="sto.dir">Get directions</span></a>
           </div>
         </article>
@@ -885,8 +883,8 @@ main{ overflow:clip; }
           </div>
         </fieldset>
         <div class="field"><label for="riceSel" data-i="f.rice">Rice you need</label>
-          <select id="riceSel" name="rice"><option data-i="r1.name">Atchaya Ponni</option><option data-i="r4.name">Nei Kichadi</option><option data-i="r3.name">Rajabogam Old Rice</option><option data-i="r8.name">Kalyana Ponni</option><option data-i="r2.name">Sastha Gold Atchaya Ponni</option><option data-i="r7.name">Super Gold Nei Kitchadi</option><option data-i="r9.name">Super Gold Superponni</option><option data-i="r5.name">Ammu Idli Rice</option><option data-i="o.notsure">Not sure yet</option></select></div>
-        <div class="field"><label for="msg" data-i="f.msg">How much, and how often?</label><textarea id="msg" name="msg" data-ph="f.msgPh" placeholder="For example: 50 sacks of Atchaya Ponni every month"></textarea></div>
+          <select id="riceSel" name="rice"><option data-i="r1.name">Akshaya Ponni</option><option data-i="r4.name">Nei Kichadi</option><option data-i="r3.name">Rajabogam Old Rice</option><option data-i="r8.name">Kalyana Ponni</option><option data-i="r2.name">Sastha Gold Akshaya Ponni</option><option data-i="r7.name">Super Gold Nei Kitchadi</option><option data-i="r9.name">Super Gold Superponni</option><option data-i="r5.name">Ammu Idli Rice</option><option data-i="o.notsure">Not sure yet</option></select></div>
+        <div class="field"><label for="msg" data-i="f.msg">How much, and how often?</label><textarea id="msg" name="msg" data-ph="f.msgPh" placeholder="For example: 50 sacks of Akshaya Ponni every month"></textarea></div>
         <div class="form-foot">
           <button class="btn" type="submit"><span data-i="f.send">Send enquiry</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           <small data-i="f.note">Prototype: nothing is sent.</small>
@@ -981,11 +979,11 @@ main{ overflow:clip; }
     "rice.title":["Four brands, one quality standard.", "நான்கு பிராண்டுகள், ஒரே தரம்."],
     "rice.lead":["Kilimark, Sastha Gold, Super Gold and Ammu rice, all milled and packed at our own mill. Supplied in 5 to 26 kg sacks for retail, wholesale and food service.", "கிளிமார்க், சாஸ்தா கோல்ட், சூப்பர் கோல்ட், அம்மு அரிசி வகைகள் அனைத்தும் எங்கள் ஆலையிலேயே அரைத்து பேக் செய்யப்படுகின்றன. சில்லறை விற்பனை, மொத்த விற்பனை, உணவகங்களுக்கு 5 முதல் 26 கிலோ மூட்டைகளில் வழங்குகிறோம்."],
     "r1.tag":["Kilimark · Ponni", "கிளிமார்க் · பொன்னி"],
-    "r1.name":["Atchaya Ponni", "அட்சயா பொன்னி"],
+    "r1.name":["Akshaya Ponni", "அக்ஷயா பொன்னி"],
     "r1.best":["Soft, separate grains for everyday meals.", "தினசரி சாப்பாட்டுக்கு. சாதம் மிருதுவாக, மணி மணியாக வரும்."],
     "r2.tag":["Sastha Gold · Ponni", "சாஸ்தா கோல்ட் · பொன்னி"],
-    "r2.name":["Sastha Gold Atchaya Ponni", "சாஸ்தா கோல்ட் அட்சயா பொன்னி"],
-    "r2.best":["Atchaya Ponni under our Sastha Gold label.", "எங்கள் சாஸ்தா கோல்ட் பெயரில் அட்சயா பொன்னி."],
+    "r2.name":["Sastha Gold Akshaya Ponni", "சாஸ்தா கோல்ட் அக்ஷயா பொன்னி"],
+    "r2.best":["Akshaya Ponni under our Sastha Gold label.", "எங்கள் சாஸ்தா கோல்ட் பெயரில் அக்ஷயா பொன்னி."],
     "r3.tag":["Kilimark · Aged, double boiled", "கிளிமார்க் · பழைய அரிசி, டபுள் பாயில்டு"],
     "r3.name":["Rajabogam Old Rice", "ராஜபோகம் பழைய அரிசி"],
     "r3.best":["Aged Ponni that cooks firmer and fluffier. Our premium sack.", "பழைய பொன்னி அரிசி. சாதம் இன்னும் மணி மணியாக வரும். எங்கள் சிறப்பு ரகம்."],
@@ -1008,7 +1006,7 @@ main{ overflow:clip; }
     "story.title":["He sold rice for years before he milled any.", "ஆலை தொடங்கும் முன்பே, பல ஆண்டுகள் அரிசி விற்றவர்."],
     "story.lead":["P. T. Janakiraman started behind the counter of a rice shop in Thathaneri, listening to what families expected from every sack. In 1998 he began milling to deliver exactly that.", "தத்தனேரியில் ஒரு அரிசிக் கடையில்தான் பி. டி. ஜானகிராமன் தொடங்கினார். ஒவ்வொரு மூட்டையிலும் குடும்பங்கள் என்ன எதிர்பார்க்கிறார்கள் என்பதைக் கடையில் நின்றே தெரிந்துகொண்டார். அதைத் தருவதற்காகவே 1998-இல் சொந்த ஆலையைத் தொடங்கினார்."],
     "tl1.b":["PTJ Rice Mill Depot opens", "பி.டி.ஜே ரைஸ் மில் டிப்போ திறப்பு"],
-    "tl1.s":["A rice shop in Thathaneri, Madurai. Still open today.", "மதுரை தத்தனேரியில் அரிசிக் கடை. இன்றும் இயங்குகிறது."],
+    "tl1.s":["A rice shop in Thathaneri, Madurai, serving the same street for over three decades.", "மதுரை தத்தனேரியில் ஒரு அரிசிக் கடை. முப்பது ஆண்டுகளுக்கும் மேலாக அதே தெருவுக்குச் சேவை செய்கிறது."],
     "tl2.b":["Kilimark begins", "கிளிமார்க் பிறந்தது"],
     "tl2.s":["From trader to miller, with no milling legacy to inherit.", "பரம்பரைத் தொழில் இல்லை. அரிசி வியாபாரியிலிருந்து ஆலை முதலாளி ஆனார்."],
     "tl3.b":["The mill goes automatic", "ஆலை இயந்திரமயமானது"],
@@ -1117,7 +1115,7 @@ main{ overflow:clip; }
     "f.rice":["Rice you need", "தேவையான அரிசி"],
     "o.notsure":["Not sure yet", "இன்னும் முடிவு செய்யவில்லை"],
     "f.msg":["How much, and how often?", "எவ்வளவு, எத்தனை நாளுக்கு ஒருமுறை?"],
-    "f.msgPh":["For example: 50 sacks of Atchaya Ponni every month", "உதாரணம்: மாதம் 50 மூட்டை அட்சயா பொன்னி"],
+    "f.msgPh":["For example: 50 sacks of Akshaya Ponni every month", "உதாரணம்: மாதம் 50 மூட்டை அக்ஷயா பொன்னி"],
     "f.send":["Send enquiry", "அனுப்புங்கள்"],
     "f.note":["Prototype: nothing is sent.", "இது மாதிரி வடிவம், எதுவும் அனுப்பப்படாது."],
     "f.done":["This is a prototype, so nothing was sent. On the live site, our office calls or emails you back.", "இது மாதிரி வடிவம் என்பதால் எதுவும் அனுப்பப்படவில்லை. உண்மையான தளத்தில் எங்கள் அலுவலகம் உங்களைத் தொடர்புகொள்ளும்."],
@@ -1176,7 +1174,7 @@ main{ overflow:clip; }
     "for.dosa":["For dosa", "தோசைக்கு"],
     "for.func":["For special functions", "விசேஷ சமையலுக்கு"],
     "why.dosa":["Grinds to a smooth batter that spreads thin and turns crisp and golden.", "மென்மையான மாவாக அரைபடும். தோசை மெல்லியதாக, பொன்னிறமாக, மொறுமொறுப்பாக வரும்."],
-    "why.func":["[Description to come from Kilimark]", "[விளக்கம் கிளிமார்க்கிடமிருந்து விரைவில்]"],
+    "why.func":["Cooked for a crowd and served for hours, it stays soft and separate. It won't turn sticky or stick together, even long after cooking.", "பெரிய விருந்துக்குச் சமைத்து மணிக்கணக்கில் பரிமாறினாலும், சாதம் மிருதுவாக, மணி மணியாகவே இருக்கும். நேரம் ஆனாலும் ஒட்டாது, கட்டி தட்டாது."],
     "join.or":[" or ", " அல்லது "],
     "sto.h1":["8:00 AM to 9:30 PM", "காலை 8:00 முதல் இரவு 9:30 வரை"],
     "sto.h2":["8:00 AM to 9:00 PM", "காலை 8:00 முதல் இரவு 9:00 வரை"],
@@ -1186,7 +1184,7 @@ main{ overflow:clip; }
     "ft.mill":["Our mill", "எங்கள் ஆலை"],
     "done.title":["Thank you, {n}.", "நன்றி, {n}."]
   };
-  const altNames = { r1:['அட்சயா பொன்னி','Atchaya Ponni'], r2:['சாஸ்தா கோல்ட் அட்சயா பொன்னி','Sastha Gold Atchaya Ponni'], r3:['ராஜபோகம் பழைய அரிசி','Rajabogam Old Rice'], r4:['நெய் கிச்சடி','Nei Kichadi'], r5:['அம்மு இட்லி அரிசி','Ammu Idli Rice'], r6:['நொய் அரிசி','Broken Rice'], r7:['சூப்பர் கோல்ட் நெய் கிச்சடி','Super Gold Nei Kitchadi'], r8:['கல்யாண பொன்னி','Kalyana Ponni'], r9:['சூப்பர் கோல்ட் சூப்பர் பொன்னி','Super Gold Superponni'] };
+  const altNames = { r1:['அக்ஷயா பொன்னி','Akshaya Ponni'], r2:['சாஸ்தா கோல்ட் அக்ஷயா பொன்னி','Sastha Gold Akshaya Ponni'], r3:['ராஜபோகம் பழைய அரிசி','Rajabogam Old Rice'], r4:['நெய் கிச்சடி','Nei Kichadi'], r5:['அம்மு இட்லி அரிசி','Ammu Idli Rice'], r6:['நொய் அரிசி','Broken Rice'], r7:['சூப்பர் கோல்ட் நெய் கிச்சடி','Super Gold Nei Kitchadi'], r8:['கல்யாண பொன்னி','Kalyana Ponni'], r9:['சூப்பர் கோல்ட் சூப்பர் பொன்னி','Super Gold Superponni'] };
   let lang = 'en';
   const L = () => (lang === 'en' ? 0 : 1);
   const t = (k) => (T[k] ? T[k][L()] : k);
@@ -1361,8 +1359,8 @@ main{ overflow:clip; }
 
   /* pick your rice: one recommendation, swapped with a spring */
   const chips = document.getElementById('chips'), ind = document.getElementById('chipInd');
-  const PRODS = { atchaya:{ n:'r1.name', img:'assets/img/packs2/atchaya-ponni-blue.webp' }, rajabogam:{ n:'r3.name', img:'assets/img/packs2/rajabogam-green.webp' }, nei:{ n:'r4.name', img:'assets/img/packs2/nei-kichadi-red.webp' }, ammu:{ n:'r5.name', img:'assets/img/packs2/ammu-idly.webp' }, broken:{ n:'r6.name', img:null } };
-  const MAP = { meals:{ r:'atchaya', r2:'nei' }, idli:{ r:'ammu' }, dosa:{ r:'ammu' }, biryani:{ r:'nei' }, func:{ r:'rajabogam', tbc:true } };
+  const PRODS = { atchaya:{ n:'r1.name', img:'assets/img/packs2/atchaya-ponni-blue.webp' }, rajabogam:{ n:'r3.name', img:'assets/img/packs2/rajabogam-green.webp' }, nei:{ n:'r4.name', img:'assets/img/packs2/nei-kichadi-red.webp' }, ammu:{ n:'r5.name', img:'assets/img/packs2/ammu-idly.webp' }, kalyana:{ n:'r8.name', img:'assets/img/packs2/kalyana-ponni-pink.webp' }, broken:{ n:'r6.name', img:null } };
+  const MAP = { meals:{ r:'atchaya', r2:'nei' }, idli:{ r:'ammu' }, dosa:{ r:'ammu' }, func:{ r:'kalyana' } };
   let dish = 'meals';
   let indYv = 0;
   const indX = makeSpring((v) => { ind.style.transform = `translate(${v}px, ${indYv}px)`; }, { damping: 0.88, response: 0.38 });
