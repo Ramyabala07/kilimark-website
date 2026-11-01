@@ -220,6 +220,7 @@ form.form.open{ background:transparent; border:0; padding:0; gap:20px; box-shado
 .mill-info h3{ margin:0; font-size:clamp(1.6rem,1.3rem + 1vw,2.1rem); font-weight:700; letter-spacing:-0.03em; line-height:1.1; }
 :root[lang="ta"] .mill-info h3{ font-size:1.5rem; line-height:1.45; letter-spacing:0; }
 .qc .img{ position:relative; }
+.qc .img .credit{ position:absolute; right:10px; bottom:10px; z-index:2; font-size:10.5px; color:rgba(255,255,255,.9); background:rgba(0,0,0,.38); padding:3px 7px; border-radius:6px; }
 .ph-flag{ position:absolute; left:14px; top:14px; z-index:2; font:600 11px/1 var(--en); letter-spacing:.08em; text-transform:uppercase; color:#fff; background:rgba(30,26,22,.6); padding:6px 9px; border-radius:999px; }
 :root[lang="ta"] .ph-flag{ font-family:var(--tamil); letter-spacing:0; text-transform:none; font-size:12px; }
 .mill-dir{ justify-self:start; margin-top:8px; }
@@ -716,7 +717,7 @@ main{ overflow:clip; }
         <div class="q" data-stage style="--d:240ms"><span class="seal"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-14 14-14 0 9-6 14-14 14z"/><path d="M5 19l7-7"/></svg></span><h3 data-i="q3.h">FSSAI licensed</h3><p data-i="q3.p">Every sack is milled and packed under a food safety licence.</p></div>
       </div>
       <div class="qc" data-stage>
-        <div class="img"><span class="ph-flag" data-i="q.phflag">Client photo to come</span><img src="assets/img/rice-sack.jpg" alt="Rice in an open sack with a scoop" loading="lazy"></div>
+        <div class="img"><img src="assets/img/ponni-rice.jpg" alt="Close-up of Ponni rice grains" loading="lazy"><span class="credit">Photo: Thamizhpparithi Maari, CC BY-SA 3.0</span></div>
         <div class="txt">
           <h3 class="h3s" data-i="qc.h">Before a sack is stitched, we check</h3>
           <ul class="checks">
@@ -928,7 +929,7 @@ main{ overflow:clip; }
     <div><h4 data-i="ft.explore">Explore</h4><a href="#rice" data-i="nav.rice">Our rice</a><a href="#quality" data-i="nav.quality">Quality</a><a href="#process" data-i="nav.process">How it's made</a><a href="#story" data-i="nav.story">Our story</a></div>
     <div><h4 data-i="ft.visit">Visit</h4><a href="#stores" data-i="ft.s1">Thathaneri store</a><a href="#stores" data-i="ft.s2">S. Alangulam store</a><a href="#enquire" data-i="cta.enquire">Enquire</a></div>
     <div><h4 data-i="ft.lang">Language</h4><a href="#top" data-setlang="en">English</a><a href="#top" data-setlang="ta" lang="ta">தமிழ்</a></div>
-    <div class="legal"><span data-i="ft.legal">Sastha Ayyanar Modern Rice Mill, Madurai. Kilimark is our brand, since 1998.</span><span data-i="ft.proto">Prototype by PTJ. Some photos are stand-ins.</span></div>
+    <div class="legal"><span data-i="ft.legal">Sastha Ayyanar Modern Rice Mill, Madurai. Kilimark is our brand, since 1998.</span></div>
   </div>
 </footer>
 
