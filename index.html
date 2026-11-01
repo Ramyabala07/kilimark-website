@@ -334,6 +334,13 @@ form.form.open{ background:transparent; border:0; padding:0; gap:20px; box-shado
 .story-media figure{ margin:0; border-radius:var(--r-lg); overflow:hidden; background:var(--sand); aspect-ratio:3/4; }
 .story-media figure.wide{ grid-column:1 / -1; aspect-ratio:16/10; }
 .story-media figure img{ width:100%; height:118%; object-fit:cover; will-change:transform; }
+.story-media.one{ grid-template-columns:minmax(0,1fr); max-width:460px; }
+.story-media figure.portrait{ aspect-ratio:4/5; position:relative; }
+.story-media figure.portrait img{ height:100%; }
+.story-media figure.portrait figcaption{ position:absolute; left:0; right:0; bottom:0; padding:44px 20px 18px; background:linear-gradient(transparent, rgba(10,24,16,.82)); display:grid; gap:2px; color:#fff; }
+.story-media figure.portrait figcaption b{ font-size:1.12rem; font-weight:650; }
+.story-media figure.portrait figcaption span{ font-size:13.5px; color:#D3E0CF; }
+@media (max-width: 1024px){ .story-media.one{ max-width:none; } .story-media figure.portrait{ aspect-ratio:4/4.4; } }
 .timeline{ list-style:none; margin:40px 0 0; padding:0; display:grid; position:relative; --p:0; }
 .timeline::before,.timeline::after{ content:""; position:absolute; left:108px; top:14px; bottom:44px; width:2px; border-radius:2px; }
 .timeline::before{ background:#F3E3BE; }
@@ -734,10 +741,8 @@ main{ overflow:clip; }
   </section>
   <section class="section story" id="story">
     <div class="wrap">
-      <div class="story-media">
-        <figure class="ph-shot wide"><div class="ph-in"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><b data-i="ph1.t">The first shop, Thathaneri</b><span data-i="ph1.s">An archive photo from the 1990s, or the shop counter as it is today.</span></div><em data-i="ph.tag">Photo to come</em></figure>
-        <figure class="ph-shot"><div class="ph-in"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><b data-i="ph2.t">P. T. Janakiraman</b><span data-i="ph2.s">Portrait of the founder at the mill or the shop.</span></div><em data-i="ph.tag">Photo to come</em></figure>
-        <figure class="ph-shot"><div class="ph-in"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><b data-i="ph3.t">Father and son</b><span data-i="ph3.s">P. T. Janakiraman and Himalesh together at the mill.</span></div><em data-i="ph.tag">Photo to come</em></figure>
+      <div class="story-media one">
+        <figure class="portrait"><img src="assets/img/founder.jpg" alt="P. T. Janakiraman, founder of Kilimark" loading="lazy" style="object-position:50% 20%"><figcaption><b data-i="fd.name">P. T. Janakiraman</b><span data-i="fd.role">Founder, Kilimark</span></figcaption></figure>
       </div>
       <div class="story-text">
         <div class="story-head">
@@ -771,7 +776,7 @@ main{ overflow:clip; }
           <svg class="kolam" viewBox="0 0 520 40" aria-hidden="true" id="kolam"></svg>
         </div>
         <div class="mark-media">
-          <div class="big"><img src="assets/img/temple-gopuram.jpg" alt="A gopuram of the Meenakshi Amman Temple, Madurai, against a clear sky" loading="lazy" data-parallax="0.08"></div>
+          <div class="big"><img src="assets/img/temple-engraving.jpg" alt="A gopuram of the Meenakshi Amman Temple, Madurai, from an 1857 engraving" loading="lazy" data-parallax="0.08"></div>
           <div class="small" id="parrotSmall"><img src="assets/img/meenakshi-parrot.jpg" alt="Goddess Meenakshi with a green parrot perched on her raised right hand, from a painting of about 1820" loading="lazy"></div>
         </div>
       </div>
@@ -816,11 +821,11 @@ main{ overflow:clip; }
         <h2 class="h2" data-i="v.title" data-split>Customer testimonials</h2>
       </div>
       <div class="v-grid">
-        <figure class="v-card" data-reveal><span class="v-tag" data-i="v.tag">Placeholder</span><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v1.q"></blockquote><figcaption class="v-who"><span class="v-av">S</span><span><b data-i="v.name">Name to be added</b><span data-i="v1.role"></span></span></figcaption></figure>
-        <figure class="v-card lift" data-reveal style="--d:100ms"><span class="v-tag" data-i="v.tag">Placeholder</span><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v2.q"></blockquote><figcaption class="v-who"><span class="v-av">H</span><span><b data-i="v.name">Name to be added</b><span data-i="v2.role"></span></span></figcaption></figure>
-        <figure class="v-card" data-reveal style="--d:200ms"><span class="v-tag" data-i="v.tag">Placeholder</span><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v3.q"></blockquote><figcaption class="v-who"><span class="v-av">M</span><span><b data-i="v.name">Name to be added</b><span data-i="v3.role"></span></span></figcaption></figure>
+        <figure class="v-card" data-reveal><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v1.q">We've stocked Kilimark for over ten years. The quality is the same in every lot, deliveries come on the day promised, and customers ask for the parrot sack by name.</blockquote><figcaption class="v-who"><span class="v-av">R</span><span><b data-i="v1.name">Ramesh K.</b><span data-i="v1.role">Retailer, Madurai</span></span></figcaption></figure>
+        <figure class="v-card lift" data-reveal style="--d:100ms"><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v2.q">We cook for 400 people a day. Kilimark Nei Kichadi stays separate and fluffy from the morning batch to the last plate at lunch. That consistency is why we haven't switched.</blockquote><figcaption class="v-who"><span class="v-av">S</span><span><b data-i="v2.name">Senthil M.</b><span data-i="v2.role">Hotel owner, Madurai</span></span></figcaption></figure>
+        <figure class="v-card" data-reveal style="--d:200ms"><span class="q-mark" aria-hidden="true">“</span><blockquote data-i="v3.q">I've used Ammu idli rice for years. The batter ferments well every time, and the idlis come out soft even the next morning.</blockquote><figcaption class="v-who"><span class="v-av">L</span><span><b data-i="v3.name">Lakshmi P.</b><span data-i="v3.role">Home cook, Thathaneri</span></span></figcaption></figure>
       </div>
-      <p class="src-note" data-i="v.note">Placeholder quotes. Customer testimonials will be shared by Kilimark.</p>
+      <p class="src-note" data-i="v.note">Sample testimonials for the prototype. Real customer quotes will replace these.</p>
     </div>
   </section>
   <section class="section band" id="stores">
@@ -843,7 +848,7 @@ main{ overflow:clip; }
           </div>
         </article>
         <article class="store" data-stage style="--d:120ms">
-          <div class="s-photo"><div class="s-ph" data-i="sto.photo">Store photo coming</div></div>
+          <div class="s-photo"><img src="assets/img/store-alangulam.jpg" alt="PTJ Rice Mill Depot, S. Alangulam: the Kilimark sign above the shopfront" loading="lazy" style="object-position:50% 45%"></div>
           <div class="s-body">
             <span class="s-chip" data-i="sto2.chip"></span>
             <h3 data-i="sto2.area"></h3>
@@ -867,7 +872,7 @@ main{ overflow:clip; }
           <li><b>2</b><span data-i="e.next2"></span></li>
           <li><b>3</b><span data-i="e.next3"></span></li>
         </ol>
-        <p class="walk" data-reveal><span data-i="e.call">Prefer to call?</span> <a class="link" href="tel:+917200873557">+91 72008 73557</a></p>
+        <p class="walk" data-reveal><span data-i="e.call">Prefer to call?</span> <a class="link" href="tel:+917010138130">+91 70101 38130</a></p>
         <p class="walk" data-reveal style="margin-top:10px"><span data-i="e.walk"></span> <a class="link" href="#stores"><span data-i="e.walkL"></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
       </div>
       <form class="form open" id="form" novalidate data-reveal style="--d:120ms">
@@ -902,7 +907,7 @@ main{ overflow:clip; }
 <footer class="ftr">
   <div class="wrap">
     <div><a class="ftr-logo" href="#top" aria-label="Kilimark home"><img src="assets/img/brand/kilimark-logo.webp" alt="Kilimark since 1998"></a></div>
-    <div class="ftr-mill"><h4 data-i="ft.mill">Our mill</h4><p><b data-i="mill.v1">Sastha Ayyanar Modern Rice Mill</b><span data-i="mill.v2">46/3, Chintamani Road, Rajaman Nagar, Madurai 625009</span></p><a href="https://www.google.com/maps/search/?api=1&amp;query=Sastha+Ayyanar+Modern+Rice+Mill+Chintamani+Road+Rajaman+Nagar+Madurai+625009" target="_blank" rel="noopener" data-i="sto.dir">Get directions</a><a href="tel:+917200873557"><span data-i="ft.call">Call</span> +91 72008 73557</a></div>
+    <div class="ftr-mill"><h4 data-i="ft.mill">Our mill</h4><p><b data-i="mill.v1">Sastha Ayyanar Modern Rice Mill</b><span data-i="mill.v2">46/3, Chintamani Road, Rajaman Nagar, Madurai 625009</span></p><a href="https://www.google.com/maps/search/?api=1&amp;query=Sastha+Ayyanar+Modern+Rice+Mill+Chintamani+Road+Rajaman+Nagar+Madurai+625009" target="_blank" rel="noopener" data-i="sto.dir">Get directions</a><a href="tel:+917010138130"><span data-i="ft.call">Call</span> +91 70101 38130</a></div>
     <div><h4 data-i="ft.explore">Explore</h4><a href="#rice" data-i="nav.rice">Our rice</a><a href="#quality" data-i="nav.quality">Quality</a><a href="#process" data-i="nav.process">How it's made</a><a href="#story" data-i="nav.story">Our story</a></div>
     <div><h4 data-i="ft.visit">Visit</h4><a href="#stores" data-i="ft.s1">Thathaneri store</a><a href="#stores" data-i="ft.s2">S. Alangulam store</a><a href="#enquire" data-i="cta.enquire">Enquire</a></div>
     <div><h4 data-i="ft.lang">Language</h4><a href="#top" data-setlang="en">English</a><a href="#top" data-setlang="ta" lang="ta">தமிழ்</a></div>
@@ -1143,12 +1148,12 @@ main{ overflow:clip; }
     "v.title":["Customer testimonials", "வாடிக்கையாளர் கருத்துகள்"],
     "v.tag":["Placeholder", "மாதிரி"],
     "v.name":["Name to be added", "பெயர் விரைவில்"],
-    "v.note":["Placeholder quotes. Customer testimonials will be shared by Kilimark.", "இவை மாதிரி மேற்கோள்கள். வாடிக்கையாளர் கருத்துகளை கிளிமார்க் வழங்கும்."],
-    "v1.q":["Customers walk in and ask for the parrot sack by name. In all these years, not one complaint about the rice.", "வாடிக்கையாளர்கள் கடைக்கு வந்தாலே “கிளி மூட்டை” என்று பெயர் சொல்லிக் கேட்கிறார்கள். இத்தனை வருடத்தில் அரிசியைப் பற்றி ஒரு புகார் கூட வந்ததில்லை."],
-    "v1.role":["Shop owner, Madurai", "கடை உரிமையாளர், மதுரை"],
-    "v2.q":["In a hotel kitchen, rice has to behave the same at 7 am and at 2 pm. Kilimark double boiled does.", "ஹோட்டல் சமையலறையில் காலை 7 மணிக்கும் மதியம் 2 மணிக்கும் சாதம் ஒரே மாதிரி இருக்க வேண்டும். கிளிமார்க் டபுள் பாயில்டு அப்படித்தான் இருக்கிறது."],
+    "v.note":["Sample testimonials for the prototype. Real customer quotes will replace these.", "இவை மாதிரி கருத்துகள். உண்மையான வாடிக்கையாளர் கருத்துகள் இவற்றுக்குப் பதிலாக வரும்."],
+    "v1.q":["We've stocked Kilimark for over ten years. The quality is the same in every lot, deliveries come on the day promised, and customers ask for the parrot sack by name.", "பத்து ஆண்டுகளுக்கும் மேலாக கிளிமார்க் விற்கிறோம். ஒவ்வொரு லோடிலும் அதே தரம், சொன்ன நாளில் டெலிவரி. வாடிக்கையாளர்கள் “கிளி மூட்டை” என்று பெயர் சொல்லியே கேட்கிறார்கள்."],
+    "v1.role":["Retailer, Madurai", "சில்லறை வியாபாரி, மதுரை"],
+    "v2.q":["We cook for 400 people a day. Kilimark Nei Kichadi stays separate and fluffy from the morning batch to the last plate at lunch. That consistency is why we haven't switched.", "தினமும் 400 பேருக்குச் சமைக்கிறோம். காலை சமையலிலிருந்து மதிய கடைசி இலை வரை கிளிமார்க் நெய் கிச்சடி மணி மணியாகவே இருக்கிறது. இந்த நிலைத்தன்மைதான் நாங்கள் மாறாததற்குக் காரணம்."],
     "v2.role":["Hotel owner, Madurai", "ஹோட்டல் உரிமையாளர், மதுரை"],
-    "v3.q":["My idlis come out soft every time with Ammu idli rice. I don't try other rice anymore.", "அம்மு இட்லி அரிசியில் இட்லி எப்போதும் பஞ்சு போல வருகிறது. இப்போது வேறு அரிசியை முயற்சிப்பதே இல்லை."],
+    "v3.q":["I've used Ammu idli rice for years. The batter ferments well every time, and the idlis come out soft even the next morning.", "பல ஆண்டுகளாக அம்மு இட்லி அரிசி பயன்படுத்துகிறேன். மாவு ஒவ்வொரு முறையும் நன்றாகப் புளிக்கும். இட்லி மறுநாள் காலையிலும் மிருதுவாக இருக்கும்."],
     "v3.role":["Home cook, Thathaneri", "இல்லத்தரசி, தத்தனேரி"],
     "ph.tag":["Photo to come", "படம் விரைவில்"],
     "ph1.t":["The first shop, Thathaneri", "தத்தனேரியில் முதல் கடை"],
@@ -1182,6 +1187,11 @@ main{ overflow:clip; }
     "f.cityPh":["For example: Madurai", "உதாரணம்: மதுரை"],
     "q.phflag":["Client photo to come", "படம் கிளிமார்க்கிடமிருந்து விரைவில்"],
     "ft.mill":["Our mill", "எங்கள் ஆலை"],
+    "fd.name":["P. T. Janakiraman", "பி. டி. ஜானகிராமன்"],
+    "fd.role":["Founder, Kilimark", "நிறுவனர், கிளிமார்க்"],
+    "v1.name":["Ramesh K.", "ரமேஷ் கே."],
+    "v2.name":["Senthil M.", "செந்தில் எம்."],
+    "v3.name":["Lakshmi P.", "லட்சுமி பி."],
     "done.title":["Thank you, {n}.", "நன்றி, {n}."]
   };
   const altNames = { r1:['அக்ஷயா பொன்னி','Akshaya Ponni'], r2:['சாஸ்தா கோல்ட் அக்ஷயா பொன்னி','Sastha Gold Akshaya Ponni'], r3:['ராஜபோகம் பழைய அரிசி','Rajabogam Old Rice'], r4:['நெய் கிச்சடி','Nei Kichadi'], r5:['அம்மு இட்லி அரிசி','Ammu Idli Rice'], r6:['நொய் அரிசி','Broken Rice'], r7:['சூப்பர் கோல்ட் நெய் கிச்சடி','Super Gold Nei Kitchadi'], r8:['கல்யாண பொன்னி','Kalyana Ponni'], r9:['சூப்பர் கோல்ட் சூப்பர் பொன்னி','Super Gold Superponni'] };
